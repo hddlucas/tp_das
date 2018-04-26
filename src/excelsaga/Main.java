@@ -5,13 +5,14 @@
  */
 package excelsaga;
 
+import gui.ExcelSaga;
 import gui.Login;
 
 /**
  *
  * @author hdlucas
  */
-public class ExcelSaga {
+public class Main {
 
         /**
      * @param args the command line arguments
@@ -43,7 +44,7 @@ public class ExcelSaga {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login();
+                new ExcelSaga();
             }
         });
     }
