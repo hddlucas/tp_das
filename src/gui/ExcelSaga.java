@@ -30,8 +30,8 @@ public class ExcelSaga extends javax.swing.JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //menu 
-        frame.setJMenuBar (jMenuBar1);
-        jMenuBar1.setVisible (true);
+        frame.setJMenuBar(jMenuBar);
+        jMenuBar.setVisible (true);
 
         
         frame.pack();
@@ -51,13 +51,17 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void initComponents() {
 
         panelExcel = new javax.swing.JPanel();
+        jToggleButtonFunctionallMode = new javax.swing.JToggleButton();
+        jButtonStepForward = new javax.swing.JButton();
+        jToggleButtonNormalMode = new javax.swing.JToggleButton();
+        jLabelViewMode = new javax.swing.JLabel();
+        jButtonStepBack = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         jScrollExcelTable = new javax.swing.JScrollPane();
         excelTable = new javax.swing.JTable();
-        jToggleButtonNormalMode = new javax.swing.JToggleButton();
-        jToggleButtonFunctionallMode = new javax.swing.JToggleButton();
-        jLabelViewMode = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jButtonRecord = new javax.swing.JButton();
+        jButtonPlay = new javax.swing.JButton();
+        jMenuBar = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
         jMenuItemOpen = new javax.swing.JMenuItem();
@@ -65,6 +69,38 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToggleButtonFunctionallMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jToggleButtonFunctionallMode.setText("Functional");
+
+        jButtonStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/step_forward .png"))); // NOI18N
+        jButtonStepForward.setBorderPainted(false);
+        jButtonStepForward.setContentAreaFilled(false);
+        jButtonStepForward.setFocusPainted(false);
+        jButtonStepForward.setOpaque(true);
+        jButtonStepForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStepForwardActionPerformed(evt);
+            }
+        });
+
+        jToggleButtonNormalMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jToggleButtonNormalMode.setSelected(true);
+        jToggleButtonNormalMode.setText("Normal");
+
+        jLabelViewMode.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabelViewMode.setText("View Mode");
+
+        jButtonStepBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/step_back.png"))); // NOI18N
+        jButtonStepBack.setBorderPainted(false);
+        jButtonStepBack.setContentAreaFilled(false);
+        jButtonStepBack.setFocusPainted(false);
+        jButtonStepBack.setOpaque(true);
+        jButtonStepBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStepBackActionPerformed(evt);
+            }
+        });
 
         excelTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         excelTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -84,49 +120,78 @@ public class ExcelSaga extends javax.swing.JFrame {
         excelTable.setSelectionBackground(new java.awt.Color(76, 163, 97));
         jScrollExcelTable.setViewportView(excelTable);
 
-        jToggleButtonNormalMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jToggleButtonNormalMode.setSelected(true);
-        jToggleButtonNormalMode.setText("Normal");
+        jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png"))); // NOI18N
+        jButtonRecord.setBorderPainted(false);
+        jButtonRecord.setContentAreaFilled(false);
+        jButtonRecord.setFocusPainted(false);
+        jButtonRecord.setOpaque(true);
+        jButtonRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecordActionPerformed(evt);
+            }
+        });
 
-        jToggleButtonFunctionallMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jToggleButtonFunctionallMode.setText("Functional");
-
-        jLabelViewMode.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
-        jLabelViewMode.setText("View Mode");
+        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play_macro.png"))); // NOI18N
+        jButtonPlay.setBorderPainted(false);
+        jButtonPlay.setContentAreaFilled(false);
+        jButtonPlay.setFocusPainted(false);
+        jButtonPlay.setOpaque(true);
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelExcelLayout = new javax.swing.GroupLayout(panelExcel);
         panelExcel.setLayout(panelExcelLayout);
         panelExcelLayout.setHorizontalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExcelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExcelLayout.createSequentialGroup()
-                        .addComponent(jToggleButtonNormalMode)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButtonFunctionallMode)
-                        .addGap(280, 280, 280))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExcelLayout.createSequentialGroup()
-                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(262, 262, 262))))
-            .addComponent(jScrollExcelTable, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelExcelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(panelExcelLayout.createSequentialGroup()
+                                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(panelExcelLayout.createSequentialGroup()
+                                        .addComponent(jToggleButtonFunctionallMode)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jToggleButtonNormalMode)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 589, Short.MAX_VALUE))))
+                    .addComponent(jScrollExcelTable))
+                .addContainerGap())
         );
         panelExcelLayout.setVerticalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelExcelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+            .addGroup(panelExcelLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
                 .addComponent(jLabelViewMode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButtonFunctionallMode)
-                    .addComponent(jToggleButtonNormalMode))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollExcelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelExcelLayout.createSequentialGroup()
+                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jToggleButtonFunctionallMode)
+                                .addComponent(jToggleButtonNormalMode))
+                            .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollExcelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         jMenuFile.setText("File");
@@ -148,33 +213,54 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuItemExit.setText("Exit");
         jMenuFile.add(jMenuItemExit);
 
-        jMenuBar1.add(jMenuFile);
+        jMenuBar.add(jMenuFile);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1237, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addComponent(panelExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        panelExcel.getAccessibleContext().setAccessibleParent(panelExcel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
+        JOptionPane.showMessageDialog(null, "Step Back");
+    }//GEN-LAST:event_jButtonStepBackActionPerformed
+
+    private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed
+        JOptionPane.showMessageDialog(null, "Step Forward");
+    }//GEN-LAST:event_jButtonStepForwardActionPerformed
+
+    private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
+        JOptionPane.showMessageDialog(null, "Record");
+    }//GEN-LAST:event_jButtonRecordActionPerformed
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        JOptionPane.showMessageDialog(null, "Play");
+    }//GEN-LAST:event_jButtonPlayActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable excelTable;
+    private javax.swing.JButton jButtonPlay;
+    private javax.swing.JButton jButtonRecord;
+    private javax.swing.JButton jButtonStepBack;
+    private javax.swing.JButton jButtonStepForward;
     private javax.swing.JLabel jLabelViewMode;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemExport;
