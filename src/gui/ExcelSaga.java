@@ -2,8 +2,11 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -12,20 +15,26 @@ import javax.swing.*;
 public class ExcelSaga extends javax.swing.JFrame {
 
     private  JFrame  frame = new JFrame("ExcelSaga");
+    public static final int COLS = 26;
+    public static final int ROWS = 30;
+
 
     /**
      * Creates new form ExcelSaga
      */
+    
     public ExcelSaga() {
         initComponents();
         
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+        
         int height = screenSize.height * 2 / 3;
         int width = screenSize.width * 2 / 3;
-
+        
         frame.getContentPane().add(panelExcel);
+       
         frame.setPreferredSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -33,12 +42,58 @@ public class ExcelSaga extends javax.swing.JFrame {
         frame.setJMenuBar(jMenuBar);
         jMenuBar.setVisible (true);
 
+        int[] headers = new int[ROWS];
+        for (int i = 0; i < headers.length; i++)
+            headers[i] = i+1;
         
+        //table
+        ListModel lm = new AbstractListModel() {
+                   
+           public int getSize() {
+             return ROWS;
+           }
+
+           public Object getElementAt(int index) {
+             return headers[index];
+           }
+         };
+
+         DefaultTableModel dm = new DefaultTableModel(lm.getSize(), COLS);
+         
+         excelTable.setModel(dm);
+         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+         excelTable.setShowGrid(true);
+
+         
+         JList rowHeader = new JList(lm);
+         rowHeader.setFixedCellWidth(50);
+
+         rowHeader.setFixedCellHeight(excelTable.getRowHeight()
+             + excelTable.getRowMargin());
+
+
+         rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
+
+         jScrollExcelTable.setRowHeaderView(rowHeader);    
+         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
+         jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+        
+         
+         int index = 0;
+         while (index < COLS){
+         TableColumn a=excelTable.getColumnModel().getColumn(index);
+         Dimension d = excelTable.getPreferredSize();
+         d.width = d.width + 180;
+          excelTable.setPreferredSize(d);
+          jScrollExcelTable.setPreferredSize(d);
+            index+=1;
+        }
+         
         frame.pack();
         frame.setVisible(true);
     }
-    
-  
+
    
 
     /**
@@ -102,7 +157,9 @@ public class ExcelSaga extends javax.swing.JFrame {
             }
         });
 
-        excelTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jScrollExcelTable.setPreferredSize(new java.awt.Dimension(452, 700));
+
+        excelTable.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         excelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -114,9 +171,11 @@ public class ExcelSaga extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        excelTable.setAutoscrolls(false);
         excelTable.setCellSelectionEnabled(true);
         excelTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        excelTable.setRowHeight(55);
+        excelTable.setMinimumSize(new java.awt.Dimension(100, 220));
+        excelTable.setRowHeight(40);
         excelTable.setSelectionBackground(new java.awt.Color(76, 163, 97));
         jScrollExcelTable.setViewportView(excelTable);
 
@@ -147,28 +206,26 @@ public class ExcelSaga extends javax.swing.JFrame {
         panelExcelLayout.setHorizontalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelExcelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
                     .addGroup(panelExcelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
+                            .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelExcelLayout.createSequentialGroup()
-                                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelExcelLayout.createSequentialGroup()
-                                        .addComponent(jToggleButtonFunctionallMode)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jToggleButtonNormalMode)
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 589, Short.MAX_VALUE))))
-                    .addComponent(jScrollExcelTable))
+                                .addComponent(jToggleButtonFunctionallMode)
+                                .addGap(18, 18, 18)
+                                .addComponent(jToggleButtonNormalMode)
+                                .addGap(4, 4, 4)
+                                .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 604, Short.MAX_VALUE))
+                    .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelExcelLayout.setVerticalGroup(
@@ -187,11 +244,11 @@ public class ExcelSaga extends javax.swing.JFrame {
                             .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollExcelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuFile.setText("File");
@@ -222,8 +279,8 @@ public class ExcelSaga extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 30, Short.MAX_VALUE))
+                .addComponent(panelExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,3 +330,5 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JPanel panelExcel;
     // End of variables declaration//GEN-END:variables
 }
+
+

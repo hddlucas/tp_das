@@ -1,6 +1,6 @@
 package gui;
 
-import dados.UsersController;
+import data.UsersController;
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package dados;
+package data;
 
 import java.sql.*;
 import java.util.ArrayList;
