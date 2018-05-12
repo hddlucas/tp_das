@@ -159,7 +159,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jScrollExcelTable.setPreferredSize(new java.awt.Dimension(452, 700));
 
-        excelTable.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        excelTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         excelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
