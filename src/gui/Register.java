@@ -1,24 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gui;
 
+import data.DatabaseConnection;
 import data.UsersController;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author hdlucas
  */
-public class Login extends javax.swing.JFrame {
-
-    private JFrame frame = new JFrame("Login");
-
+public class Register extends javax.swing.JFrame {
+    private JFrame frame = new JFrame("Register");
     /**
-     * Creates new form Login
+     * Creates new form Register
      */
-    public Login() {
+    public Register() {
         initComponents();
-
-        // get the screen size as a java dimension
+        
+             // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         int height = screenSize.height * 2 / 3;
@@ -29,7 +35,6 @@ public class Login extends javax.swing.JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
 
     /**
@@ -42,25 +47,25 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         panelLogin = new javax.swing.JPanel();
-        loginBtn = new javax.swing.JButton();
+        registerBtn = new javax.swing.JButton();
         usernameLabel = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
         excelSagaLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
-        registerBtn = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        loginBtn.setBackground(new java.awt.Color(76, 163, 97));
-        loginBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
-        loginBtn.setText("Login");
-        loginBtn.setToolTipText("");
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+        registerBtn.setBackground(new java.awt.Color(76, 163, 97));
+        registerBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        registerBtn.setForeground(new java.awt.Color(255, 255, 255));
+        registerBtn.setText("Register");
+        registerBtn.setToolTipText("");
+        registerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginBtnActionPerformed(evt);
+                registerBtnActionPerformed(evt);
             }
         });
 
@@ -85,14 +90,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        registerBtn.setBackground(new java.awt.Color(76, 163, 97));
-        registerBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        registerBtn.setForeground(new java.awt.Color(255, 255, 255));
-        registerBtn.setText("New User");
-        registerBtn.setToolTipText("");
-        registerBtn.addActionListener(new java.awt.event.ActionListener() {
+        loginBtn.setBackground(new java.awt.Color(76, 163, 97));
+        loginBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginBtn.setText("Back to Login");
+        loginBtn.setToolTipText("");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerBtnActionPerformed(evt);
+                loginBtnActionPerformed(evt);
             }
         });
 
@@ -101,19 +106,18 @@ public class Login extends javax.swing.JFrame {
         panelLoginLayout.setHorizontalGroup(
             panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLoginLayout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelLoginLayout.createSequentialGroup()
-                            .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panelLoginLayout.createSequentialGroup()
                             .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panelLoginLayout.createSequentialGroup()
-                            .addGap(2, 2, 2)
                             .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -143,9 +147,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97)
                 .addGroup(panelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                    .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,44 +166,86 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
         if (usernameField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Username field is mandatory","Info",JOptionPane.INFORMATION_MESSAGE);
+        } else if (usernameField.getText().length() < 4) {
+            JOptionPane.showMessageDialog(null, "Username field must have at least four characters","Info",JOptionPane.INFORMATION_MESSAGE);
         } else if (passwordField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Password field is mandatory","Info",JOptionPane.INFORMATION_MESSAGE);
+        } else if (passwordField.getText().length() < 4) {
+            JOptionPane.showMessageDialog(null, "Password field must have at least four characters","Info",JOptionPane.INFORMATION_MESSAGE);
         } else {
             try {
-                //login
-                if (UsersController.login(usernameField.getText(),passwordField.getText())) {
-                    JOptionPane.showMessageDialog(null, "Logged in successfully","Info",JOptionPane.INFORMATION_MESSAGE);
+                //check if user exists
+                if (UsersController.checkIfUserExists(usernameField.getText())) {
+                    JOptionPane.showMessageDialog(null, "User " + usernameField.getText() + " already exists","Error",JOptionPane.ERROR_MESSAGE);
+                } else {
+                    UsersController.create(usernameField.getText(),passwordField.getText());
+                    JOptionPane.showMessageDialog(null, "User registered successfully","Info",JOptionPane.INFORMATION_MESSAGE);
+                    
+                    //Destroy the JFrame object
+                    frame.dispose();
 
-                     //Destroy the JFrame object
-                     frame.dispose();
-                    //cal new JFrame object
-                    new ExcelSaga();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Invalid Login Credentials","Error",JOptionPane.ERROR_MESSAGE);
+                //cal new JFrame object
+                new ExcelSaga();
+                
                 }
+
+              
 
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
-    }//GEN-LAST:event_loginBtnActionPerformed
+    }//GEN-LAST:event_registerBtnActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
 
-    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
-       //Destroy the JFrame object
-                frame.dispose();
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        //Destroy the JFrame object
+        frame.dispose();
 
-                //cal new JFrame object
-                new Register();
-    }//GEN-LAST:event_registerBtnActionPerformed
+        //cal new JFrame object
+        new Login();
+    }//GEN-LAST:event_loginBtnActionPerformed
 
-    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Register().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel excelSagaLabel;

@@ -18,6 +18,7 @@ public class DatabaseConnection {
     private String password = "";
     private String url = "jdbc:h2:~/ExcelSaga";
 
+    
     private DatabaseConnection()   {
 
         try {
