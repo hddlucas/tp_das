@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package command;
+package bll.filters;
 
 /**
  *
  * @author hdlucas
  */
-public class Command {
+public class Filter {
     
 }

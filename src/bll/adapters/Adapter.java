@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package bll.adapters;
 
 /**
  *
  * @author hdlucas
  */
-public class View {
+public class Adapter {
     
 }

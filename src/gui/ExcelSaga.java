@@ -120,7 +120,9 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
         jMenuItemOpen = new javax.swing.JMenuItem();
+        jMenuItemSave = new javax.swing.JMenuItem();
         jMenuItemExport = new javax.swing.JMenuItem();
+        jMenuItemImport = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -262,12 +264,33 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuItemOpen.setText("Open");
         jMenuFile.add(jMenuItemOpen);
 
+        jMenuItemSave.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemSave.setText("Save");
+        jMenuItemSave.setActionCommand("Save");
+        jMenuFile.add(jMenuItemSave);
+
         jMenuItemExport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemExport.setText("Export");
         jMenuFile.add(jMenuItemExport);
 
+        jMenuItemImport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemImport.setText("Import");
+        jMenuItemImport.setActionCommand("Import");
+        jMenuItemImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemImportActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemImport);
+        jMenuItemImport.getAccessibleContext().setAccessibleName("Import");
+
         jMenuItemExit.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemExit);
 
         jMenuBar.add(jMenuFile);
@@ -309,6 +332,15 @@ public class ExcelSaga extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Play");
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
+    private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemImportActionPerformed
+
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable excelTable;
@@ -321,8 +353,10 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemExport;
+    private javax.swing.JMenuItem jMenuItemImport;
     private javax.swing.JMenuItem jMenuItemNew;
     private javax.swing.JMenuItem jMenuItemOpen;
+    private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JScrollPane jScrollExcelTable;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButtonFunctionallMode;
