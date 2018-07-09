@@ -36,7 +36,7 @@ public class DatabaseConnection {
     }
 
     public Connection getConnection() {
-        return connection;
+        return this.connection;
     }
 
     public void closeConnection() throws SQLException {

@@ -187,9 +187,9 @@ public class Register extends javax.swing.JFrame {
                     //Destroy the JFrame object
                     frame.dispose();
 
-                //cal new JFrame object
-                new ExcelSaga();
-                
+                    //cal new JFrame object
+                    new Login();
+
                 }
 
               

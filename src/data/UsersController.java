@@ -42,8 +42,9 @@ public class UsersController {
     public static boolean login(String name,String password) throws Exception {
 
         try(PreparedStatement statement = DatabaseConnection.getInstance()
-                .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =?")) {
+                .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
             statement.setString(1, name.toLowerCase());
+            statement.setString(2, password);
             try(ResultSet rs = statement.executeQuery()) {
                 if( rs.next() ) {
                     return true;
