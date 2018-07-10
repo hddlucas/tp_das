@@ -76,8 +76,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="registerBtn" pref="551" max="32767" attributes="0"/>
-                      <Component id="loginBtn" max="32767" attributes="0"/>
+                      <Component id="userManagmentBtn" pref="551" max="32767" attributes="0"/>
+                      <Component id="excelSagaBtn" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -97,16 +97,16 @@
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                  <Component id="registerBtn" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="userManagmentBtn" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                  <Component id="loginBtn" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="excelSagaBtn" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace pref="130" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="loginBtn">
+        <Component class="javax.swing.JButton" name="excelSagaBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="61" green="a3" red="4c" type="rgb"/>
@@ -121,7 +121,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelSagaBtnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="excelSagaLabel">
@@ -140,7 +140,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="registerBtn">
+        <Component class="javax.swing.JButton" name="userManagmentBtn">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="61" green="a3" red="4c" type="rgb"/>
@@ -155,7 +155,7 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerBtnActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userManagmentBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

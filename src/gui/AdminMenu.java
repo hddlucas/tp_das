@@ -53,24 +53,24 @@ public class AdminMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         panelAdminMenu = new javax.swing.JPanel();
-        loginBtn = new javax.swing.JButton();
+        excelSagaBtn = new javax.swing.JButton();
         excelSagaLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        registerBtn = new javax.swing.JButton();
+        userManagmentBtn = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        loginBtn.setBackground(new java.awt.Color(76, 163, 97));
-        loginBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
-        loginBtn.setText("Excel Saga");
-        loginBtn.setToolTipText("");
-        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+        excelSagaBtn.setBackground(new java.awt.Color(76, 163, 97));
+        excelSagaBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        excelSagaBtn.setForeground(new java.awt.Color(255, 255, 255));
+        excelSagaBtn.setText("Excel Saga");
+        excelSagaBtn.setToolTipText("");
+        excelSagaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginBtnActionPerformed(evt);
+                excelSagaBtnActionPerformed(evt);
             }
         });
 
@@ -80,14 +80,14 @@ public class AdminMenu extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel_icon.png"))); // NOI18N
 
-        registerBtn.setBackground(new java.awt.Color(76, 163, 97));
-        registerBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        registerBtn.setForeground(new java.awt.Color(255, 255, 255));
-        registerBtn.setText("Users Managment");
-        registerBtn.setToolTipText("");
-        registerBtn.addActionListener(new java.awt.event.ActionListener() {
+        userManagmentBtn.setBackground(new java.awt.Color(76, 163, 97));
+        userManagmentBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        userManagmentBtn.setForeground(new java.awt.Color(255, 255, 255));
+        userManagmentBtn.setText("Users Managment");
+        userManagmentBtn.setToolTipText("");
+        userManagmentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerBtnActionPerformed(evt);
+                userManagmentBtnActionPerformed(evt);
             }
         });
 
@@ -104,8 +104,8 @@ public class AdminMenu extends javax.swing.JFrame {
             .addGroup(panelAdminMenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelAdminMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(registerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                    .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(userManagmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                    .addComponent(excelSagaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelAdminMenuLayout.setVerticalGroup(
@@ -119,9 +119,9 @@ public class AdminMenu extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1)))
                 .addGap(67, 67, 67)
-                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userManagmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(excelSagaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(130, Short.MAX_VALUE))
         );
 
@@ -160,14 +160,14 @@ public class AdminMenu extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
-    private void registerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerBtnActionPerformed
+    private void userManagmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagmentBtnActionPerformed
 
-    }//GEN-LAST:event_registerBtnActionPerformed
+    }//GEN-LAST:event_userManagmentBtnActionPerformed
 
-    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+    private void excelSagaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelSagaBtnActionPerformed
         frame.dispose();         
         new ExcelSaga();
-    }//GEN-LAST:event_loginBtnActionPerformed
+    }//GEN-LAST:event_excelSagaBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,13 +205,13 @@ public class AdminMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton excelSagaBtn;
     private javax.swing.JLabel excelSagaLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JButton loginBtn;
     private javax.swing.JPanel panelAdminMenu;
-    private javax.swing.JButton registerBtn;
+    private javax.swing.JButton userManagmentBtn;
     // End of variables declaration//GEN-END:variables
 }
