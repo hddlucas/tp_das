@@ -168,7 +168,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Excel Saga"/>
+            <Property name="text" type="java.lang.String" value="Excel Saga - Login"/>
             <Property name="horizontalTextPosition" type="int" value="10"/>
           </Properties>
         </Component>
