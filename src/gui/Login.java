@@ -1,5 +1,6 @@
 package gui;
 
+import data.User;
 import data.UsersController;
 import javax.swing.*;
 import java.awt.*;
@@ -176,6 +177,8 @@ public class Login extends javax.swing.JFrame {
                      //Destroy the JFrame object
                      frame.dispose();
                     //cal new JFrame object
+                    User user = new User(usernameField.getText(),passwordField.getText());
+                    user.setUserLoggedIn(user);
                     new ExcelSaga();
                 }else{
                     JOptionPane.showMessageDialog(null, "Invalid Login Credentials","Error",JOptionPane.ERROR_MESSAGE);

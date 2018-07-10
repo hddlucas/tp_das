@@ -34,7 +34,6 @@
                   <Font name="Segoe UI" size="20" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save"/>
-                <Property name="actionCommand" type="java.lang.String" value="Save"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExport">
@@ -51,11 +50,7 @@
                   <Font name="Segoe UI" size="20" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Import"/>
-                <Property name="actionCommand" type="java.lang.String" value="Import"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Import"/>
-              </AccessibilityProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemImportActionPerformed"/>
               </Events>
