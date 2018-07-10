@@ -51,6 +51,9 @@ public final class User {
         this.userLoggedIn = userLoggedIn;
     }
     
-   
-    
+     public boolean isAdmin() {
+        if("admin".equals(userLoggedIn.getName()))
+             return true;
+        return false;
+    }
 }
