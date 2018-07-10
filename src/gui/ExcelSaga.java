@@ -2,7 +2,11 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -11,25 +15,86 @@ import javax.swing.JFrame;
 public class ExcelSaga extends javax.swing.JFrame {
 
     private  JFrame  frame = new JFrame("ExcelSaga");
+    public static final int COLS = 26;
+    public static final int ROWS = 30;
+
 
     /**
      * Creates new form ExcelSaga
      */
+    
     public ExcelSaga() {
         initComponents();
         
-            // get the screen size as a java dimension
+        // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+        
         int height = screenSize.height * 2 / 3;
         int width = screenSize.width * 2 / 3;
-
+        
         frame.getContentPane().add(panelExcel);
+       
         frame.setPreferredSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //menu 
+        frame.setJMenuBar(jMenuBar);
+        jMenuBar.setVisible (true);
+
+        int[] headers = new int[ROWS];
+        for (int i = 0; i < headers.length; i++)
+            headers[i] = i+1;
+        
+        //table
+        ListModel lm = new AbstractListModel() {
+                   
+           public int getSize() {
+             return ROWS;
+           }
+
+           public Object getElementAt(int index) {
+             return headers[index];
+           }
+         };
+
+         DefaultTableModel dm = new DefaultTableModel(lm.getSize(), COLS);
+         
+         excelTable.setModel(dm);
+         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+         excelTable.setShowGrid(true);
+
+         
+         JList rowHeader = new JList(lm);
+         rowHeader.setFixedCellWidth(50);
+
+         rowHeader.setFixedCellHeight(excelTable.getRowHeight()
+             + excelTable.getRowMargin());
+
+
+         rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
+
+         jScrollExcelTable.setRowHeaderView(rowHeader);    
+         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
+         jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+        
+         
+         int index = 0;
+         while (index < COLS){
+         TableColumn a=excelTable.getColumnModel().getColumn(index);
+         Dimension d = excelTable.getPreferredSize();
+         d.width = d.width + 180;
+          excelTable.setPreferredSize(d);
+          jScrollExcelTable.setPreferredSize(d);
+            index+=1;
+        }
+         
         frame.pack();
         frame.setVisible(true);
     }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,36 +106,263 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void initComponents() {
 
         panelExcel = new javax.swing.JPanel();
+        jToggleButtonFunctionallMode = new javax.swing.JToggleButton();
+        jButtonStepForward = new javax.swing.JButton();
+        jToggleButtonNormalMode = new javax.swing.JToggleButton();
+        jLabelViewMode = new javax.swing.JLabel();
+        jButtonStepBack = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jScrollExcelTable = new javax.swing.JScrollPane();
+        excelTable = new javax.swing.JTable();
+        jButtonRecord = new javax.swing.JButton();
+        jButtonPlay = new javax.swing.JButton();
+        jMenuBar = new javax.swing.JMenuBar();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuItemNew = new javax.swing.JMenuItem();
+        jMenuItemOpen = new javax.swing.JMenuItem();
+        jMenuItemSave = new javax.swing.JMenuItem();
+        jMenuItemExport = new javax.swing.JMenuItem();
+        jMenuItemImport = new javax.swing.JMenuItem();
+        jMenuItemExit = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToggleButtonFunctionallMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jToggleButtonFunctionallMode.setText("Functional");
+
+        jButtonStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/step_forward .png"))); // NOI18N
+        jButtonStepForward.setBorderPainted(false);
+        jButtonStepForward.setContentAreaFilled(false);
+        jButtonStepForward.setFocusPainted(false);
+        jButtonStepForward.setOpaque(true);
+        jButtonStepForward.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStepForwardActionPerformed(evt);
+            }
+        });
+
+        jToggleButtonNormalMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jToggleButtonNormalMode.setSelected(true);
+        jToggleButtonNormalMode.setText("Normal");
+
+        jLabelViewMode.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        jLabelViewMode.setText("View Mode");
+
+        jButtonStepBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/step_back.png"))); // NOI18N
+        jButtonStepBack.setBorderPainted(false);
+        jButtonStepBack.setContentAreaFilled(false);
+        jButtonStepBack.setFocusPainted(false);
+        jButtonStepBack.setOpaque(true);
+        jButtonStepBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStepBackActionPerformed(evt);
+            }
+        });
+
+        jScrollExcelTable.setPreferredSize(new java.awt.Dimension(452, 700));
+
+        excelTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        excelTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        excelTable.setAutoscrolls(false);
+        excelTable.setCellSelectionEnabled(true);
+        excelTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        excelTable.setMinimumSize(new java.awt.Dimension(100, 220));
+        excelTable.setRowHeight(40);
+        excelTable.setSelectionBackground(new java.awt.Color(76, 163, 97));
+        jScrollExcelTable.setViewportView(excelTable);
+
+        jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png"))); // NOI18N
+        jButtonRecord.setBorderPainted(false);
+        jButtonRecord.setContentAreaFilled(false);
+        jButtonRecord.setFocusPainted(false);
+        jButtonRecord.setOpaque(true);
+        jButtonRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRecordActionPerformed(evt);
+            }
+        });
+
+        jButtonPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play_macro.png"))); // NOI18N
+        jButtonPlay.setBorderPainted(false);
+        jButtonPlay.setContentAreaFilled(false);
+        jButtonPlay.setFocusPainted(false);
+        jButtonPlay.setOpaque(true);
+        jButtonPlay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPlayActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelExcelLayout = new javax.swing.GroupLayout(panelExcel);
         panelExcel.setLayout(panelExcelLayout);
         panelExcelLayout.setHorizontalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 982, Short.MAX_VALUE)
+            .addGroup(panelExcelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(panelExcelLayout.createSequentialGroup()
+                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelExcelLayout.createSequentialGroup()
+                                .addComponent(jToggleButtonFunctionallMode)
+                                .addGap(18, 18, 18)
+                                .addComponent(jToggleButtonNormalMode)
+                                .addGap(4, 4, 4)
+                                .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 604, Short.MAX_VALUE))
+                    .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelExcelLayout.setVerticalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 619, Short.MAX_VALUE)
+            .addGroup(panelExcelLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(jLabelViewMode)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelExcelLayout.createSequentialGroup()
+                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jToggleButtonFunctionallMode)
+                                .addComponent(jToggleButtonNormalMode))
+                            .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jMenuFile.setText("File");
+        jMenuFile.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        jMenuItemNew.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemNew.setText("New");
+        jMenuFile.add(jMenuItemNew);
+
+        jMenuItemOpen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemOpen.setText("Open");
+        jMenuFile.add(jMenuItemOpen);
+
+        jMenuItemSave.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemSave.setText("Save");
+        jMenuItemSave.setActionCommand("Save");
+        jMenuFile.add(jMenuItemSave);
+
+        jMenuItemExport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemExport.setText("Export");
+        jMenuFile.add(jMenuItemExport);
+
+        jMenuItemImport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemImport.setText("Import");
+        jMenuItemImport.setActionCommand("Import");
+        jMenuItemImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemImportActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemImport);
+        jMenuItemImport.getAccessibleContext().setAccessibleName("Import");
+
+        jMenuItemExit.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuItemExit.setText("Exit");
+        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExitActionPerformed(evt);
+            }
+        });
+        jMenuFile.add(jMenuItemExit);
+
+        jMenuBar.add(jMenuFile);
+
+        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(panelExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
+        JOptionPane.showMessageDialog(null, "Step Back");
+    }//GEN-LAST:event_jButtonStepBackActionPerformed
+
+    private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed
+        JOptionPane.showMessageDialog(null, "Step Forward");
+    }//GEN-LAST:event_jButtonStepForwardActionPerformed
+
+    private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
+        JOptionPane.showMessageDialog(null, "Record");
+    }//GEN-LAST:event_jButtonRecordActionPerformed
+
+    private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
+        JOptionPane.showMessageDialog(null, "Play");
+    }//GEN-LAST:event_jButtonPlayActionPerformed
+
+    private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemImportActionPerformed
+
+    private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemExitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable excelTable;
+    private javax.swing.JButton jButtonPlay;
+    private javax.swing.JButton jButtonRecord;
+    private javax.swing.JButton jButtonStepBack;
+    private javax.swing.JButton jButtonStepForward;
+    private javax.swing.JLabel jLabelViewMode;
+    private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItemExit;
+    private javax.swing.JMenuItem jMenuItemExport;
+    private javax.swing.JMenuItem jMenuItemImport;
+    private javax.swing.JMenuItem jMenuItemNew;
+    private javax.swing.JMenuItem jMenuItemOpen;
+    private javax.swing.JMenuItem jMenuItemSave;
+    private javax.swing.JScrollPane jScrollExcelTable;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JToggleButton jToggleButtonFunctionallMode;
+    private javax.swing.JToggleButton jToggleButtonNormalMode;
     private javax.swing.JPanel panelExcel;
     // End of variables declaration//GEN-END:variables
 }
+
+

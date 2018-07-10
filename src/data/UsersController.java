@@ -1,4 +1,4 @@
-package dados;
+package data;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,13 +37,31 @@ public class UsersController {
             }
         }
     }
-
-
+    
     //check if user exists on database
-    public static void create(String name) throws Exception {
+    public static boolean login(String name,String password) throws Exception {
+
         try(PreparedStatement statement = DatabaseConnection.getInstance()
-                .getConnection().prepareStatement("INSERT INTO USER (NAME) VALUES (?)")) {
+                .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
+            statement.setString(1, name.toLowerCase());
+            statement.setString(2, password);
+            try(ResultSet rs = statement.executeQuery()) {
+                if( rs.next() ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
+
+
+    //create new user on database
+    public static void create(String name,String password) throws Exception {
+        try(PreparedStatement statement = DatabaseConnection.getInstance()
+                .getConnection().prepareStatement("INSERT INTO USER (NAME,PASSWORD) VALUES (?,?)")) {
             statement.setString(1, name);
+            statement.setString(2, password);
             statement.executeUpdate();
 
         }

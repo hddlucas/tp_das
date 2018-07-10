@@ -1,4 +1,4 @@
-package dados;
+package data;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,6 +18,7 @@ public class DatabaseConnection {
     private String password = "";
     private String url = "jdbc:h2:~/ExcelSaga";
 
+    
     private DatabaseConnection()   {
 
         try {
@@ -35,7 +36,7 @@ public class DatabaseConnection {
     }
 
     public Connection getConnection() {
-        return connection;
+        return this.connection;
     }
 
     public void closeConnection() throws SQLException {
