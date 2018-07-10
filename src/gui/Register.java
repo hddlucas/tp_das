@@ -82,7 +82,7 @@ public class Register extends javax.swing.JFrame {
         usernameField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         excelSagaLabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        excelSagaLabel.setText("Excel Saga");
+        excelSagaLabel.setText("Excel Saga - Register");
         excelSagaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel_icon.png"))); // NOI18N

@@ -57,6 +57,7 @@ public class AdminMenu extends javax.swing.JFrame {
         excelSagaLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         userManagmentBtn = new javax.swing.JButton();
+        selectOptionjLabel = new javax.swing.JLabel();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemExit = new javax.swing.JMenuItem();
@@ -75,7 +76,7 @@ public class AdminMenu extends javax.swing.JFrame {
         });
 
         excelSagaLabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        excelSagaLabel.setText("Excel Saga");
+        excelSagaLabel.setText("Excel Saga - Administrarion ");
         excelSagaLabel.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel_icon.png"))); // NOI18N
@@ -91,12 +92,15 @@ public class AdminMenu extends javax.swing.JFrame {
             }
         });
 
+        selectOptionjLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        selectOptionjLabel.setText("Please select an option");
+
         javax.swing.GroupLayout panelAdminMenuLayout = new javax.swing.GroupLayout(panelAdminMenu);
         panelAdminMenu.setLayout(panelAdminMenuLayout);
         panelAdminMenuLayout.setHorizontalGroup(
             panelAdminMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdminMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(excelSagaLabel)
@@ -107,6 +111,10 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addComponent(userManagmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
                     .addComponent(excelSagaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdminMenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(selectOptionjLabel)
+                .addGap(508, 508, 508))
         );
         panelAdminMenuLayout.setVerticalGroup(
             panelAdminMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,11 +126,13 @@ public class AdminMenu extends javax.swing.JFrame {
                     .addGroup(panelAdminMenuLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1)))
-                .addGap(67, 67, 67)
+                .addGap(29, 29, 29)
+                .addComponent(selectOptionjLabel)
+                .addGap(35, 35, 35)
                 .addComponent(userManagmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(35, 35, 35)
                 .addComponent(excelSagaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jMenuFile.setText("File");
@@ -212,6 +222,7 @@ public class AdminMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JPanel panelAdminMenu;
+    private javax.swing.JLabel selectOptionjLabel;
     private javax.swing.JButton userManagmentBtn;
     // End of variables declaration//GEN-END:variables
 }
