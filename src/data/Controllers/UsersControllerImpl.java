@@ -1,14 +1,16 @@
-package data;
+package data.Controllers;
 
+import data.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersController {
+public class UsersControllerImpl implements UsersController{
 
 
     //get list of stored users in database
-    public static List<String> getUsersList() throws Exception {
+    @Override
+    public  List<String> getUsersList() throws Exception {
         List<String> users = new ArrayList<>();
 
         try(Statement statement = DatabaseConnection.getInstance().getConnection().createStatement();
@@ -23,7 +25,8 @@ public class UsersController {
 
 
     //check if user exists on database
-    public static boolean checkIfUserExists(String name) throws Exception {
+    @Override
+    public  boolean checkIfUserExists(String name) throws Exception {
 
         try(PreparedStatement statement = DatabaseConnection.getInstance()
                 .getConnection().prepareStatement("SELECT ID FROM USER WHERE LOWER(NAME) =?")) {
@@ -39,7 +42,8 @@ public class UsersController {
     }
     
     //check if user exists on database
-    public static boolean login(String name,String password) throws Exception {
+    @Override
+    public  boolean login(String name,String password) throws Exception {
 
         try(PreparedStatement statement = DatabaseConnection.getInstance()
                 .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
@@ -57,7 +61,8 @@ public class UsersController {
 
 
     //create new user on database
-    public static void create(String name,String password) throws Exception {
+    @Override
+    public  void create(String name,String password) throws Exception {
         try(PreparedStatement statement = DatabaseConnection.getInstance()
                 .getConnection().prepareStatement("INSERT INTO USER (NAME,PASSWORD) VALUES (?,?)")) {
             statement.setString(1, name);
