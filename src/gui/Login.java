@@ -202,7 +202,7 @@ public class Login extends javax.swing.JFrame {
                     User user = new User(usernameField.getText(),passwordField.getText());
                     user.setUserLoggedIn(user);
                     
-                    if(user.isAdmin())
+                    if(Facade.getUserLoggedIn().getName().equals("admin"))
                         new AdminMenu();
                     else
                         new ExcelSaga();

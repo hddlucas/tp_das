@@ -1,6 +1,7 @@
 package data.Controllers;
 
 import data.DatabaseConnection.DatabaseConnImpl;
+import data.Models.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +11,13 @@ public class UsersControllerImpl implements UsersController{
 
     //get list of stored users in database
     @Override
-    public  List<String> getUsersList() throws Exception {
-        List<String> users = new ArrayList<>();
+    public  List<User> getUsersList() throws Exception {
+        List<User> users = new ArrayList<>();
 
         try(Statement statement = DatabaseConnImpl.getInstance().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM  USER")) {
             while (rs.next()) {
-                System.out.println("name = " + rs.getString("name"));
-                System.out.println("id = " + rs.getInt("id"));
+                users.add(new User(rs.getInt("id"),rs.getString("name"),rs.getString("password")));
             }
         }
         return users;

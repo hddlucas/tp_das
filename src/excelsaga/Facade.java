@@ -7,6 +7,7 @@ package excelsaga;
 
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
+import data.Models.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,10 @@ import java.util.List;
 public class Facade {
     
     private static final UsersController users = new UsersControllerImpl();
-    
-    public static List<String> getUsersList(){
-        List<String> usersList= new ArrayList<>();
+    private static final User user = new User();
+
+    public static List<User> getUsersList(){
+        List<User> usersList= new ArrayList<>();
         try{
             return users.getUsersList();
         }catch(Exception e){
@@ -52,5 +54,14 @@ public class Facade {
             e.printStackTrace();
         }
      }
-    
+     
+     public static User getUserLoggedIn(){
+        try{
+            return user.getUserLoggedIn();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+     }
+     
 }

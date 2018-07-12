@@ -171,7 +171,8 @@ public class AdminMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void userManagmentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagmentBtnActionPerformed
-
+        frame.dispose();         
+        new UsersManagment();
     }//GEN-LAST:event_userManagmentBtnActionPerformed
 
     private void excelSagaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelSagaBtnActionPerformed

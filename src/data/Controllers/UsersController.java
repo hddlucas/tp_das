@@ -5,6 +5,7 @@
  */
 package data.Controllers;
 
+import data.Models.User;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface UsersController {
     
-    List<String> getUsersList()  throws Exception ;
+    List<User> getUsersList()  throws Exception ;
     boolean checkIfUserExists(String name) throws Exception;
     boolean login(String name,String password) throws Exception;
     void create(String name,String password) throws Exception;
