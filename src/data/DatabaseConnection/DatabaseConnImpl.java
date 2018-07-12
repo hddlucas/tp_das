@@ -1,4 +1,4 @@
-package data;
+package data.DatabaseConnection;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,16 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class DatabaseConnection {
+public class DatabaseConnImpl implements DataBaseConn{
 
-    private static DatabaseConnection instance;
+    private static DatabaseConnImpl instance;
     protected   Connection connection;
     private String username = "root";
     private String password = "";
     private String url = "jdbc:h2:~/ExcelSaga";
 
     
-    private DatabaseConnection()   {
+    private DatabaseConnImpl()   {
 
         try {
             String script=this.getDBScript("files/script.sql");
@@ -31,14 +31,16 @@ public class DatabaseConnection {
             statement.executeUpdate(script);
 
         } catch (ClassNotFoundException  | IOException | SQLException e) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(DatabaseConnImpl.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
+    @Override
     public Connection getConnection() {
         return this.connection;
     }
 
+    @Override
     public void closeConnection() throws SQLException {
         if (connection != null) {
             connection.close();
@@ -46,18 +48,19 @@ public class DatabaseConnection {
         }
     }
 
-    public static DatabaseConnection getInstance() throws Exception {
+    public static DatabaseConnImpl getInstance() throws Exception {
         if (instance == null) {
-            instance = new DatabaseConnection();
+            instance = new DatabaseConnImpl();
         } else if (instance.getConnection().isClosed()) {
-            instance = new DatabaseConnection();
+            instance = new DatabaseConnImpl();
         }
 
         return instance;
     }
 
 
-    private String getDBScript(String file) throws IOException {
+    @Override
+    public String getDBScript(String file) throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
 
         BufferedReader reader = new BufferedReader(new FileReader(classLoader.getResource(file).getPath()));

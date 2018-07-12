@@ -5,7 +5,7 @@
  */
 package gui;
 
-import data.DatabaseConnection;
+import data.DatabaseConnection.DatabaseConnImpl;
 import data.Controllers.UsersControllerImpl;
 import excelsaga.Facade;
 import java.awt.Dimension;

@@ -1,6 +1,6 @@
 package gui;
 
-import data.User;
+import data.Models.User;
 import excelsaga.Facade;
 import javax.swing.*;
 import java.awt.*;

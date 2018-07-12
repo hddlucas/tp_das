@@ -1,6 +1,6 @@
 package data.Controllers;
 
-import data.DatabaseConnection;
+import data.DatabaseConnection.DatabaseConnImpl;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class UsersControllerImpl implements UsersController{
     public  List<String> getUsersList() throws Exception {
         List<String> users = new ArrayList<>();
 
-        try(Statement statement = DatabaseConnection.getInstance().getConnection().createStatement();
+        try(Statement statement = DatabaseConnImpl.getInstance().getConnection().createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM  USER")) {
             while (rs.next()) {
                 System.out.println("name = " + rs.getString("name"));
@@ -28,7 +28,7 @@ public class UsersControllerImpl implements UsersController{
     @Override
     public  boolean checkIfUserExists(String name) throws Exception {
 
-        try(PreparedStatement statement = DatabaseConnection.getInstance()
+        try(PreparedStatement statement = DatabaseConnImpl.getInstance()
                 .getConnection().prepareStatement("SELECT ID FROM USER WHERE LOWER(NAME) =?")) {
             statement.setString(1, name.toLowerCase());
             try(ResultSet rs = statement.executeQuery()) {
@@ -45,7 +45,7 @@ public class UsersControllerImpl implements UsersController{
     @Override
     public  boolean login(String name,String password) throws Exception {
 
-        try(PreparedStatement statement = DatabaseConnection.getInstance()
+        try(PreparedStatement statement = DatabaseConnImpl.getInstance()
                 .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
             statement.setString(1, name.toLowerCase());
             statement.setString(2, password);
@@ -63,7 +63,7 @@ public class UsersControllerImpl implements UsersController{
     //create new user on database
     @Override
     public  void create(String name,String password) throws Exception {
-        try(PreparedStatement statement = DatabaseConnection.getInstance()
+        try(PreparedStatement statement = DatabaseConnImpl.getInstance()
                 .getConnection().prepareStatement("INSERT INTO USER (NAME,PASSWORD) VALUES (?,?)")) {
             statement.setString(1, name);
             statement.setString(2, password);

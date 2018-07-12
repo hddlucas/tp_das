@@ -5,7 +5,7 @@
  */
 package gui;
 
-import data.User;
+import data.Models.User;
 import data.Controllers.UsersControllerImpl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
