@@ -201,11 +201,9 @@ public class Login extends javax.swing.JFrame {
                     //cal new JFrame object
                     User user = new User(usernameField.getText(),passwordField.getText());
                     user.setUserLoggedIn(user);
+                   
+                    new ExcelSaga();
                     
-                    if(Facade.getUserLoggedIn().getName().equals("admin"))
-                        new AdminMenu();
-                    else
-                        new ExcelSaga();
                 }else{
                     JOptionPane.showMessageDialog(null, "Invalid Login Credentials","Error",JOptionPane.ERROR_MESSAGE);
                 }
