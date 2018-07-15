@@ -9,6 +9,10 @@ package bll.commands;
  *
  * @author hdlucas
  */
-public class Command {
+public interface Command {
+    
+    //TODO
+    //void do();
+    //void undo();
     
 }
