@@ -25,6 +25,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     private JFrame frame = new JFrame("ExcelSaga");
     private ExcelSagaTableModel tm = new ExcelSagaTableModel(ROWS, COLS);
+
     /**
      * Creates new form ExcelSaga
      */
