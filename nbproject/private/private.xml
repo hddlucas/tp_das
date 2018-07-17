@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/excelsaga/ExcelSagaTableModel.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/gui/Login.java</file>
-            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/bll/commands/Command.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/data/Controllers/UsersControllerImpl.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/excelsaga/Facade.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/bll/commands/CommandManager.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/gui/ExcelSaga.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/bll/commands/CellValueChange.java</file>
         </group>
     </open-files>
 </project-private>

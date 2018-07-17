@@ -1,11 +1,19 @@
 package gui;
 
+import bll.commands.CellValueChange;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import excelsaga.ExcelSagaTableModel;
+import static excelsaga.ExcelSagaTableModel.COLS;
+import static excelsaga.ExcelSagaTableModel.ROWS;
+import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -15,89 +23,66 @@ import javax.swing.table.TableColumn;
  */
 public class ExcelSaga extends javax.swing.JFrame {
 
-    private  JFrame  frame = new JFrame("ExcelSaga");
-    public static final int COLS = 26;
-    public static final int ROWS = 30;
-
-
+    private JFrame frame = new JFrame("ExcelSaga");
+    private ExcelSagaTableModel tm = new ExcelSagaTableModel(ROWS, COLS);
     /**
      * Creates new form ExcelSaga
      */
-    
+
     public ExcelSaga() {
         initComponents();
-        
+
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-        
         int height = screenSize.height * 2 / 3;
         int width = screenSize.width * 2 / 3;
-        
+
         frame.getContentPane().add(panelExcel);
-       
+
         frame.setPreferredSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         //menu 
         frame.setJMenuBar(jMenuBar);
-        jMenuBar.setVisible (true);
-
-        int[] headers = new int[ROWS];
-        for (int i = 0; i < headers.length; i++)
-            headers[i] = i+1;
-        
-        //table
-        ListModel lm = new AbstractListModel() {
-                   
-           public int getSize() {
-             return ROWS;
-           }
-
-           public Object getElementAt(int index) {
-             return headers[index];
-           }
-         };
-
-         DefaultTableModel dm = new DefaultTableModel(lm.getSize(), COLS);
-         
-         excelTable.setModel(dm);
-         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-         excelTable.setShowGrid(true);
-
-         
-         JList rowHeader = new JList(lm);
-         rowHeader.setFixedCellWidth(50);
-
-         rowHeader.setFixedCellHeight(excelTable.getRowHeight()
-             + excelTable.getRowMargin());
+        jMenuBar.setVisible(true);
 
 
-         rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
+        //headers
+        ListModel lm = tm.getHeaders();
+        excelTable.setModel(tm);
+        excelTable.getModel().addTableModelListener(new ExcelSagaTableModelListener(excelTable));
+        excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        excelTable.setShowGrid(true);
 
-         jScrollExcelTable.setRowHeaderView(rowHeader);    
-         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED); 
-         jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
-        
-         
-         int index = 0;
-         while (index < COLS){
-         TableColumn a=excelTable.getColumnModel().getColumn(index);
-         Dimension d = excelTable.getPreferredSize();
-         d.width = d.width + 180;
-          excelTable.setPreferredSize(d);
-          jScrollExcelTable.setPreferredSize(d);
-            index+=1;
+
+        JList rowHeader = new JList(lm);
+        rowHeader.setFixedCellWidth(50);
+
+        rowHeader.setFixedCellHeight(excelTable.getRowHeight()
+                + excelTable.getRowMargin());
+
+        rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
+        jScrollExcelTable.setRowHeaderView(rowHeader);
+        jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        int index = 0;
+        while (index < COLS) {
+            TableColumn a = excelTable.getColumnModel().getColumn(index);
+            Dimension d = excelTable.getPreferredSize();
+            d.width = d.width + 180;
+            excelTable.setPreferredSize(d);
+            jScrollExcelTable.setPreferredSize(d);
+            index += 1;
         }
-         
+        
+     
         jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
-         
+
         frame.pack();
         frame.setVisible(true);
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -326,7 +311,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
-        JOptionPane.showMessageDialog(null, "Step Back");
+        Facade.undo(tm);
     }//GEN-LAST:event_jButtonStepBackActionPerformed
 
     private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed
@@ -374,5 +359,3 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JPanel panelExcel;
     // End of variables declaration//GEN-END:variables
 }
-
-

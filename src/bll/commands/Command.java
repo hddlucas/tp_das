@@ -5,14 +5,15 @@
  */
 package bll.commands;
 
+import excelsaga.ExcelSagaTableModel;
+
 /**
  *
  * @author hdlucas
  */
 public interface Command {
     
-    //TODO
-    //void do();
-    //void undo();
+    void execute(ExcelSagaTableModel tm);
+    void undo(ExcelSagaTableModel tm);
     
 }

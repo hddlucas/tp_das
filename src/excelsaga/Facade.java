@@ -5,6 +5,8 @@
  */
 package excelsaga;
 
+import bll.commands.Command;
+import bll.commands.CommandManager;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
 import data.Models.User;
@@ -19,7 +21,7 @@ public class Facade {
     
     private static final UsersController users = new UsersControllerImpl();
     private static final User user = new User();
-
+    
     public static List<User> getUsersList(){
         List<User> usersList= new ArrayList<>();
         try{
@@ -64,4 +66,13 @@ public class Facade {
         return null;
      }
      
+     public static void execute(ExcelSagaTableModel tm,Command c){
+         CommandManager cm= new CommandManager(tm);
+         cm.execute(c);
+     }
+     
+      public static void undo(ExcelSagaTableModel tm){
+         CommandManager cm= new CommandManager(tm);
+         cm.undo();
+     }
 }
