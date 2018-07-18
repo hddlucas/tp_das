@@ -5,8 +5,9 @@
  */
 package gui;
 
-import data.DatabaseConnection;
-import data.UsersController;
+import data.DatabaseConnection.DatabaseConnImpl;
+import data.Controllers.UsersControllerImpl;
+import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -201,10 +202,10 @@ public class Register extends javax.swing.JFrame {
         } else {
             try {
                 //check if user exists
-                if (UsersController.checkIfUserExists(usernameField.getText())) {
+                if (Facade.checkIfUserExists(usernameField.getText())) {
                     JOptionPane.showMessageDialog(null, "User " + usernameField.getText() + " already exists","Error",JOptionPane.ERROR_MESSAGE);
                 } else {
-                    UsersController.create(usernameField.getText(),passwordField.getText());
+                    Facade.create(usernameField.getText(),passwordField.getText());
                     JOptionPane.showMessageDialog(null, "User registered successfully","Info",JOptionPane.INFORMATION_MESSAGE);
                     
                     //Destroy the JFrame object

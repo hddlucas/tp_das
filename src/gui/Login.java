@@ -1,7 +1,7 @@
 package gui;
 
-import data.User;
-import data.UsersController;
+import data.Models.User;
+import excelsaga.Facade;
 import javax.swing.*;
 import java.awt.*;
 
@@ -193,19 +193,17 @@ public class Login extends javax.swing.JFrame {
         } else {
             try {
                 //login
-                if (UsersController.login(usernameField.getText(),passwordField.getText())) {
+                if (Facade.login(usernameField.getText(),passwordField.getText())) {
                     JOptionPane.showMessageDialog(null, "Logged in successfully","Info",JOptionPane.INFORMATION_MESSAGE);
-
-                     //Destroy the JFrame object
-                     frame.dispose();
+                    
+                    //Destroy the JFrame object
+                    frame.dispose();
                     //cal new JFrame object
                     User user = new User(usernameField.getText(),passwordField.getText());
                     user.setUserLoggedIn(user);
+                   
+                    new ExcelSaga();
                     
-                    if(user.isAdmin())
-                        new AdminMenu();
-                    else
-                        new ExcelSaga();
                 }else{
                     JOptionPane.showMessageDialog(null, "Invalid Login Credentials","Error",JOptionPane.ERROR_MESSAGE);
                 }

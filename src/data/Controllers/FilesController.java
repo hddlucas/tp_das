@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bll.commands;
-
-import excelsaga.ExcelSagaTableModel;
+package data.Controllers;
 
 /**
  *
  * @author hdlucas
  */
-public interface Command {
-    
-    void execute(ExcelSagaTableModel tm);
-    void undo(ExcelSagaTableModel tm);
+public interface FilesController {
     
 }

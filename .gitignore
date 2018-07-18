@@ -1,3 +1,12 @@
+# NetBeans specific #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
 # Compiled class file
 *.class
 
@@ -11,7 +20,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -22,10 +30,4 @@
 hs_err_pid*
 /dist/
 
-# see https://github.com/github/gitignore/blob/master/Global/NetBeans.gitignore
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
+nbproject/private/private.xml
