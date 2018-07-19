@@ -24,7 +24,7 @@ import javax.swing.table.TableColumn;
 public class ExcelSaga extends javax.swing.JFrame {
 
     private JFrame frame = new JFrame("ExcelSaga");
-    private ExcelSagaTableModel tm = new ExcelSagaTableModel(ROWS, COLS);
+    public static final ExcelSagaTableModel excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS);
 
     /**
      * Creates new form ExcelSaga
@@ -50,8 +50,8 @@ public class ExcelSaga extends javax.swing.JFrame {
 
 
         //headers
-        ListModel lm = tm.getHeaders();
-        excelTable.setModel(tm);
+        ListModel lm = excelSagaTableModel.getHeaders();
+        excelTable.setModel(excelSagaTableModel);
         excelTable.getModel().addTableModelListener(new ExcelSagaTableModelListener(excelTable));
         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         excelTable.setShowGrid(true);
@@ -312,7 +312,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
-        Facade.undo(tm);
+        Facade.undo();
     }//GEN-LAST:event_jButtonStepBackActionPerformed
 
     private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed

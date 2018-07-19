@@ -6,49 +6,29 @@
 package bll.commands;
 
 import excelsaga.ExcelSagaTableModel;
-import java.util.Vector;
+import static gui.ExcelSaga.excelSagaTableModel;
 
 /**
  *
  * @author hdlucas
  */
 public class CellValueChange implements Command{
-    protected Vector current;
-    protected Vector previous;
-    protected Vector dataVector;
+    protected Cell current;
+    protected Cell previous;
+    protected Cell cell;
 
-    public CellValueChange(Vector data){
-        dataVector = data;
+    public CellValueChange(Cell cell){
+        current = cell;
     }
     
     @Override
-    public void execute(ExcelSagaTableModel tm) {
-        previous= getCurrent();
-        setCurrent(tm.getDataVector());
+    public void execute(Cell cell) {
+
     }
 
     @Override
-    public void undo(ExcelSagaTableModel tm) {
-        setCurrent(previous);
-        current = tm.getDataVector();
+    public void undo(Cell cell) {
+        current = previous;
+        excelSagaTableModel.setValueAt(previous.getValue(), previous.getRow(), previous.getColumn());
     }
-    
-    //Getters and Setters
-    public Vector getCurrent() {
-        return current;
-    }
-
-    public void setCurrent(Vector current) {
-        this.current = current;
-    }
-
-    public Vector getPrevious() {
-        return previous;
-    }
-
-    public void setPrevious(Vector previous) {
-        this.previous = previous;
-    }
-    
-    
 }

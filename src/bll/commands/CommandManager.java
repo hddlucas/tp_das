@@ -5,7 +5,6 @@
  */
 package bll.commands;
 
-import excelsaga.ExcelSagaTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,26 +13,30 @@ import java.util.List;
  * @author hdlucas
  */
 public class CommandManager {
-    
-    List<Command> undoList = new ArrayList<Command>();
-    List<Command> redoList = new ArrayList<Command>();
-    ExcelSagaTableModel excelSagaTableModel;
-    
-    public CommandManager(ExcelSagaTableModel tm) {
-        excelSagaTableModel=tm;
+
+    List<Command> undoList = new ArrayList<>();
+    List<Command> redoList = new ArrayList<>();
+    Cell cell;
+
+    public CommandManager() {
     }
-    
-    public void execute(Command c){
-        c.execute(excelSagaTableModel);
+
+    public CommandManager(Cell cell) {
+        this.cell = cell;
+    }
+
+    public void execute(Command c) {
+        c.execute(cell);
         redoList.clear();
         undoList.add(c);
     }
-    
-    public void undo(){
-        if(undoList.isEmpty()) return;
-        Command last = undoList.remove(undoList.size()-1);
-        last.undo(excelSagaTableModel);
+
+    public void undo() {
+        if (undoList.isEmpty()) {
+            return;
+        }
+        Command last = undoList.remove(undoList.size() - 1);
+        last.undo(cell);
         redoList.add(last);
     }
-
 }
