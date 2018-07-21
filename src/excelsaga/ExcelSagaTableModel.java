@@ -2,6 +2,8 @@ package excelsaga;
 
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.JList;

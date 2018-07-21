@@ -8,10 +8,19 @@ import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.event.TableModelListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 /**
@@ -257,6 +266,11 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jMenuItemExport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemExport.setText("Export");
+        jMenuItemExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemExportActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemExport);
 
         jMenuItemImport.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
@@ -348,6 +362,40 @@ public class ExcelSaga extends javax.swing.JFrame {
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable,jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
     }//GEN-LAST:event_jMenuItemNewActionPerformed
+    private void jMenuItemExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportActionPerformed
+        //CREATE FILE CHOOSER
+        JFileChooser fileChooser = new JFileChooser();
+        
+        //CREATE FILTER TO CSV FILE
+        FileFilter filter = new FileNameExtensionFilter("CSV", "csv");
+        fileChooser.addChoosableFileFilter(filter);
+        
+        //CREATE FILTER TO HTML FILE
+        filter = new FileNameExtensionFilter("HTML", "html");
+        fileChooser.addChoosableFileFilter(filter);
+        
+        //CREATE FILTER TO TXT FILE
+        filter = new FileNameExtensionFilter("TXT", "txt");
+        fileChooser.addChoosableFileFilter(filter);
+        
+        //SHOW DIALOG WINDOWS
+        fileChooser.showSaveDialog(this);
+        
+        
+        //CREATE OBJECT WITH SELECTED FILE
+        File file = fileChooser.getSelectedFile();
+        FileFilter selectedFileFilter = fileChooser.getFileFilter();
+        String fileType = selectedFileFilter.getDescription().toLowerCase();
+        System.out.println(file.getAbsolutePath() + "." + fileType);
+        
+        file = new File(file.getAbsolutePath() + "." + fileType);
+        
+        try {
+            Facade.exportFile(fileType, file);
+        } catch (Exception ex) {
+            Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItemExportActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
