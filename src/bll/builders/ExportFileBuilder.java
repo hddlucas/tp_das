@@ -11,14 +11,14 @@ import java.io.File;
  *
  * @author MarcoSequeira-PC
  */
-public abstract class ExporterBuilder {
+public abstract class ExportFileBuilder {
 
-    public static ExporterBuilder getBuilderByType(String t) throws Exception {
+    public static ExportFileBuilder getBuilderByType(String t) throws Exception {
         if (t.equalsIgnoreCase("txt")) {
             //return new TextFileBuilder();
         } else if (t.equalsIgnoreCase("csv")) {
             System.out.println("entrei no csv");
-            return new CsvExporterBuilder();
+            return new ExporterCsvBuilder();
         } else if (t.equalsIgnoreCase("html")) {
             //return new HTMLFileBuilder();
         }
@@ -28,7 +28,7 @@ public abstract class ExporterBuilder {
         return null;
     }
 
-    public abstract ExporterBuilder setFile(File file);
+    public abstract ExportFileBuilder setFile(File file);
 
     public abstract void tableExporter() throws Exception;
 }

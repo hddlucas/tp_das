@@ -6,7 +6,7 @@
 package excelsaga;
 
 import bll.adapters.ImportFileAdapter;
-import bll.builders.ExporterBuilder;
+import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
 import bll.commands.CellValueChange;
 import bll.commands.CommandManager;
@@ -88,7 +88,7 @@ public class Facade {
     
     
     public static void exportFile(String type, File file) throws Exception {
-        ExporterBuilder builder = ExporterBuilder.getBuilderByType(type).setFile(file);
+        ExportFileBuilder builder = ExportFileBuilder.getBuilderByType(type).setFile(file);
         builder.tableExporter();
     }
 }

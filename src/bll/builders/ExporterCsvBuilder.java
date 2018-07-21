@@ -18,12 +18,12 @@ import java.util.Vector;
  *
  * @author MarcoSequeira-PC
  */
-public class CsvExporterBuilder extends ExporterBuilder {
+public class ExporterCsvBuilder extends ExportFileBuilder {
 
     protected File f;
     
     @Override
-    public ExporterBuilder setFile(File file) {
+    public ExportFileBuilder setFile(File file) {
         this.f = file;
         return this;
     }
