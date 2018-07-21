@@ -26,6 +26,8 @@ public class ExcelSagaTableModelListener implements TableModelListener {
     public void tableChanged(TableModelEvent e) {
         int row = e.getFirstRow();
         int column = e.getColumn();
+        if(row !=-1 && column!=-1){
+        
         //String columnName = model.getColumnName(column);
         Object data = model.getValueAt(row, column);
         
@@ -34,6 +36,7 @@ public class ExcelSagaTableModelListener implements TableModelListener {
         Facade.execute(cell);
         
         System.out.println("Row: " + String.valueOf(row) + " Column: " + String.valueOf(column)+ " Data: " + data);
+        }
     }
 
 }

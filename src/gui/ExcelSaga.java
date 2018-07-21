@@ -1,7 +1,5 @@
 package gui;
 
-import bll.commands.CellValueChange;
-import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
 import excelsaga.ExcelSagaTableModel;
 import static excelsaga.ExcelSagaTableModel.COLS;
 import static excelsaga.ExcelSagaTableModel.ROWS;
@@ -9,12 +7,11 @@ import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Vector;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumn;
 
 /**
@@ -24,14 +21,16 @@ import javax.swing.table.TableColumn;
 public class ExcelSaga extends javax.swing.JFrame {
 
     private JFrame frame = new JFrame("ExcelSaga");
-    public static final ExcelSagaTableModel excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS);
+    public static ExcelSagaTableModel excelSagaTableModel;
 
     /**
      * Creates new form ExcelSaga
      */
-
     public ExcelSaga() {
         initComponents();
+
+        //inicializate excelTable
+        excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable,jScrollExcelTable);
 
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,38 +46,23 @@ public class ExcelSaga extends javax.swing.JFrame {
         //menu 
         frame.setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
-
-
-        //headers
-        ListModel lm = excelSagaTableModel.getHeaders();
         excelTable.setModel(excelSagaTableModel);
-        excelTable.getModel().addTableModelListener(new ExcelSagaTableModelListener(excelTable));
-        excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        excelTable.setShowGrid(true);
+
+//        int index = 0;
+//        while (index < COLS) {
+//            TableColumn a = excelTable.getColumnModel().getColumn(index);
+//            Dimension d = excelTable.getPreferredSize();
+//            d.width = d.width + 180;
+//            excelTable.setPreferredSize(d);
+//            jScrollExcelTable.setPreferredSize(d);
+//            index += 1;
+//        }
 
 
-        JList rowHeader = new JList(lm);
-        rowHeader.setFixedCellWidth(50);
-
-        rowHeader.setFixedCellHeight(excelTable.getRowHeight()
-                + excelTable.getRowMargin());
-
-        rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
-        jScrollExcelTable.setRowHeaderView(rowHeader);
         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        int index = 0;
-        while (index < COLS) {
-            TableColumn a = excelTable.getColumnModel().getColumn(index);
-            Dimension d = excelTable.getPreferredSize();
-            d.width = d.width + 180;
-            excelTable.setPreferredSize(d);
-            jScrollExcelTable.setPreferredSize(d);
-            index += 1;
-        }
-        
-     
+        //logged user
         jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
 
         frame.pack();
@@ -328,7 +312,26 @@ public class ExcelSaga extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("csv", "csv"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("bin", "bin"));
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setSelectedFile(new File(""));
+        chooser.setAcceptAllFileFilterUsed(false);
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        //chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        if (chooser.showOpenDialog(frame) == JFileChooser.OPEN_DIALOG) {
+            //do when open
+        } else {
+            // do when cancel
+        }
+
+        File selectedFile = chooser.getSelectedFile();
+        if (selectedFile != null) {
+            String fileName = selectedFile.getName();
+            Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+        }
     }//GEN-LAST:event_jMenuItemImportActionPerformed
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed

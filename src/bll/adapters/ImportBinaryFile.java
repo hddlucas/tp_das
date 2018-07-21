@@ -5,10 +5,20 @@
  */
 package bll.adapters;
 
+import excelsaga.ExcelSagaTableModel;
+import java.io.File;
+
 /**
  *
  * @author hdlucas
  */
-public class Adapter {
+public class ImportBinaryFile extends ImportFile{
+
+    @Override
+    public void importFile(File file) {
+        //System.out.println("Reading binary file...");
+    }
     
+ 
+
 }

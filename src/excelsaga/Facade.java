@@ -5,12 +5,14 @@
  */
 package excelsaga;
 
+import bll.adapters.ImportFileAdapter;
 import bll.commands.Cell;
 import bll.commands.CellValueChange;
 import bll.commands.CommandManager;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
 import data.Models.User;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,4 +79,10 @@ public class Facade {
     public static void undo() {
         cm.undo();
     }
+    
+    public static void importFile(File file,String extension){
+        new ImportFileAdapter(extension).importFile(file);
+    }
+    
+    
 }

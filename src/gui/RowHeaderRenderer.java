@@ -15,9 +15,9 @@ import javax.swing.table.JTableHeader;
  * @version 1.0 11/09/98
  */
 
-class RowHeaderRenderer extends JLabel implements ListCellRenderer {
+public class RowHeaderRenderer extends JLabel implements ListCellRenderer {
 
-  RowHeaderRenderer(JTable table) {
+  public RowHeaderRenderer(JTable table) {
     JTableHeader header = table.getTableHeader();
     setOpaque(true);
     setBorder(UIManager.getBorder("TableHeader.cellBorder"));
