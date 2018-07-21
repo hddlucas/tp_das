@@ -23,8 +23,8 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
 
-    public static int COLS = 15;
-    public static int ROWS = 20;
+    public static final int COLS = 15;
+    public static final int ROWS = 20;
     
     public ExcelSagaTableModel(JTable excelTable,JScrollPane  jScrollExcelTable) {
         this(0, 0,excelTable,jScrollExcelTable);
@@ -67,7 +67,14 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     }
 
     public void setDataVector(Vector dataVector, Vector columnIdentifiers) {
-        //headers
+    
+        this.dataVector = nonNullVector(dataVector);
+        this.columnIdentifiers = nonNullVector(columnIdentifiers);
+      
+        justifyRows(0, getRowCount());
+        fireTableStructureChanged();
+        
+           //headers
         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         excelTable.setShowGrid(true);
         ListModel lm = getHeaders();
@@ -79,11 +86,6 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
         
         jScrollExcelTable.setRowHeaderView(rowHeader);
-        
-        this.dataVector = nonNullVector(dataVector);
-        this.columnIdentifiers = nonNullVector(columnIdentifiers);
-        justifyRows(0, getRowCount());
-        fireTableStructureChanged();
     }
 
     public void setDataVector(Object[][] dataVector, Object[] columnIdentifiers) {
@@ -166,14 +168,14 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     }
 
     public ListModel getHeaders() {
-        headers = new int[ROWS];
+        headers = new int[getRowCount()];
         for (int i = 0; i < headers.length; i++) {
             headers[i] = i + 1;
         }
 
         ListModel lm = new AbstractListModel() {
             public int getSize() {
-                return ROWS;
+                return getRowCount();
             }
 
             public Object getElementAt(int index) {

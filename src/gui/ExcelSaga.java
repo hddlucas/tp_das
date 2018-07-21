@@ -31,6 +31,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         //inicializate excelTable
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable,jScrollExcelTable);
+        excelTable.setModel(excelSagaTableModel);
 
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -46,7 +47,6 @@ public class ExcelSaga extends javax.swing.JFrame {
         //menu 
         frame.setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
-        excelTable.setModel(excelSagaTableModel);
 
 //        int index = 0;
 //        while (index < COLS) {
@@ -240,6 +240,11 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jMenuItemNew.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemNew.setText("New");
+        jMenuItemNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemNew);
 
         jMenuItemOpen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
@@ -338,6 +343,11 @@ public class ExcelSaga extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
+
+    private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
+        excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable,jScrollExcelTable);
+        excelTable.setModel(excelSagaTableModel);
+    }//GEN-LAST:event_jMenuItemNewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
