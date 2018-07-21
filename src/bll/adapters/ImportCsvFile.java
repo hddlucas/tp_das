@@ -5,16 +5,11 @@
  */
 package bll.adapters;
 
-import excelsaga.ExcelSagaTableModel;
-import static excelsaga.ExcelSagaTableModel.ROWS;
-import gui.ExcelSaga;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Vector;
 
 /**
