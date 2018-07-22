@@ -6,49 +6,46 @@
 package bll.commands;
 
 import excelsaga.ExcelSagaTableModel;
-import java.util.Vector;
+import static gui.ExcelSaga.excelSagaTableModel;
 
 /**
  *
  * @author hdlucas
  */
-public class CellValueChange implements Command{
-    protected Vector current;
-    protected Vector previous;
-    protected Vector dataVector;
+public class CellValueChange implements Command {
 
-    public CellValueChange(Vector data){
-        dataVector = data;
-    }
-    
-    @Override
-    public void execute(ExcelSagaTableModel tm) {
-        previous= getCurrent();
-        setCurrent(tm.getDataVector());
+    protected Object value, savedValue;
+    int row, col;
+    protected Cell cell;
+
+    public CellValueChange(Cell cell) {
+        this.cell = cell;
     }
 
     @Override
-    public void undo(ExcelSagaTableModel tm) {
-        setCurrent(previous);
-        current = tm.getDataVector();
-    }
-    
-    //Getters and Setters
-    public Vector getCurrent() {
-        return current;
+    public void execute() {
+        this.value = excelSagaTableModel.getValueAt(row, col);
+        System.out.println(this.value);
+        this.row = cell.getRow();
+        this.col = cell.getColumn();
+        System.out.println("Row: " + row + "Column: " + col);
+
     }
 
-    public void setCurrent(Vector current) {
-        this.current = current;
+    @Override
+    public void undo() {
+        savedValue = excelSagaTableModel.getValueAt(row, col);
+        System.out.println(savedValue);
+        excelSagaTableModel.setValueAt(value, row, col);
     }
 
-    public Vector getPrevious() {
-        return previous;
-    }
+    @Override
+    public void redo() {
+        if (savedValue != null) {
+            System.out.println(savedValue);
 
-    public void setPrevious(Vector previous) {
-        this.previous = previous;
+            excelSagaTableModel.setValueAt(savedValue, row, col);
+            savedValue = null;
+        }
     }
-    
-    
 }

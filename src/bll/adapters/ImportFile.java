@@ -5,10 +5,13 @@
  */
 package bll.adapters;
 
+import java.io.File;
+
 /**
  *
  * @author hdlucas
  */
-public class Adapter {
+public abstract class ImportFile {
     
+    public abstract void importFile(File file);
 }

@@ -8,7 +8,6 @@ import java.util.List;
 
 public class UsersControllerImpl implements UsersController{
 
-
     //get list of stored users in database
     @Override
     public  List<User> getUsersList() throws Exception {
@@ -23,11 +22,9 @@ public class UsersControllerImpl implements UsersController{
         return users;
     }
 
-
     //check if user exists on database
     @Override
     public  boolean checkIfUserExists(String name) throws Exception {
-
         try(PreparedStatement statement = DatabaseConnImpl.getInstance()
                 .getConnection().prepareStatement("SELECT ID FROM USER WHERE LOWER(NAME) =?")) {
             statement.setString(1, name.toLowerCase());
@@ -44,7 +41,6 @@ public class UsersControllerImpl implements UsersController{
     //check if user exists on database
     @Override
     public  boolean login(String name,String password) throws Exception {
-
         try(PreparedStatement statement = DatabaseConnImpl.getInstance()
                 .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
             statement.setString(1, name.toLowerCase());
@@ -59,7 +55,6 @@ public class UsersControllerImpl implements UsersController{
         }
     }
 
-
     //create new user on database
     @Override
     public  void create(String name,String password) throws Exception {
@@ -71,6 +66,4 @@ public class UsersControllerImpl implements UsersController{
 
         }
     }
-
-
 }

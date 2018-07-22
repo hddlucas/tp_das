@@ -1,8 +1,14 @@
 package excelsaga;
 
+import gui.RowHeaderRenderer;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ListModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
@@ -16,11 +22,14 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected Vector dataVector;
     protected Vector columnIdentifiers;
     protected int[] headers;
-    public static final int COLS = 5;
-    public static final int ROWS = 10;
+    protected JTable excelTable;
+    protected JScrollPane jScrollExcelTable;
+
+    public static final int COLS = 15;
+    public static final int ROWS = 20;
     
-    public ExcelSagaTableModel() {
-        this(0, 0);
+    public ExcelSagaTableModel(JTable excelTable,JScrollPane  jScrollExcelTable) {
+        this(0, 0,excelTable,jScrollExcelTable);
     }
 
     private static Vector newVector(int size) {
@@ -29,16 +38,18 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         return v;
     }
 
-    public ExcelSagaTableModel(int rowCount, int columnCount) {
-        this(newVector(columnCount), rowCount);
+    public ExcelSagaTableModel(int rowCount, int columnCount,JTable excelTable,JScrollPane  jScrollExcelTable) {
+        this(newVector(columnCount), rowCount,excelTable,jScrollExcelTable);
     }
 
-    public ExcelSagaTableModel(Vector columnNames, int rowCount) {
+    public ExcelSagaTableModel(Vector columnNames, int rowCount,JTable excelTable, JScrollPane  jScrollExcelTable) {
+        this.excelTable=excelTable;
+        this.jScrollExcelTable=jScrollExcelTable;
         setDataVector(newVector(rowCount), columnNames);
     }
 
-    public ExcelSagaTableModel(Object[] columnNames, int rowCount) {
-        this(convertToVector(columnNames), rowCount);
+    public ExcelSagaTableModel(Object[] columnNames, int rowCount,JTable excelTable,JScrollPane  jScrollExcelTable) {
+        this(convertToVector(columnNames), rowCount,excelTable,jScrollExcelTable);
     }
 
     public ExcelSagaTableModel(Vector data, Vector columnNames) {
@@ -58,10 +69,25 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     }
 
     public void setDataVector(Vector dataVector, Vector columnIdentifiers) {
+    
         this.dataVector = nonNullVector(dataVector);
         this.columnIdentifiers = nonNullVector(columnIdentifiers);
+      
         justifyRows(0, getRowCount());
         fireTableStructureChanged();
+        
+           //headers
+        excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        excelTable.setShowGrid(true);
+        ListModel lm = getHeaders();
+        JList rowHeader = new JList(lm);
+        rowHeader.setFixedCellWidth(50);
+        rowHeader.setFixedCellHeight(excelTable.getRowHeight()
+                + excelTable.getRowMargin());
+
+        rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
+        
+        jScrollExcelTable.setRowHeaderView(rowHeader);
     }
 
     public void setDataVector(Object[][] dataVector, Object[] columnIdentifiers) {
@@ -144,14 +170,14 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     }
 
     public ListModel getHeaders() {
-        headers = new int[ROWS];
+        headers = new int[getRowCount()];
         for (int i = 0; i < headers.length; i++) {
             headers[i] = i + 1;
         }
 
         ListModel lm = new AbstractListModel() {
             public int getSize() {
-                return ROWS;
+                return getRowCount();
             }
 
             public Object getElementAt(int index) {
@@ -183,4 +209,5 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         }
         return v;
     }
+    
 }
