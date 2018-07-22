@@ -11,13 +11,13 @@ import static gui.ExcelSaga.excelSagaTableModel;
  *
  * @author hdlucas
  */
-public class CellValueChange implements Command {
+public class CellValueChangeCommand implements Command {
 
     protected Object value, savedValue;
     int row, col;
     protected Cell cell;
 
-    public CellValueChange(Cell cell) {
+    public CellValueChangeCommand(Cell cell) {
         this.cell = cell;
     }
 
