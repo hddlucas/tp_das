@@ -17,13 +17,14 @@ public abstract class ExportFileBuilder {
         if (t.equalsIgnoreCase("txt")) {
             //return new TextFileBuilder();
         } else if (t.equalsIgnoreCase("csv")) {
-            System.out.println("entrei no csv");
-            return new ExporterCsvBuilder();
+            return new ExportCsvBuilder();
         } else if (t.equalsIgnoreCase("html")) {
             //return new HTMLFileBuilder();
+        } else if (t.equalsIgnoreCase("excelSaga")) {
+            return new ExportObjectBuilder();
         }
         else {
-            throw new IllegalArgumentException("Tipo não reconhecido");
+            throw new IllegalArgumentException("Invalid File Extension");
         }
         return null;
     }

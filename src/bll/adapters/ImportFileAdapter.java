@@ -18,8 +18,8 @@ public class ImportFileAdapter extends ImportFile{
     public ImportFileAdapter(String fileExtension){
         if(fileExtension.equalsIgnoreCase("csv")){
             fileReaderDecorated = new ImportCsvFile();
-        }else if(fileExtension.equalsIgnoreCase("csv")){
-            fileReaderDecorated = new ImportBinaryFile();
+        }else if(fileExtension.equalsIgnoreCase("excelSaga")){
+            fileReaderDecorated = new ImportObjectFile();
         }
     }
 

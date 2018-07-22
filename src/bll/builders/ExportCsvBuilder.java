@@ -5,20 +5,17 @@
  */
 package bll.builders;
 
-import bll.commands.Cell;
-import excelsaga.ExcelSagaTableModel;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Vector;
 
 /**
  *
  * @author MarcoSequeira-PC
  */
-public class ExporterCsvBuilder extends ExportFileBuilder {
+public class ExportCsvBuilder extends ExportFileBuilder {
 
     protected File f;
     
