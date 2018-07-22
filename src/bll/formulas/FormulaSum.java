@@ -27,18 +27,15 @@ public class FormulaSum extends Formula {
                     sum += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex - 1, columnIndex).toString());
                 }
             } else {
-                String columnName1 = params[0].replaceAll("\\d", "").toUpperCase();
-                int columnIndex1 = excelSagaTableModel.findColumn(columnName1);
-                int rowIndex1 = Integer.parseInt(params[0].replaceAll("\\D+", ""));
-                String columnName2 = params[1].replaceAll("\\d", "").toUpperCase();
-                int columnIndex2 = excelSagaTableModel.findColumn(columnName2);
-                int rowIndex2 = Integer.parseInt(params[1].replaceAll("\\D+", ""));
+                 columnName1 = params[0].replaceAll("\\d", "").toUpperCase();
+                 columnIndex1 = excelSagaTableModel.findColumn(columnName1);
+                 rowIndex1 = Integer.parseInt(params[0].replaceAll("\\D+", ""));
+                 columnName2 = params[1].replaceAll("\\d", "").toUpperCase();
+                 columnIndex2 = excelSagaTableModel.findColumn(columnName2);
+                 rowIndex2 = Integer.parseInt(params[1].replaceAll("\\D+", ""));
 
                 if (columnIndex1 == columnIndex2 && rowIndex1 == rowIndex2) {
-                    columnName = params[0].replaceAll("\\d", "").toUpperCase();
-                    columnIndex = excelSagaTableModel.findColumn(columnName);
-                    rowIndex = Integer.parseInt(params[0].replaceAll("\\D+", ""));
-                    return String.valueOf(Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex - 1, columnIndex).toString()));
+                    return String.valueOf(Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, columnIndex1).toString()));
                 } else if (columnIndex1 == columnIndex2) {
                     if (rowIndex1 < rowIndex2) {
                         for (int k = rowIndex1; k <= rowIndex2; k++) {

@@ -12,9 +12,9 @@ package bll.formulas;
 public abstract class Formula {
     protected  String newCellValue="";
     protected  String invalidFormula="#REF";
-    protected int columnIndex;
-    protected int rowIndex;
-    protected String columnName;
+    protected int columnIndex,columnIndex1,columnIndex2;
+    protected int rowIndex,rowIndex1,rowIndex2;
+    protected String columnName,columnName1,columnName2;
     
     public abstract void validateNumberOfParams(String[] params,boolean rangeInterval);
     public abstract String getFormulaResult(String[] params,boolean rangeInterval);
