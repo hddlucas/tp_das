@@ -17,10 +17,9 @@ public abstract class ExportFileBuilder {
         if (t.equalsIgnoreCase("txt")) {
             //return new TextFileBuilder();
         } else if (t.equalsIgnoreCase("csv")) {
-            System.out.println("entrei no csv");
             return new ExporterCsvBuilder();
         } else if (t.equalsIgnoreCase("html")) {
-            //return new HTMLFileBuilder();
+            return new ExporterHtmlBuilder();
         }
         else {
             throw new IllegalArgumentException("Tipo não reconhecido");

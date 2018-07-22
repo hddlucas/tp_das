@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/data/DatabaseConnection/DatabaseConnImpl.java</file>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/data/Controllers/UsersController.java</file>
             <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/bll/builders/ExporterBuilder.java</file>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/excelsaga/Main.java</file>
+            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/excelsaga/Facade.java</file>
             <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/bll/builders/CsvExporterBuilder.java</file>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/data/Models/User.java</file>
+            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/excelsaga/ExcelSagaTableModelListener.java</file>
             <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/excelsaga/ExcelSagaTableModel.java</file>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/data/Controllers/UsersControllerImpl.java</file>
-            <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/resources/files/script.sql</file>
             <file>file:/C:/Users/MarcoSequeira-PC/Documents/tp_das/src/gui/ExcelSaga.java</file>
         </group>
     </open-files>
