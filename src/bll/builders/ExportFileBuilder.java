@@ -19,7 +19,7 @@ public abstract class ExportFileBuilder {
         } else if (t.equalsIgnoreCase("csv")) {
             return new ExportCsvBuilder();
         } else if (t.equalsIgnoreCase("html")) {
-            return new ExporterHtmlBuilder();
+            return new ExportHtmlBuilder();
         } else if (t.equalsIgnoreCase("excelSaga")) {
             return new ExportObjectBuilder();
         }

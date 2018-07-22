@@ -15,7 +15,7 @@ import java.util.Vector;
  *
  * @author MarcoSequeira-PC
  */
-public class ExporterHtmlBuilder extends ExportFileBuilder {
+public class ExportHtmlBuilder extends ExportFileBuilder {
 
     protected File f;
     
