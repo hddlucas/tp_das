@@ -48,7 +48,7 @@ public class ImportCsvFile extends ImportFile {
         for(int j=0;j<i;j++){
             columnNames.addElement("Column "+j);
         }
-
+        
         excelSagaTableModel.setDataVector(rowData,columnNames);
     }
 }
