@@ -9,6 +9,14 @@ package bll.formulas;
  *
  * @author hdlucas
  */
-public class Formula {
+public abstract class Formula {
+    protected  String newCellValue="";
+    protected  String invalidFormula="#REF";
+    protected int columnIndex;
+    protected int rowIndex;
+    protected String columnName;
+    
+    public abstract void validateNumberOfParams(String[] params);
+    public abstract String getFormulaResult(String[] params);
     
 }

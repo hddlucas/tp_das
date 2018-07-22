@@ -327,12 +327,10 @@ public class ExcelSaga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
-        excelTable.getModel().removeTableModelListener(excelSagaTableModelListener);
         Facade.undo();
     }//GEN-LAST:event_jButtonStepBackActionPerformed
 
     private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed
-        excelTable.getModel().removeTableModelListener(excelSagaTableModelListener);
         Facade.redo();
     }//GEN-LAST:event_jButtonStepForwardActionPerformed
 
