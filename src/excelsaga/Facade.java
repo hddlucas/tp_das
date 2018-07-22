@@ -10,6 +10,8 @@ import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
 import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
+import bll.formulas.Formula;
+import bll.formulas.FormulaFactory;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
 import data.Models.User;
@@ -91,9 +93,14 @@ public class Facade {
     }
     
     
-    
     public static void exportFile(String type, File file) throws Exception {
         ExportFileBuilder builder = ExportFileBuilder.getBuilderByType(type).setFile(file);
         builder.tableExporter();
+    }
+    
+    public static String applyFormula(String formulaName,String[] params){
+        FormulaFactory formulaFactory = new FormulaFactory();
+        Formula formula = formulaFactory.getFormula(formulaName);
+        return formula.getFormulaResult(params);
     }
 }

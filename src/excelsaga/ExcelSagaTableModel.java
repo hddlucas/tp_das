@@ -1,7 +1,6 @@
 package excelsaga;
 
 import bll.commands.Cell;
-import bll.commands.CommandManager;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
 import java.util.Vector;
@@ -25,7 +24,7 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
 
-    public static final int COLS = 15;
+    public static final int COLS = 50;
     public static final int ROWS = 20;
 
     public ExcelSagaTableModel(JTable excelTable, JScrollPane jScrollExcelTable) {
@@ -158,27 +157,43 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     @Override
     public Object getValueAt(int row, int column) {
         Vector rowVector = (Vector) dataVector.elementAt(row);
-        return rowVector.elementAt(column);
+        Object aValue = rowVector.elementAt(column);
+
+        //formula
+        if (aValue != null && !"".equals(aValue.toString())) {
+            if (aValue.toString().charAt(0) == '=') {
+                try {
+                    String[] formula = aValue.toString().split(" ", 2);
+                    //System.out.println(Arrays.toString(formula));
+                    String formulaName = formula[0].replace("=", "").toUpperCase();
+                    aValue = Facade.applyFormula(formulaName, formula[1].split(" "));
+                } catch (Exception ex) {
+                }
+            }
+        }
+
+        return aValue;
     }
 
     @Override
     public void setValueAt(Object aValue, int row, int column) {
-        Object data = getValueAt(row, column);
-        
         //execute command
-        Cell cell = new Cell(row, column, data);
+        Cell cell = new Cell(row, column, aValue);
         Facade.execute(cell);
 
         Vector rowVector = (Vector) dataVector.elementAt(row);
         rowVector.setElementAt(aValue, column);
-        fireTableCellUpdated(row, column);
+        //fireTableCellUpdated(row, column);
+        fireTableDataChanged();
+
     }
 
     public void setValueAt(Object aValue, int row, int column, boolean change) {
         if (change) {
             Vector rowVector = (Vector) dataVector.elementAt(row);
             rowVector.setElementAt(aValue, column);
-            fireTableCellUpdated(row, column);
+            //fireTableCellUpdated(row, column);
+            fireTableDataChanged();
         }
     }
 
