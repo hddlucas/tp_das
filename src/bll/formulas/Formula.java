@@ -16,7 +16,7 @@ public abstract class Formula {
     protected int rowIndex;
     protected String columnName;
     
-    public abstract void validateNumberOfParams(String[] params);
-    public abstract String getFormulaResult(String[] params);
+    public abstract void validateNumberOfParams(String[] params,boolean rangeInterval);
+    public abstract String getFormulaResult(String[] params,boolean rangeInterval);
     
 }

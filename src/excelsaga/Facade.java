@@ -98,9 +98,9 @@ public class Facade {
         builder.tableExporter();
     }
     
-    public static String applyFormula(String formulaName,String[] params){
+    public static String applyFormula(String formulaName,String[] params,boolean rangeInterval){
         FormulaFactory formulaFactory = new FormulaFactory();
         Formula formula = formulaFactory.getFormula(formulaName);
-        return formula.getFormulaResult(params);
+        return formula.getFormulaResult(params,rangeInterval);
     }
 }

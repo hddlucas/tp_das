@@ -14,19 +14,19 @@ import static gui.ExcelSaga.excelSagaTableModel;
 public class FormulaNumber extends Formula{
 
      @Override
-    public String getFormulaResult(String[] params) {
+    public String getFormulaResult(String[] params,boolean rangeInterval) {
         try {
-            validateNumberOfParams(params);
+            validateNumberOfParams(params,rangeInterval);
 
-            columnName = params[0].replaceAll("\\d", "");
+            columnName = params[0].replaceAll("\\d", "").toUpperCase();
             columnIndex= excelSagaTableModel.findColumn(columnName);
             rowIndex = Integer.parseInt( params[0].replaceAll("\\D+",""));
 
-            Double number=Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex-1, columnIndex).toString());
-            newCellValue=number.toString();
+            double number=Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex-1, columnIndex).toString());
+            newCellValue=String.valueOf(number);
             
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Out of Bounds Exc. Expected Number of Parameters is 1");
+            System.out.println(e.getMessage());
             return invalidFormula;
         } catch (Exception e) {
             return invalidFormula;
@@ -36,7 +36,7 @@ public class FormulaNumber extends Formula{
     }
 
     @Override
-    public void validateNumberOfParams(String[] params) throws ArrayIndexOutOfBoundsException {
+    public void validateNumberOfParams(String[] params,boolean rangeInterval) throws ArrayIndexOutOfBoundsException {
         if (params.length != 1) {
             throw new ArrayIndexOutOfBoundsException("Out of Bounds Exc. Size is 1");
         }

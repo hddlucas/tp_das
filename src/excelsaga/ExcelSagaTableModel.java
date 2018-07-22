@@ -3,6 +3,7 @@ package excelsaga;
 import bll.commands.Cell;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
@@ -166,7 +167,16 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
                     String[] formula = aValue.toString().split(" ", 2);
                     //System.out.println(Arrays.toString(formula));
                     String formulaName = formula[0].replace("=", "").toUpperCase();
-                    aValue = Facade.applyFormula(formulaName, formula[1].split(" "));
+                    String[]params;
+                    if(formula[1].contains(":")){
+                        params=formula[1].split(":");
+                        aValue = Facade.applyFormula(formulaName,params,true);
+                    }
+                    else{
+                        params=formula[1].split(" ");
+                        aValue = Facade.applyFormula(formulaName,params,false);
+                    }
+                    //System.out.println(Arrays.toString(params));
                 } catch (Exception ex) {
                 }
             }
