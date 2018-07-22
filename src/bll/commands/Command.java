@@ -13,7 +13,8 @@ import excelsaga.ExcelSagaTableModel;
  */
 public interface Command {
     
-    void execute(Cell cell);
-    void undo(Cell cell);
-    
+    void execute();
+    void undo();
+    void redo();
+
 }

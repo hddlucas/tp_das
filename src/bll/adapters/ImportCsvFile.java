@@ -24,7 +24,6 @@ public class ImportCsvFile extends ImportFile {
 
         Vector<Vector> rowData = new Vector<Vector>();
         String line = "";
-        String cvsSplitBy = ",";
         int i=0;
         try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
 

@@ -81,6 +81,11 @@ public class Facade {
         cm.undo();
     }
     
+    public static void redo() {
+        cm.redo();
+    }
+    
+    
     public static void importFile(File file,String extension){
         new ImportFileAdapter(extension).importFile(file);
     }

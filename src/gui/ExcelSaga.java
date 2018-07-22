@@ -7,6 +7,8 @@ import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -31,17 +33,19 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     private JFrame frame = new JFrame("ExcelSaga");
     public static ExcelSagaTableModel excelSagaTableModel;
-
+    ExcelSagaTableModelListener excelSagaTableModelListener;
     /**
      * Creates new form ExcelSaga
      */
     public ExcelSaga() {
         initComponents();
-
         //inicializate excelTable
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
-
+        
+        excelSagaTableModelListener=new ExcelSagaTableModelListener(excelTable);
+        excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
+        
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -323,11 +327,13 @@ public class ExcelSaga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStepBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepBackActionPerformed
+        excelTable.getModel().removeTableModelListener(excelSagaTableModelListener);
         Facade.undo();
     }//GEN-LAST:event_jButtonStepBackActionPerformed
 
     private void jButtonStepForwardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStepForwardActionPerformed
-        JOptionPane.showMessageDialog(null, "Step Forward");
+        excelTable.getModel().removeTableModelListener(excelSagaTableModelListener);
+        Facade.redo();
     }//GEN-LAST:event_jButtonStepForwardActionPerformed
 
     private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
@@ -368,6 +374,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
+
     }//GEN-LAST:event_jMenuItemNewActionPerformed
     private void jMenuItemExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportActionPerformed
         //CREATE FILE CHOOSER

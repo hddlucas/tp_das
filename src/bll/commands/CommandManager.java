@@ -16,17 +16,12 @@ public class CommandManager {
 
     List<Command> undoList = new ArrayList<>();
     List<Command> redoList = new ArrayList<>();
-    Cell cell;
 
     public CommandManager() {
     }
 
-    public CommandManager(Cell cell) {
-        this.cell = cell;
-    }
-
     public void execute(Command c) {
-        c.execute(cell);
+        c.execute();
         redoList.clear();
         undoList.add(c);
     }
@@ -36,7 +31,16 @@ public class CommandManager {
             return;
         }
         Command last = undoList.remove(undoList.size() - 1);
-        last.undo(cell);
+        last.undo();
         redoList.add(last);
+    }
+    
+     public void redo() {
+        if (redoList.isEmpty()) {
+            return;
+        }
+        Command next = redoList.remove(redoList.size() - 1);
+        next.redo();
+        undoList.add(next);
     }
 }

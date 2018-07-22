@@ -12,23 +12,40 @@ import static gui.ExcelSaga.excelSagaTableModel;
  *
  * @author hdlucas
  */
-public class CellValueChange implements Command{
-    protected Cell current;
-    protected Cell previous;
+public class CellValueChange implements Command {
+
+    protected Object value, savedValue;
+    int row, col;
     protected Cell cell;
 
-    public CellValueChange(Cell cell){
-        current = cell;
+    public CellValueChange(Cell cell) {
+        this.cell = cell;
     }
-    
+
     @Override
-    public void execute(Cell cell) {
+    public void execute() {
+        this.value = excelSagaTableModel.getValueAt(row, col);
+        System.out.println(this.value);
+        this.row = cell.getRow();
+        this.col = cell.getColumn();
+        System.out.println("Row: " + row + "Column: " + col);
 
     }
 
     @Override
-    public void undo(Cell cell) {
-        current = previous;
-        excelSagaTableModel.setValueAt(previous.getValue(), previous.getRow(), previous.getColumn());
+    public void undo() {
+        savedValue = excelSagaTableModel.getValueAt(row, col);
+        System.out.println(savedValue);
+        excelSagaTableModel.setValueAt(value, row, col);
+    }
+
+    @Override
+    public void redo() {
+        if (savedValue != null) {
+            System.out.println(savedValue);
+
+            excelSagaTableModel.setValueAt(savedValue, row, col);
+            savedValue = null;
+        }
     }
 }
