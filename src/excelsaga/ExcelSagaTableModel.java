@@ -1,9 +1,9 @@
 package excelsaga;
 
+import bll.commands.Cell;
+import bll.commands.CommandManager;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
@@ -27,9 +27,9 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
 
     public static final int COLS = 15;
     public static final int ROWS = 20;
-    
-    public ExcelSagaTableModel(JTable excelTable,JScrollPane  jScrollExcelTable) {
-        this(0, 0,excelTable,jScrollExcelTable);
+
+    public ExcelSagaTableModel(JTable excelTable, JScrollPane jScrollExcelTable) {
+        this(0, 0, excelTable, jScrollExcelTable);
     }
 
     private static Vector newVector(int size) {
@@ -38,18 +38,18 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         return v;
     }
 
-    public ExcelSagaTableModel(int rowCount, int columnCount,JTable excelTable,JScrollPane  jScrollExcelTable) {
-        this(newVector(columnCount), rowCount,excelTable,jScrollExcelTable);
+    public ExcelSagaTableModel(int rowCount, int columnCount, JTable excelTable, JScrollPane jScrollExcelTable) {
+        this(newVector(columnCount), rowCount, excelTable, jScrollExcelTable);
     }
 
-    public ExcelSagaTableModel(Vector columnNames, int rowCount,JTable excelTable, JScrollPane  jScrollExcelTable) {
-        this.excelTable=excelTable;
-        this.jScrollExcelTable=jScrollExcelTable;
+    public ExcelSagaTableModel(Vector columnNames, int rowCount, JTable excelTable, JScrollPane jScrollExcelTable) {
+        this.excelTable = excelTable;
+        this.jScrollExcelTable = jScrollExcelTable;
         setDataVector(newVector(rowCount), columnNames);
     }
 
-    public ExcelSagaTableModel(Object[] columnNames, int rowCount,JTable excelTable,JScrollPane  jScrollExcelTable) {
-        this(convertToVector(columnNames), rowCount,excelTable,jScrollExcelTable);
+    public ExcelSagaTableModel(Object[] columnNames, int rowCount, JTable excelTable, JScrollPane jScrollExcelTable) {
+        this(convertToVector(columnNames), rowCount, excelTable, jScrollExcelTable);
     }
 
     public ExcelSagaTableModel(Vector data, Vector columnNames) {
@@ -69,14 +69,13 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     }
 
     public void setDataVector(Vector dataVector, Vector columnIdentifiers) {
-    
         this.dataVector = nonNullVector(dataVector);
         this.columnIdentifiers = nonNullVector(columnIdentifiers);
-      
+
         justifyRows(0, getRowCount());
         fireTableStructureChanged();
-        
-           //headers
+
+        //headers
         excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         excelTable.setShowGrid(true);
         ListModel lm = getHeaders();
@@ -86,7 +85,7 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
                 + excelTable.getRowMargin());
 
         rowHeader.setCellRenderer(new RowHeaderRenderer(excelTable));
-        
+
         jScrollExcelTable.setRowHeaderView(rowHeader);
     }
 
@@ -164,9 +163,23 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
 
     @Override
     public void setValueAt(Object aValue, int row, int column) {
+        Object data = getValueAt(row, column);
+        
+        //execute command
+        Cell cell = new Cell(row, column, data);
+        Facade.execute(cell);
+
         Vector rowVector = (Vector) dataVector.elementAt(row);
         rowVector.setElementAt(aValue, column);
         fireTableCellUpdated(row, column);
+    }
+
+    public void setValueAt(Object aValue, int row, int column, boolean change) {
+        if (change) {
+            Vector rowVector = (Vector) dataVector.elementAt(row);
+            rowVector.setElementAt(aValue, column);
+            fireTableCellUpdated(row, column);
+        }
     }
 
     public ListModel getHeaders() {
@@ -209,5 +222,4 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         }
         return v;
     }
-    
 }

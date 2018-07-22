@@ -5,46 +5,39 @@
  */
 package bll.commands;
 
-import excelsaga.ExcelSagaTableModel;
 import static gui.ExcelSaga.excelSagaTableModel;
 
 /**
  *
  * @author hdlucas
  */
-public class CellValueChange implements Command {
+public class CellValueChangeCommand implements Command {
 
     protected Object value, savedValue;
     int row, col;
     protected Cell cell;
 
-    public CellValueChange(Cell cell) {
+    public CellValueChangeCommand(Cell cell) {
         this.cell = cell;
     }
 
     @Override
     public void execute() {
-        this.value = excelSagaTableModel.getValueAt(row, col);
-        System.out.println(this.value);
         this.row = cell.getRow();
         this.col = cell.getColumn();
-        System.out.println("Row: " + row + "Column: " + col);
-
+        this.value = excelSagaTableModel.getValueAt(row, col);
     }
 
     @Override
     public void undo() {
         savedValue = excelSagaTableModel.getValueAt(row, col);
-        System.out.println(savedValue);
-        excelSagaTableModel.setValueAt(value, row, col);
+        excelSagaTableModel.setValueAt(value, row, col,true);
     }
 
     @Override
     public void redo() {
         if (savedValue != null) {
-            System.out.println(savedValue);
-
-            excelSagaTableModel.setValueAt(savedValue, row, col);
+            excelSagaTableModel.setValueAt(savedValue, row, col,true);
             savedValue = null;
         }
     }

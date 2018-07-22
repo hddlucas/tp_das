@@ -43,8 +43,8 @@ public class ExcelSaga extends javax.swing.JFrame {
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
         
-        excelSagaTableModelListener=new ExcelSagaTableModelListener(excelTable);
-        excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
+        //excelSagaTableModelListener=new ExcelSagaTableModelListener(excelTable);
+        //excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
         
         // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

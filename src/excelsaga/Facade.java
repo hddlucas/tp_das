@@ -8,7 +8,7 @@ package excelsaga;
 import bll.adapters.ImportFileAdapter;
 import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
-import bll.commands.CellValueChange;
+import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
@@ -73,7 +73,7 @@ public class Facade {
     }
 
     public static void execute(Cell cell) {
-        CellValueChange command = new CellValueChange(cell);
+        CellValueChangeCommand command = new CellValueChangeCommand(cell);
         cm.execute(command);
     }
 
