@@ -25,8 +25,8 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
 
-    public static final int COLS = 50;
-    public static final int ROWS = 20;
+    public static final int COLS = 5;
+    public static final int ROWS = 25;
 
     public ExcelSagaTableModel(JTable excelTable, JScrollPane jScrollExcelTable) {
         this(0, 0, excelTable, jScrollExcelTable);
