@@ -24,6 +24,7 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
                 "  border: 1px solid #4CA361;\n" +
                 "  background-color: #EEEEEE;\n" +
                 "  width: 100%;\n" +
+                "  border-collapse: collapse;\n" +
                 "  text-align: left;\n" +
                 "}\n" +
                 "table.blueTable th {\n" +
