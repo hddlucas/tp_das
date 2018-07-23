@@ -21,27 +21,30 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
     
     private String cssString = "<style>\n" + 
             "table.blueTable {\n" +
-                "  border: 1px solid #1C6EA4;\n" +
+                "  border: 1px solid #4CA361;\n" +
                 "  background-color: #EEEEEE;\n" +
                 "  width: 100%;\n" +
                 "  text-align: left;\n" +
-                "  border-collapse: collapse;\n" +
+                "}\n" +
+                "table.blueTable th {\n" +
+                "  background: #4CA361;\n" +
                 "}\n" +
                 "table.blueTable td, table.blueTable th {\n" +
                 "  border: 1px solid #AAAAAA;\n" +
                 "  padding: 3px 2px;\n" +
+                "  text-align:center" +
                 "}\n" +
                 "table.blueTable tbody td {\n" +
                 "  font-size: 13px;\n" +
                 "}\n" +
                 "table.blueTable tr:nth-child(even) {\n" +
-                "  background: #D0E4F5;\n" +
+                "  background: none;\n" +
                 "}\n" +
                 "table.blueTable thead {\n" +
-                "  background: #1C6EA4;\n" +
-                "  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);\n" +
-                "  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);\n" +
-                "  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);\n" +
+                "  background: #4CA361;\n" +
+                "  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #4CA361 100%);\n" +
+                "  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #4CA361 100%);\n" +
+                "  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #4CA361 100%);\n" +
                 "  border-bottom: 2px solid #444444;\n" +
                 "}\n" +
                 "table.blueTable thead th {\n" +
@@ -72,7 +75,7 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
                 "}\n" +
                 "table.blueTable tfoot .links a{\n" +
                 "  display: inline-block;\n" +
-                "  background: #1C6EA4;\n" +
+                "  background: #4CA361;\n" +
                 "  color: #FFFFFF;\n" +
                 "  padding: 2px 8px;\n" +
                 "  border-radius: 5px;\n" +
@@ -85,6 +88,7 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
             + cssString 
             + "</head>\n"
             + "<body>\n"
+            + "<h1 style=text-align:center>Excel Saga</h1>\n"
             + "\n"
             + "<table class=\"blueTable\">\n";
         
@@ -112,7 +116,7 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
         
         String columnName = "";
         
-        String nameColumns = "<tr><td style=\"width:10px\">Row\\Column</td>";
+        String nameColumns = "<tr><td style=\"width:10px\"></td>";
         for (int cn =0 ;cn<excelSagaTableModel.getColumnCount();cn++){
             columnName = excelSagaTableModel.getColumnName(cn);
             nameColumns += "<th>" + columnName + "</th>";
