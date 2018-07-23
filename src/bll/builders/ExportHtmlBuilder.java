@@ -109,16 +109,32 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
         writer.append(fileHeader);
        
         Vector<Vector> rowData = excelSagaTableModel.getDataVector();
-              
-        for (int x =0 ;x<rowData.size();x++){
+        
+        String columnName = "";
+        
+        String nameColumns = "<tr><td style=\"width:10px\">Row\\Column</td>";
+        for (int cn =0 ;cn<excelSagaTableModel.getColumnCount();cn++){
+            columnName = excelSagaTableModel.getColumnName(cn);
+            nameColumns += "<th>" + columnName + "</th>";
+        }
+        
+        
+        
+        nameColumns += "</th>";
+        
+        writer.append(nameColumns);
+        
+        Integer rowNumber;
+        for (Integer x =0 ;x<rowData.size();x++){
             toAppend += "<tr>";
-            for(int k=0;k<rowData.get(x).size();k++){
+            rowNumber = x+1;
+            toAppend += "<td>" + rowNumber.toString() + "</td>";
+            for(Integer k=0;k<rowData.get(x).size();k++){
                
                 String cellValue = (String) rowData.get(x).get(k);
                 if(cellValue == null) {
-                    cellValue = " ";
+                    cellValue = "&nbsp;";
                 }
-                
                 toAppend += "<td>" + cellValue + "</td>";
                 //if (k != (excelSagaTableModel.getColumnCount() - 1)) {
                 //    writer.append(",");
