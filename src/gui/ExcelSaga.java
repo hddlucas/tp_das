@@ -5,25 +5,18 @@ import static excelsaga.ExcelSagaTableModel.COLS;
 import static excelsaga.ExcelSagaTableModel.ROWS;
 import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.Preferences;
 import javax.swing.JFrame;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.TableModelEvent;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
@@ -42,42 +35,49 @@ public class ExcelSaga extends javax.swing.JFrame {
         //inicializate excelTable
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
-        
+        excelTable.setShowGrid(true);
+
         //excelSagaTableModelListener=new ExcelSagaTableModelListener(excelTable);
         //excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
         
-        // get the screen size as a java dimension
+        //auto adjust table columns 
+        excelTable.getParent().addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                if (excelTable.getPreferredSize().width < excelTable.getParent().getWidth()) {
+                    excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+                } else {
+                    excelTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                }
+            }
+        });
+        
+        //horizontal/vertical jscroll policy
+        jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        
+        //logged user
+        jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
+        
+        //menu 
+        frame.setJMenuBar(jMenuBar);
+        jMenuBar.setVisible(true);
+        
+            // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         int height = screenSize.height * 2 / 3;
         int width = screenSize.width * 2 / 3;
-
+        
         frame.getContentPane().add(panelExcel);
-
         frame.setPreferredSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
-        //menu 
-        frame.setJMenuBar(jMenuBar);
-        jMenuBar.setVisible(true);
-
-//        int index = 0;
-//        while (index < COLS) {
-//            TableColumn a = excelTable.getColumnModel().getColumn(index);
-//            Dimension d = excelTable.getPreferredSize();
-//            d.width = d.width + 180;
-//            excelTable.setPreferredSize(d);
-//            jScrollExcelTable.setPreferredSize(d);
-//            index += 1;
-//        }
-        jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        //logged user
-        jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
-
+        
         frame.pack();
         frame.setVisible(true);
+        
     }
 
     /**
