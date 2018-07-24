@@ -16,36 +16,36 @@ import java.util.Vector;
  *
  * @author hdlucas
  */
-public class ImportCsvFile extends ImportFile {
+public class ImportTxtFile extends ImportFile {
 
     @Override
     public void importFile(File file) {
-       
         Vector<Vector> rowData = new Vector<Vector>();
         String line = "";
-        int i=0;
+        int i = 0;
+        int x = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(file.getAbsolutePath()))) {
-
+            line = br.readLine();
             while ((line = br.readLine()) != null) {
-             Vector<String> row = new Vector<String>();
-                // use comma as separator
-                String[] columns = line.split(",",-1);
-                
-                for(i=0;i<columns.length;i++){
-                    System.out.print(columns[i]+ " , ");
-                    row.addElement(columns[i]);
+                if (x % 2 != 0) {
+                    Vector<String> row = new Vector<String>();
+                    String[] columns = line.split("\\|");
+                    for (i = 1; i < columns.length; i++) {
+                        columns[i] = columns[i].replaceAll("\\s+", "");
+                        row.addElement(columns[i]);
+                    }
+                    rowData.add(row);
+                    System.out.println();
                 }
-                rowData.add(row);
-                System.out.println();
+                x++;
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         Vector<String> columnNames = new Vector<String>();
-        for(int j=0;j<i;j++){
-            columnNames.addElement("Column "+j);
+        for (int j = 0; j < i; j++) {
+            columnNames.addElement("Column " + j);
         }
         
         excelSagaTableModel.setDataVector(rowData,columnNames);

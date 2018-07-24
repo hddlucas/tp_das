@@ -345,6 +345,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV", "csv"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("TXT", "txt"));
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setSelectedFile(new File(""));
         chooser.setAcceptAllFileFilterUsed(false);
