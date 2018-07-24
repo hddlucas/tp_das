@@ -12,12 +12,12 @@ package bll.formulas;
 public class FormulaMul extends Formula{
 
     @Override
-    public String getFormulaResult(String[] params){
+    public String getFormulaResult(String[] params,boolean rangeInterval){
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void validateNumberOfParams(String[] params) {
+    public void validateNumberOfParams(String[] params,boolean rangeInterval) throws ArrayIndexOutOfBoundsException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

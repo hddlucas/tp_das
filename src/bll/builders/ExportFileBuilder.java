@@ -15,7 +15,7 @@ public abstract class ExportFileBuilder {
 
     public static ExportFileBuilder getBuilderByType(String t) throws Exception {
         if (t.equalsIgnoreCase("txt")) {
-            //return new TextFileBuilder();
+            return new ExportTxtBuilder();
         } else if (t.equalsIgnoreCase("csv")) {
             return new ExportCsvBuilder();
         } else if (t.equalsIgnoreCase("html")) {
@@ -26,7 +26,6 @@ public abstract class ExportFileBuilder {
         else {
             throw new IllegalArgumentException("Invalid File Extension");
         }
-        return null;
     }
 
     public abstract ExportFileBuilder setFile(File file);

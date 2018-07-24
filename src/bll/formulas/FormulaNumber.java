@@ -5,20 +5,41 @@
  */
 package bll.formulas;
 
+import static gui.ExcelSaga.excelSagaTableModel;
+
 /**
  *
  * @author hdlucas
  */
 public class FormulaNumber extends Formula{
 
-    @Override
-    public String getFormulaResult(String[] params){
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     @Override
+    public String getFormulaResult(String[] params,boolean rangeInterval) {
+        try {
+            validateNumberOfParams(params,rangeInterval);
+
+            columnName = params[0].replaceAll("\\d", "").toUpperCase();
+            columnIndex= excelSagaTableModel.findColumn(columnName);
+            rowIndex = Integer.parseInt( params[0].replaceAll("\\D+",""));
+
+            double number=Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex-1, columnIndex).toString());
+            newCellValue=String.valueOf(number);
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            return invalidFormula;
+        } catch (Exception e) {
+            return invalidFormula;
+        }
+        
+        return newCellValue;
     }
 
     @Override
-    public void validateNumberOfParams(String[] params) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void validateNumberOfParams(String[] params,boolean rangeInterval) throws ArrayIndexOutOfBoundsException {
+        if (params.length != 1) {
+            throw new ArrayIndexOutOfBoundsException("Out of Bounds Exc. Size is 1");
+        }
     }
     
 }
