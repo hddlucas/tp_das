@@ -26,7 +26,7 @@ public class NormalMode implements ViewStrategy{
                     String[]params;
                     if(formula[1].contains(":")){
                         params=formula[1].split(":");
-                        //aValue = Facade.applyFormula(formulaName,params,true);
+                        aValue = Facade.applyFormula(formulaName,params,true);
                     }
                     else{
                         params=formula[1].split(" ");
