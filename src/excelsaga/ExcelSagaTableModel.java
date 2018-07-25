@@ -1,6 +1,7 @@
 package excelsaga;
 
 import bll.commands.Cell;
+import bll.strategy.ViewStrategy;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -24,6 +25,12 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected int[] headers;
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
+    private ViewStrategy strategy;
+
+    //View Strategy
+    public void setStrategy(ViewStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public static final int COLS = 5;
     public static final int ROWS = 25;

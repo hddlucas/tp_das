@@ -12,9 +12,11 @@ import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
 import bll.formulas.Formula;
 import bll.formulas.FormulaFactory;
+import bll.strategy.ViewStrategy;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
 import data.Models.User;
+import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,5 +104,9 @@ public class Facade {
         FormulaFactory formulaFactory = new FormulaFactory();
         Formula formula = formulaFactory.getFormula(formulaName);
         return formula.getFormulaResult(params,rangeInterval);
+    }
+    
+    public static void setViewMode(ViewStrategy viewStrategy){
+        excelSagaTableModel.setStrategy(viewStrategy);
     }
 }

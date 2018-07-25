@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bll.views;
+package bll.strategy;
+
+import bll.commands.Cell;
 
 /**
  *
  * @author hdlucas
  */
-public class View {
-    
+public interface ViewStrategy {
+    public String getCellValue(Cell c);
 }
