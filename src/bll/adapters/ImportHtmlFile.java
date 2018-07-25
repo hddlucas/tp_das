@@ -8,7 +8,6 @@ package bll.adapters;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
@@ -61,8 +60,6 @@ public class ImportHtmlFile extends ImportFile {
                 rowData.add(rowVector);
             }
             
-            String x="1";
-
         } catch (IOException ex) {
             Logger.getLogger(ImportHtmlFile.class.getName()).log(Level.SEVERE, null, ex);
         }

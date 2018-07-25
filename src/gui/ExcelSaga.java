@@ -41,7 +41,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         //excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
         
         //auto adjust table columns 
-        excelTable.getParent().addComponentListener(new ComponentAdapter() {
+        excelTable.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
                 if (excelTable.getPreferredSize().width < excelTable.getParent().getWidth()) {
