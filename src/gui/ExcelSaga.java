@@ -397,6 +397,15 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
+        
+        Facade.setViewMode(new NormalMode());
+        jToggleButtonNormalMode.setSelected(true);
+        jToggleButtonNormalMode.setBackground(new java.awt.Color(76,163,97));
+        jToggleButtonNormalMode.setForeground(Color.WHITE);
+        
+        jToggleButtonFunctionallMode.setSelected(false);
+        jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
+        jToggleButtonFunctionallMode.setForeground(Color.BLACK);
 
     }//GEN-LAST:event_jMenuItemNewActionPerformed
     private void jMenuItemExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExportActionPerformed

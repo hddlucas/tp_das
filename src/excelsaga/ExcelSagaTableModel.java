@@ -166,7 +166,7 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     public Object getValueAt(int row, int column) {
         Vector rowVector = (Vector) dataVector.elementAt(row);
         Object aValue = rowVector.elementAt(column);
-
+        
         aValue=strategy.getCellValue(row, column, aValue);
 
         return aValue;
