@@ -12,5 +12,5 @@ import bll.commands.Cell;
  * @author hdlucas
  */
 public interface ViewStrategy {
-    public String getCellValue(Cell c);
+    Object getCellValue(int row,int column,Object aValue);
 }

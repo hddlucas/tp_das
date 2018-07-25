@@ -6,6 +6,7 @@
 package bll.strategy;
 
 import bll.commands.Cell;
+import excelsaga.Facade;
 
 /**
  *
@@ -14,8 +15,30 @@ import bll.commands.Cell;
 public class NormalMode implements ViewStrategy{
 
     @Override
-    public String getCellValue(Cell c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getCellValue(int row,int column,Object aValue){
+        //formula
+        if (aValue != null && !"".equals(aValue.toString())) {
+            if (aValue.toString().charAt(0) == '=') {
+                try {
+                    String[] formula = aValue.toString().split(" ", 2);
+                    //System.out.println(Arrays.toString(formula));
+                    String formulaName = formula[0].replace("=", "").toUpperCase();
+                    String[]params;
+                    if(formula[1].contains(":")){
+                        params=formula[1].split(":");
+                        //aValue = Facade.applyFormula(formulaName,params,true);
+                    }
+                    else{
+                        params=formula[1].split(" ");
+                        aValue = Facade.applyFormula(formulaName,params,false);
+                    }
+                    //System.out.println(Arrays.toString(params));
+                } catch (Exception ex) {
+                }
+            }
+        }
+        
+        return aValue;
     }
     
 }

@@ -14,8 +14,8 @@ import bll.commands.Cell;
 public class FunctionalMode implements ViewStrategy{
 
     @Override
-    public String getCellValue(Cell c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getCellValue(int row,int column,Object aValue){
+        return aValue;
     }
     
 }

@@ -210,7 +210,7 @@ public class ExcelSaga extends javax.swing.JFrame {
             }
         });
 
-        jLabelLoggedInUser.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelLoggedInUser.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelLoggedInUser.setText("Logged User");
 
         javax.swing.GroupLayout panelExcelLayout = new javax.swing.GroupLayout(panelExcel);
@@ -492,6 +492,9 @@ public class ExcelSaga extends javax.swing.JFrame {
         button.setForeground(Color.white);
         jToggleButtonNormalMode.setBackground(panelExcel.getBackground());
         jToggleButtonNormalMode.setForeground(Color.BLACK);
+        
+        excelSagaTableModel.fireTableDataChanged();
+
     }//GEN-LAST:event_jToggleButtonFunctionallModeActionPerformed
 
     private void jToggleButtonNormalModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNormalModeActionPerformed
@@ -502,6 +505,9 @@ public class ExcelSaga extends javax.swing.JFrame {
         button.setForeground(Color.white);
         jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
         jToggleButtonFunctionallMode.setForeground(Color.BLACK);       
+        
+        excelSagaTableModel.fireTableDataChanged();
+
     }//GEN-LAST:event_jToggleButtonNormalModeActionPerformed
 
 
