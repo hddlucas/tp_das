@@ -32,7 +32,6 @@ public class ImportCsvFile extends ImportFile {
                 String[] columns = line.split(",",-1);
                 
                 for(i=0;i<columns.length;i++){
-                    System.out.print(columns[i]+ " , ");
                     row.addElement(columns[i]);
                 }
                 rowData.add(row);

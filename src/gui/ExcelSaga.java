@@ -346,6 +346,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV", "csv"));
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("TXT", "txt"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("HTML", "html"));
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setSelectedFile(new File(""));
         chooser.setAcceptAllFileFilterUsed(false);
