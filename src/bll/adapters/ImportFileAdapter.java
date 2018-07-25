@@ -21,6 +21,12 @@ public class ImportFileAdapter extends ImportFile{
         }else if(fileExtension.equalsIgnoreCase("excelSaga")){
             fileReaderDecorated = new ImportObjectFile();
         }
+        else if (fileExtension.equalsIgnoreCase("txt")){
+            fileReaderDecorated = new ImportTxtFile();
+        }
+        else if (fileExtension.equalsIgnoreCase("html")){
+            fileReaderDecorated = new ImportHtmlFile();
+        }
     }
 
     @Override

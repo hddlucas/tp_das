@@ -1,6 +1,7 @@
 package excelsaga;
 
 import bll.commands.Cell;
+import bll.strategy.ViewStrategy;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -24,6 +25,12 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected int[] headers;
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
+    private ViewStrategy strategy;
+
+    //View Strategy
+    public void setStrategy(ViewStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public static final int COLS = 5;
     public static final int ROWS = 25;
@@ -160,27 +167,7 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         Vector rowVector = (Vector) dataVector.elementAt(row);
         Object aValue = rowVector.elementAt(column);
 
-        //formula
-        if (aValue != null && !"".equals(aValue.toString())) {
-            if (aValue.toString().charAt(0) == '=') {
-                try {
-                    String[] formula = aValue.toString().split(" ", 2);
-                    //System.out.println(Arrays.toString(formula));
-                    String formulaName = formula[0].replace("=", "").toUpperCase();
-                    String[]params;
-                    if(formula[1].contains(":")){
-                        params=formula[1].split(":");
-                        aValue = Facade.applyFormula(formulaName,params,true);
-                    }
-                    else{
-                        params=formula[1].split(" ");
-                        aValue = Facade.applyFormula(formulaName,params,false);
-                    }
-                    //System.out.println(Arrays.toString(params));
-                } catch (Exception ex) {
-                }
-            }
-        }
+        aValue=strategy.getCellValue(row, column, aValue);
 
         return aValue;
     }

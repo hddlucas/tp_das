@@ -1,5 +1,7 @@
 package gui;
 
+import bll.strategy.FunctionalMode;
+import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
 import static excelsaga.ExcelSagaTableModel.COLS;
 import static excelsaga.ExcelSagaTableModel.ROWS;
@@ -25,6 +27,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ExcelSaga extends javax.swing.JFrame {
 
     private JFrame frame = new JFrame("ExcelSaga");
+    private NormalMode normalMode = new NormalMode();
+    private FunctionalMode functionalMode = new FunctionalMode();
+
     public static ExcelSagaTableModel excelSagaTableModel;
     ExcelSagaTableModelListener excelSagaTableModelListener;
     /**
@@ -41,7 +46,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         //excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
         
         //auto adjust table columns 
-        excelTable.getParent().addComponentListener(new ComponentAdapter() {
+        excelTable.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
                 if (excelTable.getPreferredSize().width < excelTable.getParent().getWidth()) {
@@ -51,6 +56,13 @@ public class ExcelSaga extends javax.swing.JFrame {
                 }
             }
         });
+        
+        //default view mode (Normal Mode)
+        Facade.setViewMode(new NormalMode());
+        jToggleButtonNormalMode.setSelected(true);
+        jToggleButtonNormalMode.setBackground(new java.awt.Color(76,163,97));
+        jToggleButtonNormalMode.setForeground(Color.white);
+
         
         //horizontal/vertical jscroll policy
         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -114,6 +126,11 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jToggleButtonFunctionallMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jToggleButtonFunctionallMode.setText("Functional");
+        jToggleButtonFunctionallMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonFunctionallModeActionPerformed(evt);
+            }
+        });
 
         jButtonStepForward.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/step_forward .png"))); // NOI18N
         jButtonStepForward.setBorderPainted(false);
@@ -129,6 +146,11 @@ public class ExcelSaga extends javax.swing.JFrame {
         jToggleButtonNormalMode.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jToggleButtonNormalMode.setSelected(true);
         jToggleButtonNormalMode.setText("Normal");
+        jToggleButtonNormalMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonNormalModeActionPerformed(evt);
+            }
+        });
 
         jLabelViewMode.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabelViewMode.setText("View Mode");
@@ -188,7 +210,7 @@ public class ExcelSaga extends javax.swing.JFrame {
             }
         });
 
-        jLabelLoggedInUser.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabelLoggedInUser.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelLoggedInUser.setText("Logged User");
 
         javax.swing.GroupLayout panelExcelLayout = new javax.swing.GroupLayout(panelExcel);
@@ -201,26 +223,29 @@ public class ExcelSaga extends javax.swing.JFrame {
                     .addGroup(panelExcelLayout.createSequentialGroup()
                         .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
-                            .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelExcelLayout.createSequentialGroup()
-                                .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1065, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(panelExcelLayout.createSequentialGroup()
-                        .addComponent(jToggleButtonFunctionallMode)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButtonNormalMode)
-                        .addGap(4, 4, 4)
-                        .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 478, Short.MAX_VALUE)
-                        .addComponent(jLabelLoggedInUser)
-                        .addGap(40, 40, 40))))
+                        .addGap(53, 53, 53)
+                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelExcelLayout.createSequentialGroup()
+                                .addComponent(jLabelViewMode, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelExcelLayout.createSequentialGroup()
+                                .addComponent(jToggleButtonNormalMode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jToggleButtonFunctionallMode)
+                                .addGap(47, 47, 47)
+                                .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelLoggedInUser)
+                                .addGap(40, 40, 40))))))
         );
         panelExcelLayout.setVerticalGroup(
             panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,20 +254,18 @@ public class ExcelSaga extends javax.swing.JFrame {
                 .addComponent(jLabelViewMode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelExcelLayout.createSequentialGroup()
-                        .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jToggleButtonFunctionallMode)
-                                .addComponent(jToggleButtonNormalMode))
-                            .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelLoggedInUser))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelLoggedInUser)
+                    .addGroup(panelExcelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jToggleButtonFunctionallMode)
+                        .addComponent(jToggleButtonNormalMode))
+                    .addComponent(jButtonStepBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonStepForward, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollExcelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -345,6 +368,8 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.addChoosableFileFilter(new FileNameExtensionFilter("CSV", "csv"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("TXT", "txt"));
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("HTML", "html"));
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setSelectedFile(new File(""));
         chooser.setAcceptAllFileFilterUsed(false);
@@ -458,6 +483,32 @@ public class ExcelSaga extends javax.swing.JFrame {
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
+
+    private void jToggleButtonFunctionallModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFunctionallModeActionPerformed
+        Facade.setViewMode(functionalMode);
+
+        JToggleButton button = (JToggleButton)evt.getSource();
+        button.setBackground(new java.awt.Color(76,163,97));
+        button.setForeground(Color.white);
+        jToggleButtonNormalMode.setBackground(panelExcel.getBackground());
+        jToggleButtonNormalMode.setForeground(Color.BLACK);
+        
+        excelSagaTableModel.fireTableDataChanged();
+
+    }//GEN-LAST:event_jToggleButtonFunctionallModeActionPerformed
+
+    private void jToggleButtonNormalModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNormalModeActionPerformed
+        Facade.setViewMode(normalMode);
+
+        JToggleButton button = (JToggleButton)evt.getSource();
+        button.setBackground(new java.awt.Color(76,163,97));
+        button.setForeground(Color.white);
+        jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
+        jToggleButtonFunctionallMode.setForeground(Color.BLACK);       
+        
+        excelSagaTableModel.fireTableDataChanged();
+
+    }//GEN-LAST:event_jToggleButtonNormalModeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

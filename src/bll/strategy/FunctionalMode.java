@@ -3,12 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bll.views;
+package bll.strategy;
+
+import bll.commands.Cell;
 
 /**
  *
  * @author hdlucas
  */
-public class View {
+public class FunctionalMode implements ViewStrategy{
+
+    @Override
+    public Object getCellValue(int row,int column,Object aValue){
+        return aValue;
+    }
     
 }

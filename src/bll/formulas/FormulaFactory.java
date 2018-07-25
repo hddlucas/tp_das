@@ -20,13 +20,8 @@ public class FormulaFactory {
         }
         if (formulaName.equalsIgnoreCase("MINUSCULAS")) {
             return new FormulaLowerCase();
-
         } else if (formulaName.equalsIgnoreCase("SOMA")) {
             return new FormulaSum();
-            
-        } else if (formulaName.equalsIgnoreCase("MUL")) {
-            return new FormulaMul();
-       
         } else if (formulaName.equalsIgnoreCase("NUMERO")) {
             return new FormulaNumber();
         }
