@@ -23,6 +23,12 @@ public class Cell {
         this.value = value;
     }
     
+    public Cell (Cell c) {
+        this.row = c.getRow();
+        this.column = c.getColumn();
+        this.value = c.getValue();
+    }
+    
     //Getters and Setters
     public int getRow() {
         return row;
