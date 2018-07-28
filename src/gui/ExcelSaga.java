@@ -11,6 +11,8 @@ import excelsaga.Facade;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
@@ -33,7 +35,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private NormalMode normalMode = new NormalMode();
     private FunctionalMode functionalMode = new FunctionalMode();
     private List<String> recentFiles;
-
+    private JMenuItem[] recentFileItem;
     public static ExcelSagaTableModel excelSagaTableModel;
     ExcelSagaTableModelListener excelSagaTableModelListener;
 
@@ -74,9 +76,6 @@ public class ExcelSaga extends javax.swing.JFrame {
         //logged user
         jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
 
-        //get recent files
-        getRecentFiles();
-
         //menu 
         frame.setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
@@ -93,24 +92,40 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         frame.pack();
         frame.setVisible(true);
-
     }
 
+    //get recent files 
     private void getRecentFiles() {
-        recentFiles= new ArrayList<>();
+        recentFiles = new ArrayList<>();
         recentFiles = Facade.getRecentFiles();
         jMenuRecentFiles.removeAll();
-        
+
         if (recentFiles.isEmpty()) {
             jMenuRecentFiles.setVisible(false);
         } else {
+            jMenuRecentFiles.setVisible(true);
+            recentFileItem = new JMenuItem[recentFiles.size()];
             for (int i = 0; i < recentFiles.size(); i++) {
                 String filename = recentFiles.get(i);
                 int pos = filename.lastIndexOf(".");
                 if (pos != -1) {
-                    String name = filename.substring(0, pos);
-                    JMenuItem recentFile = new JMenuItem(name);
-                    jMenuRecentFiles.add(recentFile);
+                    String fileName = filename.substring(0, pos);
+                    recentFileItem[i] = new JMenuItem(fileName);
+                    recentFileItem[i].setName(recentFiles.get(i));
+                    recentFileItem[i].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ev) {
+                            JMenuItem eventSource = (JMenuItem) ev.getSource();
+                            //load file
+                            try {
+                                File selectedFile = new File(eventSource.getName());
+                                String fileName = selectedFile.getName();
+                                Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "A problem occurred while reading the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    });
+                    jMenuRecentFiles.add(recentFileItem[i]);
                 }
             }
         }
