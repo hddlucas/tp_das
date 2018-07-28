@@ -5,10 +5,17 @@
  */
 package data.Controllers;
 
+import data.Models.User;
+import java.io.File;
+import java.util.List;
+
 /**
  *
  * @author hdlucas
  */
 public interface FilesController {
     
+    void saveFile(File file,User loggedInUser) throws Exception;
+    List<String> getRecentFiles(User loggedInUser) throws Exception;
+
 }

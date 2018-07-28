@@ -40,16 +40,16 @@ public class UsersControllerImpl implements UsersController{
     
     //check if user exists on database
     @Override
-    public  boolean login(String name,String password) throws Exception {
+    public  User login(String name,String password) throws Exception {
         try(PreparedStatement statement = DatabaseConnImpl.getInstance()
-                .getConnection().prepareStatement("SELECT NAME FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
+                .getConnection().prepareStatement("SELECT * FROM USER WHERE LOWER(NAME) =? AND PASSWORD = ?")) {
             statement.setString(1, name.toLowerCase());
             statement.setString(2, password);
             try(ResultSet rs = statement.executeQuery()) {
                 if( rs.next() ) {
-                    return true;
+                    return new User(rs.getInt("ID"),rs.getString("NAME"),rs.getString("PASSWORD"));
                 } else {
-                    return false;
+                    return null;
                 }
             }
         }

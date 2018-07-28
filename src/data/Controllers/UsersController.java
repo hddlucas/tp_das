@@ -16,6 +16,6 @@ public interface UsersController {
     
     List<User> getUsersList()  throws Exception ;
     boolean checkIfUserExists(String name) throws Exception;
-    boolean login(String name,String password) throws Exception;
+    User login(String name,String password) throws Exception;
     void create(String name,String password) throws Exception;
 }
