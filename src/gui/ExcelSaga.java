@@ -1,5 +1,6 @@
 package gui;
 
+import bll.commands.Cell;
 import bll.strategy.FunctionalMode;
 import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
@@ -121,6 +122,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuItemExport = new javax.swing.JMenuItem();
         jMenuItemImport = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -328,6 +330,24 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jMenuBar.add(jMenuFile);
 
+        jMenu1.setText("Filtros");
+        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenu1.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenu1MenuSelected(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar.add(jMenu1);
+
         setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -519,6 +539,24 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jToggleButtonNormalModeActionPerformed
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu1MenuSelected
+       
+        int column = excelTable.getSelectedColumn();
+        int row = excelTable.getSelectedRow();
+        
+        if (row == -1 || column == -1) {
+            JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }       
+        
+        FilterWindow fw = new FilterWindow(this, new Cell(row, column, excelSagaTableModel.getValueAt(row, column)));
+        fw.setVisible(true);
+    }//GEN-LAST:event_jMenu1MenuSelected
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable excelTable;
@@ -528,6 +566,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JButton jButtonStepForward;
     private javax.swing.JLabel jLabelLoggedInUser;
     private javax.swing.JLabel jLabelViewMode;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemExit;

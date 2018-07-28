@@ -10,6 +10,8 @@ import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
 import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
+import bll.filters.Filter;
+import bll.filters.FilterFactory;
 import bll.formulas.Formula;
 import bll.formulas.FormulaFactory;
 import bll.strategy.ViewStrategy;
@@ -108,5 +110,33 @@ public class Facade {
     
     public static void setViewMode(ViewStrategy viewStrategy){
         excelSagaTableModel.setStrategy(viewStrategy);
+    }
+    
+    public static Filter addFilter(String name, String param, Cell cellFilter) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        if(f != null) {
+            //CHANGE VALUE OF EXCEL TABLE
+            excelSagaTableModel.setValueAt(f.getChanges(param), cellFilter.getRow(), cellFilter.getColumn(), true);
+           
+            //TODO
+            //DEFINE PARAMETER OF FILTER
+            //f.setParameter(param, f.getChanges(cellFilter.getValue().toString()));
+            //Facade.execute((Cell) f);
+            System.out.println("param : addFilkter = " + param);
+            
+        }
+        return f;
+    }
+    
+    public static void removeFilter(String name, String param, Cell cellFilter) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        if(f != null) {
+            //DEFINE PARAMETER OF FILTER
+            //Facade.execute((Cell) f);
+            //CHANGE VALUE OF EXCEL TABLE
+            excelSagaTableModel.setValueAt(f.getChanges(cellFilter.getValue().toString()), cellFilter.getRow(), cellFilter.getColumn(), true);
+        }
     }
 }
