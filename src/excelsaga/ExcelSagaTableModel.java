@@ -234,11 +234,4 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
         }
         return v;
     }
-//    
-//    public Cell getCellWithCoordinates (int row, int column) {
-//        Vector rowVector = (Vector) dataVector.elementAt(row);
-//        rowVector.get(column);
-//        return null;
-//        
-//    }
 }
