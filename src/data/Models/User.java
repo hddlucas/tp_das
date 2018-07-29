@@ -15,6 +15,12 @@ public final class User {
     public User() {
     }
 
+        //private fields
+    private static User userLoggedIn;
+    private String name;
+    private String password;
+    private int id;
+
     //constructor
     public User(String name, String password) {
         this.name = name;
@@ -26,13 +32,6 @@ public final class User {
         this.password = password;
         this.id=id;
     }
-       
-    //private fields
-    private static User userLoggedIn;
-    private String name;
-    private String password;
-    private int id;
-
  
     //getters and Setters
     public String getName() {

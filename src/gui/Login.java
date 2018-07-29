@@ -199,9 +199,6 @@ public class Login extends javax.swing.JFrame {
                     //Destroy the JFrame object
                     frame.dispose();
                     //cal new JFrame object
-                    User user = new User(usernameField.getText(),passwordField.getText());
-                    user.setUserLoggedIn(user);
-                   
                     new ExcelSaga();
                     
                 }else{

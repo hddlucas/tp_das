@@ -1,5 +1,6 @@
 package gui;
 
+import bll.commands.Cell;
 import bll.strategy.FunctionalMode;
 import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
@@ -10,9 +11,13 @@ import excelsaga.Facade;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -29,9 +34,11 @@ public class ExcelSaga extends javax.swing.JFrame {
     private JFrame frame = new JFrame("ExcelSaga");
     private NormalMode normalMode = new NormalMode();
     private FunctionalMode functionalMode = new FunctionalMode();
-
+    private List<String> recentFiles;
+    private JMenuItem[] recentFileItem;
     public static ExcelSagaTableModel excelSagaTableModel;
     ExcelSagaTableModelListener excelSagaTableModelListener;
+
     /**
      * Creates new form ExcelSaga
      */
@@ -44,7 +51,6 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         //excelSagaTableModelListener=new ExcelSagaTableModelListener(excelTable);
         //excelTable.getModel().addTableModelListener(excelSagaTableModelListener);
-        
         //auto adjust table columns 
         excelTable.addComponentListener(new ComponentAdapter() {
             @Override
@@ -56,40 +62,73 @@ public class ExcelSaga extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         //default view mode (Normal Mode)
         Facade.setViewMode(new NormalMode());
         jToggleButtonNormalMode.setSelected(true);
-        jToggleButtonNormalMode.setBackground(new java.awt.Color(76,163,97));
+        jToggleButtonNormalMode.setBackground(new java.awt.Color(76, 163, 97));
         jToggleButtonNormalMode.setForeground(Color.white);
 
-        
         //horizontal/vertical jscroll policy
         jScrollExcelTable.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         jScrollExcelTable.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        
+
         //logged user
         jLabelLoggedInUser.setText("User: " + Facade.getUserLoggedIn().getName());
-        
+
         //menu 
         frame.setJMenuBar(jMenuBar);
         jMenuBar.setVisible(true);
-        
-            // get the screen size as a java dimension
+
+        // get the screen size as a java dimension
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         int height = screenSize.height * 2 / 3;
         int width = screenSize.width * 2 / 3;
-        
+
         frame.getContentPane().add(panelExcel);
         frame.setPreferredSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
 
-        
         frame.pack();
         frame.setVisible(true);
-        
+    }
+
+    //get recent files 
+    private void getRecentFiles() {
+        recentFiles = new ArrayList<>();
+        recentFiles = Facade.getRecentFiles();
+        jMenuRecentFiles.removeAll();
+
+        if (recentFiles.isEmpty()) {
+            jMenuRecentFiles.setVisible(false);
+        } else {
+            jMenuRecentFiles.setVisible(true);
+            recentFileItem = new JMenuItem[recentFiles.size()];
+            for (int i = 0; i < recentFiles.size(); i++) {
+                String filename = recentFiles.get(i);
+                int pos = filename.lastIndexOf(".");
+                if (pos != -1) {
+                    String fileName = filename.substring(0, pos);
+                    recentFileItem[i] = new JMenuItem(fileName);
+                    recentFileItem[i].setName(recentFiles.get(i));
+                    recentFileItem[i].addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ev) {
+                            JMenuItem eventSource = (JMenuItem) ev.getSource();
+                            //load file
+                            try {
+                                File selectedFile = new File(eventSource.getName());
+                                String fileName = selectedFile.getName();
+                                Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "A problem occurred while reading the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    });
+                    jMenuRecentFiles.add(recentFileItem[i]);
+                }
+            }
+        }
     }
 
     /**
@@ -117,10 +156,12 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
         jMenuItemOpen = new javax.swing.JMenuItem();
+        jMenuRecentFiles = new javax.swing.JMenu();
         jMenuItemSave = new javax.swing.JMenuItem();
         jMenuItemExport = new javax.swing.JMenuItem();
         jMenuItemImport = new javax.swing.JMenuItem();
         jMenuItemExit = new javax.swing.JMenuItem();
+        jMenuFilters = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -282,13 +323,26 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemNew);
 
         jMenuItemOpen.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jMenuItemOpen.setText("Open");
+        jMenuItemOpen.setLabel("Open");
         jMenuItemOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemOpenActionPerformed(evt);
             }
         });
         jMenuFile.add(jMenuItemOpen);
+
+        jMenuRecentFiles.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jMenuRecentFiles.setLabel("Recent Files");
+        jMenuRecentFiles.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenuRecentFilesMenuSelected(evt);
+            }
+        });
+        jMenuFile.add(jMenuRecentFiles);
 
         jMenuItemSave.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemSave.setText("Save");
@@ -327,6 +381,25 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemExit);
 
         jMenuBar.add(jMenuFile);
+
+        jMenuFilters.setText("Filters");
+        jMenuFilters.setToolTipText("");
+        jMenuFilters.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenuFilters.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenuFiltersMenuSelected(evt);
+            }
+        });
+        jMenuFilters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFiltersActionPerformed(evt);
+            }
+        });
+        jMenuBar.add(jMenuFilters);
 
         setJMenuBar(jMenuBar);
 
@@ -375,7 +448,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         //chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        
+
         if (chooser.showOpenDialog(frame) == JFileChooser.OPEN_DIALOG) {
             //do when open
         } else {
@@ -397,12 +470,12 @@ public class ExcelSaga extends javax.swing.JFrame {
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNewActionPerformed
         excelSagaTableModel = new ExcelSagaTableModel(ROWS, COLS, excelTable, jScrollExcelTable);
         excelTable.setModel(excelSagaTableModel);
-        
+
         Facade.setViewMode(new NormalMode());
         jToggleButtonNormalMode.setSelected(true);
-        jToggleButtonNormalMode.setBackground(new java.awt.Color(76,163,97));
+        jToggleButtonNormalMode.setBackground(new java.awt.Color(76, 163, 97));
         jToggleButtonNormalMode.setForeground(Color.WHITE);
-        
+
         jToggleButtonFunctionallMode.setSelected(false);
         jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
         jToggleButtonFunctionallMode.setForeground(Color.BLACK);
@@ -466,11 +539,57 @@ public class ExcelSaga extends javax.swing.JFrame {
 
             try {
                 Facade.exportFile(fileType, file);
+                Facade.saveFile(file);
+
             } catch (Exception ex) {
                 Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jMenuItemSaveActionPerformed
+
+    private void jToggleButtonFunctionallModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFunctionallModeActionPerformed
+        Facade.setViewMode(functionalMode);
+
+        JToggleButton button = (JToggleButton) evt.getSource();
+        button.setBackground(new java.awt.Color(76, 163, 97));
+        button.setForeground(Color.white);
+        jToggleButtonNormalMode.setBackground(panelExcel.getBackground());
+        jToggleButtonNormalMode.setForeground(Color.BLACK);
+
+        excelSagaTableModel.fireTableDataChanged();
+
+    }//GEN-LAST:event_jToggleButtonFunctionallModeActionPerformed
+
+    private void jToggleButtonNormalModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNormalModeActionPerformed
+        Facade.setViewMode(normalMode);
+
+        JToggleButton button = (JToggleButton) evt.getSource();
+        button.setBackground(new java.awt.Color(76, 163, 97));
+        button.setForeground(Color.white);
+        jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
+        jToggleButtonFunctionallMode.setForeground(Color.BLACK);
+
+        excelSagaTableModel.fireTableDataChanged();
+
+    }//GEN-LAST:event_jToggleButtonNormalModeActionPerformed
+
+    private void jMenuFiltersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFiltersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuFiltersActionPerformed
+
+    private void jMenuFiltersMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuFiltersMenuSelected
+
+        int column = excelTable.getSelectedColumn();
+        int row = excelTable.getSelectedRow();
+
+        if (row == -1 || column == -1) {
+            JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        FilterWindow fw = new FilterWindow(this, new Cell(row, column, excelSagaTableModel.getValueAt(row, column)));
+        fw.setVisible(true);
+    }//GEN-LAST:event_jMenuFiltersMenuSelected
 
     private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
         JFileChooser chooser = new JFileChooser();
@@ -493,31 +612,10 @@ public class ExcelSaga extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
-    private void jToggleButtonFunctionallModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonFunctionallModeActionPerformed
-        Facade.setViewMode(functionalMode);
-
-        JToggleButton button = (JToggleButton)evt.getSource();
-        button.setBackground(new java.awt.Color(76,163,97));
-        button.setForeground(Color.white);
-        jToggleButtonNormalMode.setBackground(panelExcel.getBackground());
-        jToggleButtonNormalMode.setForeground(Color.BLACK);
-        
-        excelSagaTableModel.fireTableDataChanged();
-
-    }//GEN-LAST:event_jToggleButtonFunctionallModeActionPerformed
-
-    private void jToggleButtonNormalModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonNormalModeActionPerformed
-        Facade.setViewMode(normalMode);
-
-        JToggleButton button = (JToggleButton)evt.getSource();
-        button.setBackground(new java.awt.Color(76,163,97));
-        button.setForeground(Color.white);
-        jToggleButtonFunctionallMode.setBackground(panelExcel.getBackground());
-        jToggleButtonFunctionallMode.setForeground(Color.BLACK);       
-        
-        excelSagaTableModel.fireTableDataChanged();
-
-    }//GEN-LAST:event_jToggleButtonNormalModeActionPerformed
+    private void jMenuRecentFilesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuRecentFilesMenuSelected
+        //get recent files
+        getRecentFiles();
+    }//GEN-LAST:event_jMenuRecentFilesMenuSelected
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -530,12 +628,14 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelViewMode;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenu jMenuFilters;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemExport;
     private javax.swing.JMenuItem jMenuItemImport;
     private javax.swing.JMenuItem jMenuItemNew;
     private javax.swing.JMenuItem jMenuItemOpen;
     private javax.swing.JMenuItem jMenuItemSave;
+    private javax.swing.JMenu jMenuRecentFiles;
     private javax.swing.JScrollPane jScrollExcelTable;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButtonFunctionallMode;

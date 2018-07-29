@@ -10,15 +10,20 @@ import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
 import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
+import bll.filters.Filter;
+import bll.filters.FilterFactory;
 import bll.formulas.Formula;
 import bll.formulas.FormulaFactory;
 import bll.strategy.ViewStrategy;
+import data.Controllers.FilesController;
+import data.Controllers.FilesControllerImpl;
 import data.Controllers.UsersController;
 import data.Controllers.UsersControllerImpl;
 import data.Models.User;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,6 +33,7 @@ import java.util.List;
 public class Facade {
 
     private static final UsersController users = new UsersControllerImpl();
+    private static final FilesController files = new FilesControllerImpl();
     private static final User user = new User();
     private static final CommandManager cm = new CommandManager();
 
@@ -43,10 +49,14 @@ public class Facade {
 
     public static boolean login(String name, String password) {
         try {
-            return users.login(name, password);
+            if (users.login(name, password) != null) {
+                user.setUserLoggedIn(users.login(name, password));
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
         return false;
     }
 
@@ -76,6 +86,28 @@ public class Facade {
         return null;
     }
 
+    public static List<String> getRecentFiles() {
+        try {
+            if (user != null) {
+                return files.getRecentFiles(getUserLoggedIn());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        return Collections.emptyList();
+    }
+    
+    public static void saveFile(File file) {
+        try {
+            if (user != null) {
+                files.saveFile(file, getUserLoggedIn());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void execute(Cell cell) {
         CellValueChangeCommand command = new CellValueChangeCommand(cell);
         cm.execute(command);
@@ -84,29 +116,55 @@ public class Facade {
     public static void undo() {
         cm.undo();
     }
-    
+
     public static void redo() {
         cm.redo();
     }
-    
-    
-    public static void importFile(File file,String extension){
+
+    public static void importFile(File file, String extension) {
         new ImportFileAdapter(extension).importFile(file);
     }
-    
-    
+
     public static void exportFile(String type, File file) throws Exception {
         ExportFileBuilder builder = ExportFileBuilder.getBuilderByType(type).setFile(file);
         builder.tableExporter();
     }
-    
-    public static String applyFormula(String formulaName,String[] params,boolean rangeInterval){
+
+    public static String applyFormula(String formulaName, String[] params, boolean rangeInterval) {
         FormulaFactory formulaFactory = new FormulaFactory();
         Formula formula = formulaFactory.getFormula(formulaName);
-        return formula.getFormulaResult(params,rangeInterval);
+        return formula.getFormulaResult(params, rangeInterval);
     }
-    
-    public static void setViewMode(ViewStrategy viewStrategy){
+
+    public static void setViewMode(ViewStrategy viewStrategy) {
         excelSagaTableModel.setStrategy(viewStrategy);
+    }
+
+    public static Filter addFilter(String name, String param, Cell cellFilter) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        if (f != null) {
+            //CHANGE VALUE OF EXCEL TABLE
+            excelSagaTableModel.setValueAt(f.getChanges(param), cellFilter.getRow(), cellFilter.getColumn(), true);
+
+            //TODO
+            //DEFINE PARAMETER OF FILTER
+            //f.setParameter(param, f.getChanges(cellFilter.getValue().toString()));
+            //Facade.execute((Cell) f);
+            System.out.println("param : addFilkter = " + param);
+
+        }
+        return f;
+    }
+
+    public static void removeFilter(String name, String param, Cell cellFilter) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        if (f != null) {
+            //DEFINE PARAMETER OF FILTER
+            //Facade.execute((Cell) f);
+            //CHANGE VALUE OF EXCEL TABLE
+            excelSagaTableModel.setValueAt(f.getChanges(cellFilter.getValue().toString()), cellFilter.getRow(), cellFilter.getColumn(), true);
+        }
     }
 }
