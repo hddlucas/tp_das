@@ -10,6 +10,7 @@ import bll.builders.ExportFileBuilder;
 import bll.commands.Cell;
 import bll.commands.CellValueChangeCommand;
 import bll.commands.CommandManager;
+import bll.commands.MacroCommand;
 import bll.filters.Filter;
 import bll.filters.FilterFactory;
 import bll.formulas.Formula;
@@ -36,6 +37,8 @@ public class Facade {
     private static final FilesController files = new FilesControllerImpl();
     private static final User user = new User();
     private static final CommandManager cm = new CommandManager();
+    private static final List<MacroCommand> macroList = new ArrayList<>();
+    public static MacroCommand macro = null;
 
     public static List<User> getUsersList() {
         List<User> usersList = new ArrayList<>();
@@ -108,9 +111,19 @@ public class Facade {
         }
     }
 
-    public static void execute(Cell cell) {
-        CellValueChangeCommand command = new CellValueChangeCommand(cell);
-        cm.execute(command);
+    public static void execute(Cell cell, Object value) {
+        //IF IS RUNNING MACRO
+        if (macro != null) {
+            //USE THIS CONSTRUCTOR WHEN IS RECORDING MACRO
+            CellValueChangeCommand command = new CellValueChangeCommand(cell, value);
+            macro.add(command);
+        }
+        else {
+            //USE THIS CONSTRUCTOR WHEN ISN'T RECORDING MACRO
+            CellValueChangeCommand command = new CellValueChangeCommand(cell);
+            cm.execute(command);
+        }
+
     }
 
     public static void undo() {
@@ -166,5 +179,40 @@ public class Facade {
             //CHANGE VALUE OF EXCEL TABLE
             excelSagaTableModel.setValueAt(f.getChanges(cellFilter.getValue().toString()), cellFilter.getRow(), cellFilter.getColumn(), true);
         }
+    }
+    
+    public static void playMacro(MacroCommand m) {
+        m.play(cm);
+    }
+    
+    public static List<MacroCommand> getMacroRecording() {
+        return macroList;
+    }
+    
+    public static void startMacroRecording() {
+        macro = new MacroCommand();
+    }
+    
+    public static void stopMacroRecording(String name) {
+        if (name != null) {
+            if( !name.isEmpty() ) {
+                macro.setName(name);
+            }
+            macroList.add(macro);
+        }
+        //WHEN NULL - NOT MACRO RECORDING
+        macro = null;
+    }
+    
+    public static void removeMacro (MacroCommand mc) {
+        macroList.remove(mc);
+//        macroList.forEach((ml) -> {
+//        if(name.equals(ml.getName()))
+//            macroList.remove(ml);
+//        });
+    }
+        
+    public static MacroCommand getMacro() {
+        return macro;
     }
 }

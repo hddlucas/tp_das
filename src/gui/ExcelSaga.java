@@ -1,6 +1,7 @@
 package gui;
 
 import bll.commands.Cell;
+import bll.commands.MacroCommand;
 import bll.strategy.FunctionalMode;
 import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
@@ -10,6 +11,7 @@ import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -140,6 +142,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelExcel = new javax.swing.JPanel();
         jToggleButtonFunctionallMode = new javax.swing.JToggleButton();
         jButtonStepForward = new javax.swing.JButton();
@@ -431,11 +434,26 @@ public class ExcelSaga extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStepForwardActionPerformed
 
     private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
-        JOptionPane.showMessageDialog(null, "Record");
+        if(Facade.getMacro() == null) {
+            JOptionPane.showMessageDialog(null, "Record");
+            Facade.startMacroRecording();
+            
+            //CHANGE ICON OF BUTTON
+            jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/stop_recording_macro.png")));
+        } else {
+            String nome = JOptionPane.showInputDialog(this, "Macro name:", "Macro", JOptionPane.QUESTION_MESSAGE);
+            Facade.stopMacroRecording(nome);
+            jButtonPlay.setEnabled(true);
+            
+            //CHANGE ICON OF BUTTON
+            jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png")));
+        }
     }//GEN-LAST:event_jButtonRecordActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
-        JOptionPane.showMessageDialog(null, "Play");
+        //OPEN WINDOW TO SELECT MACRO
+        RecordWindow rw = new RecordWindow(this);
+        rw.setVisible(true);
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
@@ -636,6 +654,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemOpen;
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenu jMenuRecentFiles;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollExcelTable;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButtonFunctionallMode;

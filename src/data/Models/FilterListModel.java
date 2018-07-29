@@ -16,7 +16,7 @@ import javax.swing.AbstractListModel;
  * @author MarcoSequeira-PC
  */
 public class FilterListModel extends AbstractListModel<String> {
-     ArrayList<Filter> list = new ArrayList<>();
+    ArrayList<Filter> list = new ArrayList<>();
     Cell c;
     
     public FilterListModel(Cell ce) {
