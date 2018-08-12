@@ -4,7 +4,6 @@ import bll.commands.Cell;
 import bll.strategy.ViewStrategy;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
