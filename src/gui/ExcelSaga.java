@@ -434,11 +434,14 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
         if(Facade.getMacro() == null) {
-            JOptionPane.showMessageDialog(null, "Record");
+            JOptionPane.showMessageDialog(null, "Recording...");
             Facade.startMacroRecording();
             
             //CHANGE ICON OF BUTTON
             jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/stop_recording_macro.png")));
+            
+            jButtonPlay.setEnabled(false);
+            
         } else {
             String nome = JOptionPane.showInputDialog(this, "Macro name:", "Macro", JOptionPane.QUESTION_MESSAGE);
             Facade.stopMacroRecording(nome);
@@ -446,12 +449,25 @@ public class ExcelSaga extends javax.swing.JFrame {
             
             //CHANGE ICON OF BUTTON
             jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png")));
+            
+            jButtonPlay.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonRecordActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
         //OPEN WINDOW TO SELECT MACRO
         RecordWindow rw = new RecordWindow(this);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Determine the new location of the window
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w)/2;
+        int y = (dim.height-h)/2;
+
+        // Move the window
+        rw.setLocation(x, y);
+        rw.setTitle("Macros");
         rw.setVisible(true);
     }//GEN-LAST:event_jButtonPlayActionPerformed
 

@@ -117,6 +117,8 @@ public class RecordWindow extends javax.swing.JDialog implements ListSelectionLi
             
             //RUN MACRO
             Facade.playMacro(mc);
+            
+            this.getParent().setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
