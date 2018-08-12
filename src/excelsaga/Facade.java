@@ -139,7 +139,7 @@ public class Facade {
     }
 
     public static void exportFile(String type, File file) throws Exception {
-        ExportFileBuilder builder = ExportFileBuilder.getBuilderByType(type).setFile(file);
+        ExportFileBuilder builder = ExportFileBuilder.getBuilder(type).setBuilder(file);
         builder.tableExporter();
     }
 

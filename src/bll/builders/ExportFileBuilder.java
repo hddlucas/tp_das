@@ -13,7 +13,7 @@ import java.io.File;
  */
 public abstract class ExportFileBuilder {
 
-    public static ExportFileBuilder getBuilderByType(String t) throws Exception {
+    public static ExportFileBuilder getBuilder(String t) throws Exception {
         if (t.equalsIgnoreCase("txt")) {
             return new ExportTxtBuilder();
         } else if (t.equalsIgnoreCase("csv")) {
@@ -28,7 +28,7 @@ public abstract class ExportFileBuilder {
         }
     }
 
-    public abstract ExportFileBuilder setFile(File file);
+    public abstract ExportFileBuilder setBuilder(File file);
 
     public abstract void tableExporter() throws Exception;
 }

@@ -99,7 +99,7 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
             + "</html>";
     
     @Override
-    public ExportFileBuilder setFile(File file) {
+    public ExportFileBuilder setBuilder(File file) {
         this.f = file;
         return this;
     }
