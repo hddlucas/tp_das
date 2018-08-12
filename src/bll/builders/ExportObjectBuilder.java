@@ -20,7 +20,7 @@ public class ExportObjectBuilder extends ExportFileBuilder {
     protected File f;
 
     @Override
-    public ExportFileBuilder setFile(File file) {
+    public ExportFileBuilder setBuilder(File file) {
         this.f = file;
         return this;
     }

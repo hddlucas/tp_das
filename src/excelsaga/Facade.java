@@ -16,16 +16,16 @@ import bll.filters.FilterFactory;
 import bll.formulas.Formula;
 import bll.formulas.FormulaFactory;
 import bll.strategy.ViewStrategy;
-import data.Controllers.FilesController;
-import data.Controllers.FilesControllerImpl;
-import data.Controllers.UsersController;
-import data.Controllers.UsersControllerImpl;
+import data.Controllers.FilesDaoImpl;
+import data.Controllers.UsersDaoImpl;
 import data.Models.User;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import data.Controllers.UsersDao;
+import data.Controllers.FilesDao;
 
 /**
  *
@@ -33,8 +33,8 @@ import java.util.List;
  */
 public class Facade {
 
-    private static final UsersController users = new UsersControllerImpl();
-    private static final FilesController files = new FilesControllerImpl();
+    private static final UsersDao users = new UsersDaoImpl();
+    private static final FilesDao files = new FilesDaoImpl();
     private static final User user = new User();
     private static final CommandManager cm = new CommandManager();
     private static final List<MacroCommand> macroList = new ArrayList<>();
@@ -139,7 +139,7 @@ public class Facade {
     }
 
     public static void exportFile(String type, File file) throws Exception {
-        ExportFileBuilder builder = ExportFileBuilder.getBuilderByType(type).setFile(file);
+        ExportFileBuilder builder = ExportFileBuilder.getBuilder(type).setBuilder(file);
         builder.tableExporter();
     }
 

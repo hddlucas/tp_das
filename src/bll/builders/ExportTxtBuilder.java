@@ -20,7 +20,7 @@ public class ExportTxtBuilder extends ExportFileBuilder {
     protected File f = null;
     
     @Override
-    public ExportFileBuilder setFile(File file) {
+    public ExportFileBuilder setBuilder(File file) {
         this.f = file;
         return this;
     }

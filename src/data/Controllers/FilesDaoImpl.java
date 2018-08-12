@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author hdlucas
  */
-public class FilesControllerImpl implements FilesController {
+public class FilesDaoImpl implements FilesDao {
 
     @Override
     public void saveFile(File file, User loggedInUser) throws Exception {

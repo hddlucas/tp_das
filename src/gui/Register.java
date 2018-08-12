@@ -6,7 +6,7 @@
 package gui;
 
 import data.DatabaseConnection.DatabaseConnImpl;
-import data.Controllers.UsersControllerImpl;
+import data.Controllers.UsersDaoImpl;
 import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;
