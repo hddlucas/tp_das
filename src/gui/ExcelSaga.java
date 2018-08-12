@@ -1,7 +1,6 @@
 package gui;
 
 import bll.commands.Cell;
-import bll.commands.MacroCommand;
 import bll.strategy.FunctionalMode;
 import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
@@ -11,7 +10,6 @@ import excelsaga.ExcelSagaTableModelListener;
 import excelsaga.Facade;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -122,6 +120,7 @@ public class ExcelSaga extends javax.swing.JFrame {
                                 File selectedFile = new File(eventSource.getName());
                                 String fileName = selectedFile.getName();
                                 Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+                                JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "A problem occurred while reading the file.", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -477,6 +476,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+            JOptionPane.showMessageDialog(null, "File successfully imported","Information",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemImportActionPerformed
 
@@ -529,6 +529,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
             try {
                 Facade.exportFile(fileType, file);
+                JOptionPane.showMessageDialog(null, "File successfully exported","Information",JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -627,6 +628,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+            JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
