@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data.Models;
+package bll.commands;
 
 import bll.commands.MacroCommand;
 import excelsaga.Facade;

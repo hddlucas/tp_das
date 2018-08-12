@@ -6,7 +6,7 @@
 package gui;
 
 import bll.commands.Cell;
-import data.Models.FilterListModel;
+import bll.filters.FilterListModel;
 import java.awt.Frame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;

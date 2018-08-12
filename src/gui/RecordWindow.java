@@ -6,7 +6,7 @@
 package gui;
 
 import bll.commands.MacroCommand;
-import data.Models.RecordsListModel;
+import bll.commands.RecordsListModel;
 import excelsaga.Facade;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
