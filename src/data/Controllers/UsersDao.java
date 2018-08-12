@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author hdlucas
  */
-public interface UsersController {
+public interface UsersDao {
     
     List<User> getUsersList()  throws Exception ;
     boolean checkIfUserExists(String name) throws Exception;

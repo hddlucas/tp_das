@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author hdlucas
  */
-public interface FilesController {
+public interface FilesDao {
     
     void saveFile(File file,User loggedInUser) throws Exception;
     List<String> getRecentFiles(User loggedInUser) throws Exception;
