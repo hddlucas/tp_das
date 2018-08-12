@@ -13,14 +13,14 @@ import java.io.File;
  */
 public abstract class ExportFileBuilder {
 
-    public static ExportFileBuilder getBuilderByType(String t) throws Exception {
-        if (t.equalsIgnoreCase("txt")) {
+    public static ExportFileBuilder getBuilder(String fileExtension) throws Exception {
+        if (fileExtension.equalsIgnoreCase("txt")) {
             return new ExportTxtBuilder();
-        } else if (t.equalsIgnoreCase("csv")) {
+        } else if (fileExtension.equalsIgnoreCase("csv")) {
             return new ExportCsvBuilder();
-        } else if (t.equalsIgnoreCase("html")) {
+        } else if (fileExtension.equalsIgnoreCase("html")) {
             return new ExportHtmlBuilder();
-        } else if (t.equalsIgnoreCase("excelSaga")) {
+        } else if (fileExtension.equalsIgnoreCase("excelSaga")) {
             return new ExportObjectBuilder();
         }
         else {
@@ -28,7 +28,7 @@ public abstract class ExportFileBuilder {
         }
     }
 
-    public abstract ExportFileBuilder setFile(File file);
+    public abstract ExportFileBuilder setBuilder(File file);
 
     public abstract void tableExporter() throws Exception;
 }

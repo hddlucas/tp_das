@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersControllerImpl implements UsersController{
+public class UsersDaoImpl implements UsersDao{
 
     //get list of stored users in database
     @Override

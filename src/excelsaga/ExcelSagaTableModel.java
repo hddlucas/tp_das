@@ -176,7 +176,7 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     public void setValueAt(Object aValue, int row, int column) {
         //execute command
         Cell cell = new Cell(row, column, aValue);
-        Facade.execute(cell);
+        Facade.execute(cell, aValue);
 
         Vector rowVector = (Vector) dataVector.elementAt(row);
         rowVector.setElementAt(aValue, column);

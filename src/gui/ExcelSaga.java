@@ -120,6 +120,7 @@ public class ExcelSaga extends javax.swing.JFrame {
                                 File selectedFile = new File(eventSource.getName());
                                 String fileName = selectedFile.getName();
                                 Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+                                JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "A problem occurred while reading the file.", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -140,6 +141,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelExcel = new javax.swing.JPanel();
         jToggleButtonFunctionallMode = new javax.swing.JToggleButton();
         jButtonStepForward = new javax.swing.JButton();
@@ -431,11 +433,26 @@ public class ExcelSaga extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStepForwardActionPerformed
 
     private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
-        JOptionPane.showMessageDialog(null, "Record");
+        if(Facade.getMacro() == null) {
+            JOptionPane.showMessageDialog(null, "Record");
+            Facade.startMacroRecording();
+            
+            //CHANGE ICON OF BUTTON
+            jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/stop_recording_macro.png")));
+        } else {
+            String nome = JOptionPane.showInputDialog(this, "Macro name:", "Macro", JOptionPane.QUESTION_MESSAGE);
+            Facade.stopMacroRecording(nome);
+            jButtonPlay.setEnabled(true);
+            
+            //CHANGE ICON OF BUTTON
+            jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png")));
+        }
     }//GEN-LAST:event_jButtonRecordActionPerformed
 
     private void jButtonPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPlayActionPerformed
-        JOptionPane.showMessageDialog(null, "Play");
+        //OPEN WINDOW TO SELECT MACRO
+        RecordWindow rw = new RecordWindow(this);
+        rw.setVisible(true);
     }//GEN-LAST:event_jButtonPlayActionPerformed
 
     private void jMenuItemImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemImportActionPerformed
@@ -459,6 +476,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+            JOptionPane.showMessageDialog(null, "File successfully imported","Information",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemImportActionPerformed
 
@@ -511,6 +529,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
             try {
                 Facade.exportFile(fileType, file);
+                JOptionPane.showMessageDialog(null, "File successfully exported","Information",JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -609,6 +628,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
+            JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
@@ -636,6 +656,7 @@ public class ExcelSaga extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemOpen;
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenu jMenuRecentFiles;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollExcelTable;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButtonFunctionallMode;
