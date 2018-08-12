@@ -162,22 +162,27 @@ public class Facade {
 
             //TODO
             //DEFINE PARAMETER OF FILTER
-            //f.setParameter(param, f.getChanges(cellFilter.getValue().toString()));
+            f.setParameter(param, f.getChanges(cellFilter.getValue().toString()));
             //Facade.execute((Cell) f);
+            
+            
+            
             System.out.println("param : addFilkter = " + param);
 
         }
         return f;
     }
 
-    public static void removeFilter(String name, String param, Cell cellFilter) {
+    public static void removeFilter(String name, Cell cellFilter, Filter fi) {
         //GET OBJECT FILTER FROM FACTORY
         Filter f = FilterFactory.getFilter(name, cellFilter);
         if (f != null) {
             //DEFINE PARAMETER OF FILTER
             //Facade.execute((Cell) f);
             //CHANGE VALUE OF EXCEL TABLE
-            excelSagaTableModel.setValueAt(f.getChanges(cellFilter.getValue().toString()), cellFilter.getRow(), cellFilter.getColumn(), true);
+
+            String value = fi.getPreviousValue();
+            excelSagaTableModel.setValueAt(value, cellFilter.getRow(), cellFilter.getColumn(), true);
         }
     }
     

@@ -18,8 +18,10 @@ import javax.swing.AbstractListModel;
 public class FilterListModel extends AbstractListModel<String> {
     ArrayList<Filter> list = new ArrayList<>();
     Cell c;
+    Cell auxCell;
     
     public FilterListModel(Cell ce) {
+        auxCell = ce;
         Cell aux = ce;
         while( aux instanceof Filter ) {
             list.add((Filter)aux);
@@ -40,6 +42,9 @@ public class FilterListModel extends AbstractListModel<String> {
             toFilter = list.get(0);
         }
         
+        auxCell.setValue(toFilter.getValue());
+        System.out.println("prev = " + auxCell.getValue());
+        
         Filter f = Facade.addFilter(name, parameter, toFilter);
         list.add(0,f);
         
@@ -55,12 +60,13 @@ public class FilterListModel extends AbstractListModel<String> {
         return list.get(index).getName();
     }
     
-    public void removeFilter() {
+    public void removeFilter(int index) {
         if( list.isEmpty() ) {
             return;
         }
-        Cell c = list.remove(0);
-        //Facade.removeFilter(c.getRow(), c.getColumn());
+        
+        Facade.removeFilter(this.getElementAt(index), this.c, list.get(index));
+        list.remove(index);
         fireIntervalRemoved(this, 0, 0);
     }
     

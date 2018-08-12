@@ -46,6 +46,7 @@ public abstract class Filter extends Cell {
     
     public void setParameter(String p, Object value){
         this.parameter = p;
-        //cell.setValue(value);
+        previousCell.setValue(cell.getValue());
+        cell.setValue(value);
     }
 }

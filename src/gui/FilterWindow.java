@@ -81,6 +81,11 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
         });
 
         jToggleButton1.setText("Remove");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,6 +156,13 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        //REMOVE BUTTON
+        System.out.println("selectedIndex = " + jList1.getSelectedIndex());
+        FilterListModel flm = (FilterListModel) jList1.getModel();
+        flm.removeFilter(jList1.getSelectedIndex());
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
