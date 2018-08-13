@@ -56,6 +56,11 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "uppercase", "equal", "positive", "negative", "minor", "more" }));
@@ -174,6 +179,16 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
             JOptionPane.showMessageDialog(null, "Filter not selected");
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        if(jList1.getSelectedIndex() >= 0) {
+            FilterListModel flm = (FilterListModel) jList1.getModel();
+            
+            //GET VALUE OF SELECTED FILTER
+            String parameter = flm.getFilterByIndex(jList1.getSelectedIndex()).getParameter();
+            jTextField1.setText(parameter);
+        }
+    }//GEN-LAST:event_jList1ValueChanged
 
     /**
      * @param args the command line arguments
