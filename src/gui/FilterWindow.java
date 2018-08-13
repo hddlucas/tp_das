@@ -8,6 +8,7 @@ package gui;
 import bll.commands.Cell;
 import bll.filters.FilterListModel;
 import java.awt.Frame;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -154,14 +155,24 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        //EDIT BUTTON
+        if (jList1.getSelectedIndex() >= 0) {
+            FilterListModel flm = (FilterListModel) jList1.getModel();
+            flm.editFilter(jList1.getSelectedIndex(), jTextField1.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Filter not selected");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         //REMOVE BUTTON
-        System.out.println("selectedIndex = " + jList1.getSelectedIndex());
-        FilterListModel flm = (FilterListModel) jList1.getModel();
-        flm.removeFilter(jList1.getSelectedIndex());
+        if(jList1.getSelectedIndex() >= 0) {
+            FilterListModel flm = (FilterListModel) jList1.getModel();
+            flm.removeFilter(jList1.getSelectedIndex());
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Filter not selected");
+        }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

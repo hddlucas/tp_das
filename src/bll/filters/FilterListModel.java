@@ -8,7 +8,10 @@ package bll.filters;
 import bll.commands.Cell;
 import bll.filters.Filter;
 import excelsaga.Facade;
+import static gui.ExcelSaga.excelSagaTableModel;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.swing.AbstractListModel;
 
 /**
@@ -18,16 +21,28 @@ import javax.swing.AbstractListModel;
 public class FilterListModel extends AbstractListModel<String> {
     ArrayList<Filter> list = new ArrayList<>();
     Cell c;
-    Cell auxCell;
-    
+
     public FilterListModel(Cell ce) {
-        auxCell = ce;
-        Cell aux = ce;
-        while( aux instanceof Filter ) {
-            list.add((Filter)aux);
-            aux = ((Filter)aux).getCell();
-        }
-        c = aux;
+        if(ce != null) {
+            this.c = ce;
+            Cell aux = ce;
+            ArrayList <Cell> auxList = new ArrayList <>();
+
+            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext(); ) {
+                Cell iterAux = iter.next();
+                if (iterAux.getColumn() == aux.getColumn() && iterAux.getRow() == aux.getRow()) {
+                    auxList.add(iterAux);
+                }
+            }
+
+            if(auxList.size() > 0) {
+                for ( int i = 0; i < auxList.size(); i++) {
+                    if(auxList.get(i) instanceof Filter) {                    
+                        list.add((Filter)auxList.get(i));
+                    }
+                }
+            }
+        }        
     }
     
     public Filter getFilterByIndex (int index) {
@@ -41,14 +56,14 @@ public class FilterListModel extends AbstractListModel<String> {
         } else {
             toFilter = list.get(0);
         }
-        
-        auxCell.setValue(toFilter.getValue());
-        System.out.println("prev = " + auxCell.getValue());
-        
+
         Filter f = Facade.addFilter(name, parameter, toFilter);
-        list.add(0,f);
         
-        fireIntervalAdded(this, 0, 0);
+        //VERIFY IF ALREADY EXIST SELECTED FILTER TO SELECTED CELL
+        if(f != null) {
+            list.add(0,f);
+            fireIntervalAdded(this, 0, 0);
+        }
     }
     
     @Override
@@ -64,10 +79,21 @@ public class FilterListModel extends AbstractListModel<String> {
         if( list.isEmpty() ) {
             return;
         }
-        
+
         Facade.removeFilter(this.getElementAt(index), this.c, list.get(index));
         list.remove(index);
         fireIntervalRemoved(this, 0, 0);
+    }
+    
+    public void editFilter (int index, String p) {
+        if( list.isEmpty() ) {
+            return;
+        }
+
+        //CHANGE PARAMETER VALUE
+        list.get(index).setParameter(p);
+
+        Facade.editFilter(this.getElementAt(index), this.c, list.get(index), p);
     }
     
 }

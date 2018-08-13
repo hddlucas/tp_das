@@ -1,9 +1,13 @@
 package excelsaga;
 
 import bll.commands.Cell;
+import bll.filters.Filter;
 import bll.strategy.ViewStrategy;
 import gui.RowHeaderRenderer;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.AbstractListModel;
 import javax.swing.JList;
@@ -25,6 +29,8 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     protected JTable excelTable;
     protected JScrollPane jScrollExcelTable;
     private ViewStrategy strategy;
+    
+    List<Cell> listCell = new ArrayList<Cell>();
 
     //View Strategy
     public void setStrategy(ViewStrategy strategy) {
@@ -173,15 +179,55 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
 
     @Override
     public void setValueAt(Object aValue, int row, int column) {
-        //execute command
+        //EXECUTE COMMAND
         Cell cell = new Cell(row, column, aValue);
+        
+        //REMOVE CELL IF ALREADY EXIST ON LIST
+        for (Iterator<Cell> iter = listCell.listIterator(); iter.hasNext(); ) {
+            Cell aux = iter.next();
+            if (aux.getColumn() == column && aux.getRow() == row) {
+                iter.remove();
+            }
+        }
+        
+        listCell.add(cell);
+
         Facade.execute(cell, aValue);
 
         Vector rowVector = (Vector) dataVector.elementAt(row);
         rowVector.setElementAt(aValue, column);
         //fireTableCellUpdated(row, column);
         fireTableDataChanged();
+    }
+    
+    
+    public void setValueAtFilter(Filter f) {
 
+        Boolean alreadyExists = false;
+        int column = f.getColumn();
+        int row = f.getRow();
+        
+        //VERIFY IF FILTER ALREADY EXIST TO SELECTED CELL - USED ON EDIT FILTER
+        for (Iterator<Cell> iter = listCell.listIterator(); iter.hasNext(); ) {
+            Cell aux = iter.next();
+            if (aux.getColumn() == column && aux.getRow() == row) {
+                if(aux.getClass() == f.getClass()) {
+                    alreadyExists  = true;
+                }
+            }
+        } 
+        
+        if(!alreadyExists) {
+            //ADD FILTER CELL TO LIST OF CELL's
+            listCell.add(f);
+        }
+        
+        Facade.execute(f, f.getValue());
+        
+        Vector rowVector = (Vector) dataVector.elementAt(f.getRow());
+        rowVector.setElementAt(f.getValue(), f.getColumn());
+        //fireTableCellUpdated(row, column);
+        fireTableDataChanged();
     }
 
     public void setValueAt(Object aValue, int row, int column, boolean change) {
@@ -232,5 +278,19 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
             v.addElement(convertToVector(o));
         }
         return v;
+    }
+    
+    public Cell getCell(int row, int column) {
+        for (Iterator<Cell> iter = listCell.listIterator(); iter.hasNext(); ) {
+            Cell aux = iter.next();
+            if (aux.getColumn() == column && aux.getRow() == row) {
+                return aux;
+            }
+        }
+        return null;
+    }
+    
+    public List getCellList () {
+        return listCell;
     }
 }

@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import data.Controllers.UsersDao;
 import data.Controllers.FilesDao;
+import java.util.Iterator;
 
 /**
  *
@@ -123,7 +124,6 @@ public class Facade {
             CellValueChangeCommand command = new CellValueChangeCommand(cell);
             cm.execute(command);
         }
-
     }
 
     public static void undo() {
@@ -156,19 +156,31 @@ public class Facade {
     public static Filter addFilter(String name, String param, Cell cellFilter) {
         //GET OBJECT FILTER FROM FACTORY
         Filter f = FilterFactory.getFilter(name, cellFilter);
+        
+        int column = cellFilter.getColumn();
+        int row = cellFilter.getRow();
+        Boolean alreadyExist = false;
+        
         if (f != null) {
-            //CHANGE VALUE OF EXCEL TABLE
-            excelSagaTableModel.setValueAt(f.getChanges(param), cellFilter.getRow(), cellFilter.getColumn(), true);
+            //VERIFY IF FILTER ALREADY EXIST TO SELECTED CELL
+            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext(); ) {
+                Cell aux = iter.next();
+                if (aux.getColumn() == column && aux.getRow() == row) {
+                    if(aux.getClass() == f.getClass()) {
+                        alreadyExist = true;
+                    }
+                }
+            } 
+        
+            if(!alreadyExist){
+                //DEFINE PARAMETER OF FILTER
+                f.setParameter(param);
 
-            //TODO
-            //DEFINE PARAMETER OF FILTER
-            f.setParameter(param, f.getChanges(cellFilter.getValue().toString()));
-            //Facade.execute((Cell) f);
-            
-            
-            
-            System.out.println("param : addFilkter = " + param);
-
+                //CHANGE VALUE OF EXCEL TABLE
+                excelSagaTableModel.setValueAtFilter(f);
+            }
+            else
+                return null;
         }
         return f;
     }
@@ -177,13 +189,28 @@ public class Facade {
         //GET OBJECT FILTER FROM FACTORY
         Filter f = FilterFactory.getFilter(name, cellFilter);
         if (f != null) {
-            //DEFINE PARAMETER OF FILTER
-            //Facade.execute((Cell) f);
-            //CHANGE VALUE OF EXCEL TABLE
+            int column = cellFilter.getColumn();
+            int row = cellFilter.getRow();
 
-            String value = fi.getPreviousValue();
-            excelSagaTableModel.setValueAt(value, cellFilter.getRow(), cellFilter.getColumn(), true);
+            //REMOVE CELL OF THIS FILTER
+            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext(); ) {
+                Cell aux = iter.next();
+                if (aux.getColumn() == column && aux.getRow() == row) {
+                    if(aux.getClass() == fi.getClass()) {
+                        iter.remove();
+                    }
+                }
+            }   
+                        
+            Facade.execute((Cell) f, null);
+
+            //CHANGE VALUE OF CELL ON TABLE TO PREVIOUS VALUE
+            excelSagaTableModel.setValueAt(cellFilter.getValue(), cellFilter.getRow(), cellFilter.getColumn(), true);
         }
+    }
+    public static void editFilter (String name, Cell cellFilter, Filter fi, String parameter) {
+        
+        excelSagaTableModel.setValueAtFilter(fi);
     }
     
     public static void playMacro(MacroCommand m) {

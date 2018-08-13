@@ -621,9 +621,14 @@ public class ExcelSaga extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        if (excelSagaTableModel.getCell(row, column) == null) {
+            JOptionPane.showMessageDialog(null, "Empty Cell");
+        }
 
-        FilterWindow fw = new FilterWindow(this, new Cell(row, column, excelSagaTableModel.getValueAt(row, column)));
-        fw.setVisible(true);
+        else {
+            FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
+            fw.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuFiltersMenuSelected
 
     private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed

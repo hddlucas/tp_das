@@ -13,12 +13,11 @@ import bll.commands.Cell;
  */
 public abstract class Filter extends Cell {
     protected Cell cell;
-    protected Cell previousCell;
     protected String parameter;
     
      public Filter(Cell c) {
         super(c);
-        this.previousCell = c;
+        //this.previousCell = c;
         this.cell = c;         
     }
     
@@ -30,23 +29,16 @@ public abstract class Filter extends Cell {
     
     @Override
     public String getValue () {
-        return getChanges(cell.getValue().toString());
+        return getChanges(parameter);
     }
     
     public abstract String getName();
-    
-    
-    public String getPreviousValue(){
-        return previousCell.getValue().toString();
-    }
     
     public String getParameter () {
         return this.parameter;
     }
     
-    public void setParameter(String p, Object value){
+    public void setParameter(String p){
         this.parameter = p;
-        previousCell.setValue(cell.getValue());
-        cell.setValue(value);
     }
 }
