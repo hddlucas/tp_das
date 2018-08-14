@@ -56,7 +56,7 @@ public class FilterListModel extends AbstractListModel<String> {
         } else {
             toFilter = list.get(0);
         }
-
+                
         Filter f = Facade.addFilter(name, parameter, toFilter);
         
         //VERIFY IF ALREADY EXIST SELECTED FILTER TO SELECTED CELL

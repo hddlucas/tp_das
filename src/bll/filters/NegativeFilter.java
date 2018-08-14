@@ -20,7 +20,12 @@ public class NegativeFilter extends Filter {
     @Override
     public String getChanges(String param) {
         try {
-            int currentValue = Integer.parseInt(cell.getValue().toString());
+            //IF USER PUT PARAMETER - ON THIS FILTER ISN'T NEEDED
+            //THIS VERIFICATION ONLY FOR VISUALISATION OF PARAMETER VALUE ON WINDOW
+            this.parameterValue = "";
+            this.parameter = "";
+            
+            double currentValue = Double.parseDouble(cell.getValue().toString());
              if(currentValue > 0)
                 return " ";
         } catch (NumberFormatException e) {

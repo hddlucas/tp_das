@@ -19,10 +19,19 @@ public class EqualFilter extends Filter {
     
     @Override
     public String getChanges(String param) {
-         String currentValue = cell.getValue().toString();
-        
-        if(param.equals(currentValue)) {
-            return currentValue;
+        //IF IS A NUMBER
+        try {
+            double currentValue = Double.parseDouble(cell.getValue().toString());
+            double parmDouble = Double.parseDouble(param);
+
+            if(parmDouble == currentValue) {
+                return Double.toString(currentValue);
+            }
+        } catch (NumberFormatException ne) {
+            //IF IS A STRING
+            if(param.equals(cell.getValue().toString())) {
+                return cell.getValue().toString();
+            }
         }
         
         return "";

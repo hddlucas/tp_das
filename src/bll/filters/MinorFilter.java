@@ -20,8 +20,8 @@ public class MinorFilter extends Filter {
     @Override
     public String getChanges(String param) {
         try {
-            int currentValue = Integer.parseInt(cell.getValue().toString());
-            int p = Integer.parseInt(param);
+            double currentValue = Double.parseDouble(cell.getValue().toString());
+            double p = Double.parseDouble(param);
              if(currentValue >= p)
                 return " ";
         } catch (NumberFormatException e) {
