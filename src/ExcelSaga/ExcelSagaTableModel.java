@@ -1,8 +1,8 @@
 package ExcelSaga;
 
-import BusinessLogicLayer.commands.Cell;
-import BusinessLogicLayer.filters.Filter;
-import BusinessLogicLayer.strategy.ViewStrategy;
+import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Filters.Filter;
+import BusinessLogicLayer.Strategy.ViewStrategy;
 import GraphicalUserInterface.RowHeaderRenderer;
 import java.io.Serializable;
 import java.util.ArrayList;

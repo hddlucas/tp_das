@@ -5,8 +5,8 @@
  */
 package GraphicalUserInterface;
 
-import BusinessLogicLayer.commands.Cell;
-import BusinessLogicLayer.filters.FilterListModel;
+import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Filters.FilterListModel;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;

@@ -1,7 +1,7 @@
 package GraphicalUserInterface;
 
-import BusinessLogicLayer.strategy.FunctionalMode;
-import BusinessLogicLayer.strategy.NormalMode;
+import BusinessLogicLayer.Strategy.FunctionalMode;
+import BusinessLogicLayer.Strategy.NormalMode;
 import ExcelSaga.ExcelSagaTableModel;
 import static ExcelSaga.ExcelSagaTableModel.COLS;
 import static ExcelSaga.ExcelSagaTableModel.ROWS;

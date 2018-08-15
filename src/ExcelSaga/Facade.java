@@ -5,16 +5,16 @@
  */
 package ExcelSaga;
 
-import BusinessLogicLayer.adapters.ImportFileAdapter;
-import BusinessLogicLayer.builders.ExportFileBuilder;
-import BusinessLogicLayer.commands.Cell;
-import BusinessLogicLayer.commands.CellValueChangeCommand;
-import BusinessLogicLayer.commands.CommandManager;
-import BusinessLogicLayer.commands.MacroCommand;
-import BusinessLogicLayer.filters.Filter;
-import BusinessLogicLayer.filters.FilterFactory;
-import BusinessLogicLayer.formulas.FormulaFactory;
-import BusinessLogicLayer.strategy.ViewStrategy;
+import BusinessLogicLayer.Adapters.ImportFileAdapter;
+import BusinessLogicLayer.Builders.ExportFileBuilder;
+import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Commands.CellValueChangeCommand;
+import BusinessLogicLayer.Commands.CommandManager;
+import BusinessLogicLayer.Commands.MacroCommand;
+import BusinessLogicLayer.Filters.Filter;
+import BusinessLogicLayer.Filters.FilterFactory;
+import BusinessLogicLayer.Formulas.FormulaFactory;
+import BusinessLogicLayer.Strategy.ViewStrategy;
 import DataAccessLayer.DataAccessObjects.FilesDaoImpl;
 import DataAccessLayer.DataAccessObjects.UsersDaoImpl;
 import DataAccessLayer.Models.User;

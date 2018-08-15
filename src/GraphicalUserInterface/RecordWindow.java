@@ -5,8 +5,8 @@
  */
 package GraphicalUserInterface;
 
-import BusinessLogicLayer.commands.MacroCommand;
-import BusinessLogicLayer.commands.RecordsListModel;
+import BusinessLogicLayer.Commands.MacroCommand;
+import BusinessLogicLayer.Commands.RecordsListModel;
 import ExcelSaga.Facade;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
