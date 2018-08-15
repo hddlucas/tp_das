@@ -5,7 +5,6 @@
  */
 package BusinessLogicLayer.Commands;
 
-import BusinessLogicLayer.Commands.MacroCommand;
 import ExcelSaga.Facade;
 import java.util.ArrayList;
 import javax.swing.AbstractListModel;
