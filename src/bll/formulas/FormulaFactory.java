@@ -22,8 +22,8 @@ public class FormulaFactory {
             return new FormulaLowerCase();
         } else if (formulaName.equalsIgnoreCase("SOMA")) {
             return new FormulaSum();
-        } else if (formulaName.equalsIgnoreCase("NUMERO")) {
-            return new FormulaNumber();
+        } else if (formulaName.equalsIgnoreCase("COPIA") || formulaName.equalsIgnoreCase("CÓPIA")) {
+            return new FormulaCopy();
         }
         
         return null;

@@ -11,7 +11,7 @@ import static gui.ExcelSaga.excelSagaTableModel;
  *
  * @author hdlucas
  */
-public class FormulaNumber extends Formula{
+public class FormulaCopy extends Formula{
 
      @Override
     public String getFormulaResult(String[] params,boolean rangeInterval) {
