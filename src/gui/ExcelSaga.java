@@ -387,6 +387,11 @@ public class ExcelSaga extends javax.swing.JFrame {
         jMenuFilters.setText("Filters");
         jMenuFilters.setToolTipText("");
         jMenuFilters.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenuFilters.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jMenuFiltersStateChanged(evt);
+            }
+        });
         jMenuFilters.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
@@ -394,6 +399,11 @@ public class ExcelSaga extends javax.swing.JFrame {
             }
             public void menuSelected(javax.swing.event.MenuEvent evt) {
                 jMenuFiltersMenuSelected(evt);
+            }
+        });
+        jMenuFilters.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuFiltersMouseClicked(evt);
             }
         });
         jMenuFilters.addActionListener(new java.awt.event.ActionListener() {
@@ -614,21 +624,21 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     private void jMenuFiltersMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuFiltersMenuSelected
 
-        int column = excelTable.getSelectedColumn();
-        int row = excelTable.getSelectedRow();
-
-        if (row == -1 || column == -1) {
-            JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (excelSagaTableModel.getCell(row, column) == null) {
-            JOptionPane.showMessageDialog(null, "Empty Cell");
-        }
-
-        else {
-            FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
-            fw.setVisible(true);
-        }
+//        int column = excelTable.getSelectedColumn();
+//        int row = excelTable.getSelectedRow();
+//
+//        if (row == -1 || column == -1) {
+//            JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+//        if (excelSagaTableModel.getCell(row, column) == null) {
+//            JOptionPane.showMessageDialog(null, "Empty Cell");
+//        }
+//
+//        else {
+//            FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
+//            fw.setVisible(true);
+//        }
     }//GEN-LAST:event_jMenuFiltersMenuSelected
 
     private void jMenuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOpenActionPerformed
@@ -657,6 +667,28 @@ public class ExcelSaga extends javax.swing.JFrame {
         //get recent files
         getRecentFiles();
     }//GEN-LAST:event_jMenuRecentFilesMenuSelected
+
+    private void jMenuFiltersStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jMenuFiltersStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuFiltersStateChanged
+
+    private void jMenuFiltersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuFiltersMouseClicked
+        int column = excelTable.getSelectedColumn();
+        int row = excelTable.getSelectedRow();
+
+        if (row == -1 || column == -1) {
+            JOptionPane.showMessageDialog(this, "Cell not selected", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (excelSagaTableModel.getCell(row, column) == null) {
+            JOptionPane.showMessageDialog(null, "Empty Cell");
+        }
+
+        else {
+            FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
+            fw.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuFiltersMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
