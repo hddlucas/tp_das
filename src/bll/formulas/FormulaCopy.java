@@ -11,7 +11,7 @@ import static gui.ExcelSaga.excelSagaTableModel;
  *
  * @author hdlucas
  */
-public class FormulaNumber extends Formula{
+public class FormulaCopy extends Formula{
 
      @Override
     public String getFormulaResult(String[] params,boolean rangeInterval) {
@@ -22,8 +22,7 @@ public class FormulaNumber extends Formula{
             columnIndex= excelSagaTableModel.findColumn(columnName);
             rowIndex = Integer.parseInt( params[0].replaceAll("\\D+",""));
 
-            double number=Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex-1, columnIndex).toString());
-            newCellValue=String.valueOf(number);
+            newCellValue=excelSagaTableModel.getValueAt(rowIndex-1, columnIndex).toString();
             
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
