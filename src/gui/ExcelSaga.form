@@ -17,6 +17,9 @@
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenuFileMenuSelected"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNew">
               <Properties>

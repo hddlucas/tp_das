@@ -314,6 +314,15 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         jMenuFile.setText("File");
         jMenuFile.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jMenuFile.addMenuListener(new javax.swing.event.MenuListener() {
+            public void menuCanceled(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuDeselected(javax.swing.event.MenuEvent evt) {
+            }
+            public void menuSelected(javax.swing.event.MenuEvent evt) {
+                jMenuFileMenuSelected(evt);
+            }
+        });
 
         jMenuItemNew.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jMenuItemNew.setText("New");
@@ -575,7 +584,7 @@ public class ExcelSaga extends javax.swing.JFrame {
             try {
                 Facade.exportFile(fileType, file);
                 Facade.saveFile(file);
-
+                getRecentFiles();
             } catch (Exception ex) {
                 Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -655,8 +664,13 @@ public class ExcelSaga extends javax.swing.JFrame {
 
     private void jMenuRecentFilesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuRecentFilesMenuSelected
         //get recent files
-        getRecentFiles();
+        //getRecentFiles();
     }//GEN-LAST:event_jMenuRecentFilesMenuSelected
+
+    private void jMenuFileMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuFileMenuSelected
+        // TODO add your handling code here:
+          getRecentFiles();
+    }//GEN-LAST:event_jMenuFileMenuSelected
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
