@@ -645,7 +645,19 @@ public class ExcelSaga extends javax.swing.JFrame {
 
         else {
             FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+            // Determine the new location of the window
+            int w = this.getSize().width;
+            int h = this.getSize().height;
+            int x = (dim.width - w) / 2;
+            int y = (dim.height - h) / 2;
+
+            // Move the window
+            fw.setLocation(x, y);
+            
             fw.setVisible(true);
+
         }
     }//GEN-LAST:event_jMenuFiltersMenuSelected
 
