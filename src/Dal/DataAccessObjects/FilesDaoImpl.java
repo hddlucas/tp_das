@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data.Controllers;
+package Dal.DataAccessObjects;
 
-import data.DatabaseConnection.DatabaseConnImpl;
-import data.Models.User;
+import Dal.DatabaseConnection.DatabaseConnImpl;
+import Dal.Models.User;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

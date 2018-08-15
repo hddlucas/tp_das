@@ -1,4 +1,4 @@
-package data.DatabaseConnection;
+package Dal.DatabaseConnection;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

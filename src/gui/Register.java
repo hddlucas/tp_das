@@ -5,8 +5,8 @@
  */
 package gui;
 
-import data.DatabaseConnection.DatabaseConnImpl;
-import data.Controllers.UsersDaoImpl;
+import Dal.DatabaseConnection.DatabaseConnImpl;
+import Dal.DataAccessObjects.UsersDaoImpl;
 import excelsaga.Facade;
 import java.awt.Dimension;
 import java.awt.Toolkit;

@@ -1,7 +1,7 @@
-package data.Controllers;
+package Dal.DataAccessObjects;
 
-import data.DatabaseConnection.DatabaseConnImpl;
-import data.Models.User;
+import Dal.DatabaseConnection.DatabaseConnImpl;
+import Dal.Models.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

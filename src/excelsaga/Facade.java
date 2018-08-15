@@ -13,19 +13,18 @@ import bll.commands.CommandManager;
 import bll.commands.MacroCommand;
 import bll.filters.Filter;
 import bll.filters.FilterFactory;
-import bll.formulas.Formula;
 import bll.formulas.FormulaFactory;
 import bll.strategy.ViewStrategy;
-import data.Controllers.FilesDaoImpl;
-import data.Controllers.UsersDaoImpl;
-import data.Models.User;
+import Dal.DataAccessObjects.FilesDaoImpl;
+import Dal.DataAccessObjects.UsersDaoImpl;
+import Dal.Models.User;
 import static gui.ExcelSaga.excelSagaTableModel;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import data.Controllers.UsersDao;
-import data.Controllers.FilesDao;
+import Dal.DataAccessObjects.UsersDao;
+import Dal.DataAccessObjects.FilesDao;
 import java.util.Iterator;
 
 /**
@@ -145,8 +144,7 @@ public class Facade {
 
     public static String applyFormula(String formulaName, String[] params, boolean rangeInterval) {
         FormulaFactory formulaFactory = new FormulaFactory();
-        Formula formula = formulaFactory.getFormula(formulaName);
-        return formula.getFormulaResult(params, rangeInterval);
+        return formulaFactory.getFormula(formulaName).getFormulaResult(params, rangeInterval);
     }
 
     public static void setViewMode(ViewStrategy viewStrategy) {
@@ -156,30 +154,29 @@ public class Facade {
     public static Filter addFilter(String name, String param, Cell cellFilter) {
         //GET OBJECT FILTER FROM FACTORY
         Filter f = FilterFactory.getFilter(name, cellFilter);
-        
+
         int column = cellFilter.getColumn();
         int row = cellFilter.getRow();
         Boolean alreadyExist = false;
-        
+
         if (f != null) {
             //VERIFY IF FILTER ALREADY EXIST TO SELECTED CELL
-            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext(); ) {
+            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext();) {
                 Cell aux = iter.next();
                 if (aux.getColumn() == column && aux.getRow() == row) {
-                    if(aux.getClass() == f.getClass()) {
+                    if (aux.getClass() == f.getClass()) {
                         alreadyExist = true;
                     }
                 }
-            } 
-        
-            if(!alreadyExist){
+            }
+
+            if (!alreadyExist) {
                 //DEFINE PARAMETER OF FILTER
                 f.setParameter(param);
 
                 //CHANGE VALUE OF EXCEL TABLE
                 excelSagaTableModel.setValueAtFilter(f);
-            }
-            else
+            } else
                 return null;
         }
         return f;
