@@ -1,6 +1,5 @@
 package gui;
 
-import bll.commands.Cell;
 import bll.strategy.FunctionalMode;
 import bll.strategy.NormalMode;
 import excelsaga.ExcelSagaTableModel;
@@ -120,7 +119,7 @@ public class ExcelSaga extends javax.swing.JFrame {
                                 File selectedFile = new File(eventSource.getName());
                                 String fileName = selectedFile.getName();
                                 Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
-                                JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "File successfully loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "A problem occurred while reading the file.", "Error", JOptionPane.ERROR_MESSAGE);
                             }
@@ -442,23 +441,23 @@ public class ExcelSaga extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonStepForwardActionPerformed
 
     private void jButtonRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRecordActionPerformed
-        if(Facade.getMacro() == null) {
+        if (Facade.getMacro() == null) {
             JOptionPane.showMessageDialog(null, "Recording...");
             Facade.startMacroRecording();
-            
+
             //CHANGE ICON OF BUTTON
             jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/stop_recording_macro.png")));
-            
+
             jButtonPlay.setEnabled(false);
-            
+
         } else {
             String nome = JOptionPane.showInputDialog(this, "Macro name:", "Macro", JOptionPane.QUESTION_MESSAGE);
             Facade.stopMacroRecording(nome);
             jButtonPlay.setEnabled(true);
-            
+
             //CHANGE ICON OF BUTTON
             jButtonRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/record_macro.png")));
-            
+
             jButtonPlay.setEnabled(true);
         }
     }//GEN-LAST:event_jButtonRecordActionPerformed
@@ -471,8 +470,8 @@ public class ExcelSaga extends javax.swing.JFrame {
         // Determine the new location of the window
         int w = this.getSize().width;
         int h = this.getSize().height;
-        int x = (dim.width-w)/2;
-        int y = (dim.height-h)/2;
+        int x = (dim.width - w) / 2;
+        int y = (dim.height - h) / 2;
 
         // Move the window
         rw.setLocation(x, y);
@@ -501,7 +500,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
-            JOptionPane.showMessageDialog(null, "File successfully imported","Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "File successfully imported", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemImportActionPerformed
 
@@ -554,7 +553,7 @@ public class ExcelSaga extends javax.swing.JFrame {
 
             try {
                 Facade.exportFile(fileType, file);
-                JOptionPane.showMessageDialog(null, "File successfully exported","Information",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "File successfully exported", "Information", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception ex) {
                 Logger.getLogger(ExcelSaga.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -632,9 +631,7 @@ public class ExcelSaga extends javax.swing.JFrame {
         }
         if (excelSagaTableModel.getCell(row, column) == null) {
             JOptionPane.showMessageDialog(null, "Empty Cell");
-        }
-
-        else {
+        } else {
             FilterWindow fw = new FilterWindow(this, excelSagaTableModel.getCell(row, column));
             fw.setVisible(true);
         }
@@ -658,18 +655,17 @@ public class ExcelSaga extends javax.swing.JFrame {
         if (selectedFile != null) {
             String fileName = selectedFile.getName();
             Facade.importFile(selectedFile, fileName.substring(fileName.lastIndexOf(".") + 1, selectedFile.getName().length()));
-            JOptionPane.showMessageDialog(null, "File successfully loaded","Information",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "File successfully loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItemOpenActionPerformed
 
     private void jMenuRecentFilesMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuRecentFilesMenuSelected
-        //get recent files
-        //getRecentFiles();
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuRecentFilesMenuSelected
 
     private void jMenuFileMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenuFileMenuSelected
-        // TODO add your handling code here:
-          getRecentFiles();
+        //get recent files
+        getRecentFiles();
     }//GEN-LAST:event_jMenuFileMenuSelected
 
 
