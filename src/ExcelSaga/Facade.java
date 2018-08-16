@@ -23,8 +23,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import DataAccessLayer.DataAccessObjects.UsersDao;
-import DataAccessLayer.DataAccessObjects.FilesDao;
 import java.util.Iterator;
 
 /**
@@ -33,8 +31,8 @@ import java.util.Iterator;
  */
 public class Facade {
 
-    private static final UsersDao users = new UsersDaoImpl();
-    private static final FilesDao files = new FilesDaoImpl();
+    private static final UsersDaoImpl users = new UsersDaoImpl();
+    private static final FilesDaoImpl files = new FilesDaoImpl();
     private static final User user = new User();
     private static final CommandManager cm = new CommandManager();
     private static final List<MacroCommand> macroList = new ArrayList<>();

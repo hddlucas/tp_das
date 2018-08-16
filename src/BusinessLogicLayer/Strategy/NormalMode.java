@@ -5,7 +5,6 @@
  */
 package BusinessLogicLayer.Strategy;
 
-import BusinessLogicLayer.Commands.Cell;
 import ExcelSaga.Facade;
 
 /**
