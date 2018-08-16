@@ -20,14 +20,16 @@ public class FormulaFactory {
         }
         if (formulaName.equalsIgnoreCase("MINUSCULAS") || formulaName.equalsIgnoreCase("LOWERCASE")) {
             return new FormulaLowerCase();
-        } else if (formulaName.equalsIgnoreCase("SOMA") || formulaName.equalsIgnoreCase("SUM")){
+        } else if (formulaName.equalsIgnoreCase("SOMA") || formulaName.equalsIgnoreCase("SUM")) {
             return new FormulaSum();
         } else if (formulaName.equalsIgnoreCase("SUB") || formulaName.equalsIgnoreCase("SUBTRACAO") || formulaName.equalsIgnoreCase("SUBTRAÇÃO")) {
             return new FormulaSub();
+        } else if (formulaName.equalsIgnoreCase("MUL") || formulaName.equalsIgnoreCase("MULTIPLICACAO") || formulaName.equalsIgnoreCase("MULTIPLICAÇÃO")) {
+            return new FormulaMul();
         } else if (formulaName.equalsIgnoreCase("COPIA") || formulaName.equalsIgnoreCase("CÓPIA") || formulaName.equalsIgnoreCase("COPY")) {
             return new FormulaCopy();
         }
-        
+
         return null;
     }
 }
