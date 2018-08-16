@@ -15,14 +15,16 @@ public class FormulaFactory {
         if (formulaName == null) {
             return null;
         }
-        if (formulaName.equalsIgnoreCase("MAIUSCULAS")) {
+        if (formulaName.equalsIgnoreCase("MAIUSCULAS") || formulaName.equalsIgnoreCase("UPPERCASE")) {
             return new FormulaUpperCase();
         }
-        if (formulaName.equalsIgnoreCase("MINUSCULAS")) {
+        if (formulaName.equalsIgnoreCase("MINUSCULAS") || formulaName.equalsIgnoreCase("LOWERCASE")) {
             return new FormulaLowerCase();
-        } else if (formulaName.equalsIgnoreCase("SOMA")) {
+        } else if (formulaName.equalsIgnoreCase("SOMA") || formulaName.equalsIgnoreCase("SUM")){
             return new FormulaSum();
-        } else if (formulaName.equalsIgnoreCase("COPIA") || formulaName.equalsIgnoreCase("CÓPIA")) {
+        } else if (formulaName.equalsIgnoreCase("SUB") || formulaName.equalsIgnoreCase("SUBTRACAO") || formulaName.equalsIgnoreCase("SUBTRAÇÃO")) {
+            return new FormulaSub();
+        } else if (formulaName.equalsIgnoreCase("COPIA") || formulaName.equalsIgnoreCase("CÓPIA") || formulaName.equalsIgnoreCase("COPY")) {
             return new FormulaCopy();
         }
         
