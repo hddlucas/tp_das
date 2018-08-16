@@ -14,11 +14,9 @@ public class FormulaFactory {
     public Formula getFormula(String formulaName) {
         if (formulaName == null) {
             return null;
-        }
-        if (formulaName.equalsIgnoreCase("MAIUSCULAS") || formulaName.equalsIgnoreCase("UPPERCASE")) {
+        } else if (formulaName.equalsIgnoreCase("MAIUSCULAS") || formulaName.equalsIgnoreCase("UPPERCASE")) {
             return new FormulaUpperCase();
-        }
-        if (formulaName.equalsIgnoreCase("MINUSCULAS") || formulaName.equalsIgnoreCase("LOWERCASE")) {
+        } else if (formulaName.equalsIgnoreCase("MINUSCULAS") || formulaName.equalsIgnoreCase("LOWERCASE")) {
             return new FormulaLowerCase();
         } else if (formulaName.equalsIgnoreCase("SOMA") || formulaName.equalsIgnoreCase("SUM")) {
             return new FormulaSum();
@@ -26,10 +24,11 @@ public class FormulaFactory {
             return new FormulaSub();
         } else if (formulaName.equalsIgnoreCase("MUL") || formulaName.equalsIgnoreCase("MULTIPLICACAO") || formulaName.equalsIgnoreCase("MULTIPLICAÇÃO")) {
             return new FormulaMul();
+        } else if (formulaName.equalsIgnoreCase("DIV") || formulaName.equalsIgnoreCase("DIVISAO") || formulaName.equalsIgnoreCase("DIVISÃO")) {
+            return new FormulaDiv();
         } else if (formulaName.equalsIgnoreCase("COPIA") || formulaName.equalsIgnoreCase("CÓPIA") || formulaName.equalsIgnoreCase("COPY")) {
             return new FormulaCopy();
         }
-
         return null;
     }
 }
