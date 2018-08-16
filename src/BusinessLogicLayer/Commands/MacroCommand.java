@@ -16,8 +16,8 @@ public class MacroCommand {
     String name;
     List<Command> commandList = new ArrayList<>();
     
-    public void add(Command comando) {
-        commandList.add(comando);
+    public void add(Command command) {
+        commandList.add(command);
     }
     
     public void play(CommandManager cm) {
