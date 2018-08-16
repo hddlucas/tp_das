@@ -11,13 +11,13 @@ import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;
  *
  * @author hdlucas
  */
-public class FormulaMul extends Formula{
+public class FormulaMul extends Formula {
+
     @Override
     public String getFormulaResult(String[] params, boolean rangeInterval) {
         try {
             validateNumberOfParams(params, rangeInterval);
             double mul = 0;
-            int aux = 0;
             if (!rangeInterval) {
                 for (int i = 0; i < params.length; i++) {
                     columnName = params[i].replaceAll("\\d", "").toUpperCase();
@@ -42,21 +42,37 @@ public class FormulaMul extends Formula{
                 } else if (columnIndex1 == columnIndex2) {
                     if (rowIndex1 < rowIndex2) {
                         for (int k = rowIndex1; k <= rowIndex2; k++) {
-                            if (aux == 0) {
+                            if (k == rowIndex1) {
                                 mul += Double.parseDouble(excelSagaTableModel.getValueAt(k - 1, columnIndex1).toString());
                             } else {
                                 mul *= Double.parseDouble(excelSagaTableModel.getValueAt(k - 1, columnIndex1).toString());
                             }
-                            aux++;
                         }
                     } else {
                         for (int k = rowIndex1; k >= rowIndex2; k--) {
-                            if (aux == 0) {
+                            if (k == rowIndex1) {
                                 mul += Double.parseDouble(excelSagaTableModel.getValueAt(k - 1, columnIndex1).toString());
                             } else {
                                 mul *= Double.parseDouble(excelSagaTableModel.getValueAt(k - 1, columnIndex1).toString());
                             }
-                            aux++;
+                        }
+                    }
+                } else if (rowIndex1 == rowIndex2) {
+                    if (columnIndex1 < columnIndex2) {
+                        for (int k = columnIndex1; k <= columnIndex2; k++) {
+                            if (k == columnIndex1) {
+                                mul += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                            } else {
+                                mul *= Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                            }
+                        }
+                    } else {
+                        for (int k = columnIndex1; k >= columnIndex2; k--) {
+                            if (k == columnIndex1) {
+                                mul += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                            } else {
+                                mul *= Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                            }
                         }
                     }
                 } else {

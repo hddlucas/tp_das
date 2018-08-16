@@ -6,7 +6,6 @@
 package BusinessLogicLayer.Formulas;
 
 import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;
-import java.util.Arrays;
 
 /**
  *
@@ -27,12 +26,12 @@ public class FormulaSum extends Formula {
                     sum += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex - 1, columnIndex).toString());
                 }
             } else {
-                 columnName1 = params[0].replaceAll("\\d", "").toUpperCase();
-                 columnIndex1 = excelSagaTableModel.findColumn(columnName1);
-                 rowIndex1 = Integer.parseInt(params[0].replaceAll("\\D+", ""));
-                 columnName2 = params[1].replaceAll("\\d", "").toUpperCase();
-                 columnIndex2 = excelSagaTableModel.findColumn(columnName2);
-                 rowIndex2 = Integer.parseInt(params[1].replaceAll("\\D+", ""));
+                columnName1 = params[0].replaceAll("\\d", "").toUpperCase();
+                columnIndex1 = excelSagaTableModel.findColumn(columnName1);
+                rowIndex1 = Integer.parseInt(params[0].replaceAll("\\D+", ""));
+                columnName2 = params[1].replaceAll("\\d", "").toUpperCase();
+                columnIndex2 = excelSagaTableModel.findColumn(columnName2);
+                rowIndex2 = Integer.parseInt(params[1].replaceAll("\\D+", ""));
 
                 if (columnIndex1 == columnIndex2 && rowIndex1 == rowIndex2) {
                     return String.valueOf(Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, columnIndex1).toString()));
@@ -47,19 +46,30 @@ public class FormulaSum extends Formula {
                             sum += Double.parseDouble(excelSagaTableModel.getValueAt(k - 1, columnIndex1).toString());
                         }
                     }
+                } else if (rowIndex1 == rowIndex2) {
+                    if (columnIndex1 < columnIndex2) {
+                        for (int k = columnIndex1; k <= columnIndex2; k++) {
+                            sum += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                        }
+                    } else {
+                        for (int k = columnIndex1; k >= columnIndex2; k--) {
+                            System.out.println(k);
+                            sum += Double.parseDouble(excelSagaTableModel.getValueAt(rowIndex1 - 1, k).toString());
+                        }
+                    }
                 } else {
-                     //TODO   
+                    //TODO   
                 }
             }
             newCellValue = String.valueOf(sum);
-            
+
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
             return invalidFormula;
         } catch (Exception e) {
             return invalidFormula;
         }
-        
+
         return newCellValue;
     }
 
