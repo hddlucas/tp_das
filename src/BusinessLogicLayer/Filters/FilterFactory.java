@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package BusinessLogicLayer.Filters;
- import BusinessLogicLayer.Commands.Cell;
+ import BusinessLogicLayer.Common.Cell;
  /**
  *
  * @author MarcoSequeira-PC

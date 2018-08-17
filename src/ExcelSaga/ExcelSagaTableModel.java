@@ -1,6 +1,6 @@
 package ExcelSaga;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Filters.Filter;
 import BusinessLogicLayer.Strategy.ViewStrategy;
 import GraphicalUserInterface.RowHeaderRenderer;

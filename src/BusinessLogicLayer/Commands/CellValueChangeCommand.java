@@ -5,6 +5,7 @@
  */
 package BusinessLogicLayer.Commands;
 
+import BusinessLogicLayer.Common.Cell;
 import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;
 
 /**

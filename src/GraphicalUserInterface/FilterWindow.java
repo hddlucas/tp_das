@@ -5,7 +5,7 @@
  */
 package GraphicalUserInterface;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Filters.FilterListModel;
 import java.awt.Frame;
 import javax.swing.JOptionPane;

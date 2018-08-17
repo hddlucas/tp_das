@@ -5,7 +5,6 @@ import BusinessLogicLayer.Strategy.NormalMode;
 import ExcelSaga.ExcelSagaTableModel;
 import static ExcelSaga.ExcelSagaTableModel.COLS;
 import static ExcelSaga.ExcelSagaTableModel.ROWS;
-import ExcelSaga.ExcelSagaTableModelListener;
 import ExcelSaga.Facade;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,7 +35,6 @@ public class ExcelSaga extends javax.swing.JFrame {
     private List<String> recentFiles;
     private JMenuItem[] recentFileItem;
     public static ExcelSagaTableModel excelSagaTableModel;
-    ExcelSagaTableModelListener excelSagaTableModelListener;
 
     /**
      * Creates new form ExcelSaga

@@ -5,7 +5,7 @@
  */
 package BusinessLogicLayer.Filters;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Filters.Filter;
 import ExcelSaga.Facade;
 import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;

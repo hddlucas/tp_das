@@ -7,7 +7,7 @@ package ExcelSaga;
 
 import BusinessLogicLayer.Adapters.ImportFileAdapter;
 import BusinessLogicLayer.Builders.ExportFileBuilder;
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Commands.CellValueChangeCommand;
 import BusinessLogicLayer.Commands.CommandManager;
 import BusinessLogicLayer.Commands.MacroCommand;

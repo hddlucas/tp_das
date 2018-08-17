@@ -5,7 +5,7 @@
  */
 package BusinessLogicLayer.Strategy;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 
 /**
  *
