@@ -13,12 +13,13 @@ import java.io.File;
  */
 public class FileToExport {
 
+    
+    private File file;
+    
     public FileToExport(File file) {
         this.file = file;
     }
     
-    private File file;
-
     public File getFile() {
         return file;
     }
