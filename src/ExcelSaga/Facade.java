@@ -7,6 +7,7 @@ package ExcelSaga;
 
 import BusinessLogicLayer.Adapters.ImportFileAdapter;
 import BusinessLogicLayer.Builders.ExportFileBuilder;
+import BusinessLogicLayer.Builders.ExportFileDirector;
 import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Commands.CellValueChangeCommand;
 import BusinessLogicLayer.Commands.CommandManager;
@@ -136,8 +137,9 @@ public class Facade {
     }
 
     public static void exportFile(String type, File file) throws Exception {
-        ExportFileBuilder builder = ExportFileBuilder.getBuilder(type).setBuilder(file);
-        builder.tableExporter();
+        ExportFileDirector director = new ExportFileDirector();
+        director.setExportFileBuilder(type);
+        director.constructFileToExport(file);
     }
 
     public static String applyFormula(String formulaName, String[] params, boolean rangeInterval) {

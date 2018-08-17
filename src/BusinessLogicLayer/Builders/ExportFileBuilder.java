@@ -7,28 +7,22 @@ package BusinessLogicLayer.Builders;
 
 import java.io.File;
 
+
 /**
  *
  * @author MarcoSequeira-PC
  */
 public abstract class ExportFileBuilder {
-
-    public static ExportFileBuilder getBuilder(String fileExtension) throws Exception {
-        if (fileExtension.equalsIgnoreCase("txt")) {
-            return new ExportTxtBuilder();
-        } else if (fileExtension.equalsIgnoreCase("csv")) {
-            return new ExportCsvBuilder();
-        } else if (fileExtension.equalsIgnoreCase("html")) {
-            return new ExportHtmlBuilder();
-        } else if (fileExtension.equalsIgnoreCase("excelSaga")) {
-            return new ExportObjectBuilder();
-        }
-        else {
-            throw new IllegalArgumentException("Invalid File Extension");
-        }
+    
+    protected FileToExport fileToExport;
+    
+      public FileToExport getFileToExport() {
+        return fileToExport;
     }
 
-    public abstract ExportFileBuilder setBuilder(File file);
+    public void createNewFileToExport(File f) {
+        fileToExport = new FileToExport(f);
+    }
 
-    public abstract void tableExporter() throws Exception;
+    public abstract void exportTableToFile() throws Exception;
 }
