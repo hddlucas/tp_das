@@ -35,7 +35,7 @@ public class ExportFileDirector {
         return exportFileBuilder;
     }
     
-    public void constructFileToExport(File f) throws Exception {
+    public void buildFileToExport(File f) throws Exception {
         exportFileBuilder.createNewFileToExport(f);
         exportFileBuilder.exportTableToFile();
     }

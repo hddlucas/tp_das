@@ -16,7 +16,7 @@ public abstract class ExportFileBuilder {
     
     protected FileToExport fileToExport;
     
-      public FileToExport getFileToExport() {
+    public FileToExport getFileToExport() {
         return fileToExport;
     }
 

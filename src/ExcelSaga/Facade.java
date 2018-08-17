@@ -139,7 +139,7 @@ public class Facade {
     public static void exportFile(String type, File file) throws Exception {
         ExportFileDirector director = new ExportFileDirector();
         director.setExportFileBuilder(type);
-        director.constructFileToExport(file);
+        director.buildFileToExport(file);
     }
 
     public static String applyFormula(String formulaName, String[] params, boolean rangeInterval) {
