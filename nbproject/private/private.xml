@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Builders/ExportFileBuilder.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Adapters/ImportFileAdapter.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Strategy/FunctionalMode.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaMul.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/MoreFilter.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/DataAccessLayer/DataAccessObjects/FilesDaoImpl.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/CommandManager.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/resources/files/script.sql</file>
@@ -12,24 +15,37 @@
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaDiv.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/ExcelSaga/ExcelSagaTableModel.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/GraphicalUserInterface/Login.java</file>
-            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/ExcelSaga/ExcelSagaTableModelListener.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Adapters/ImportFile.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/DataAccessLayer/Models/User.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/NegativeFilter.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/GraphicalUserInterface/RecordWindow.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Builders/ExportObjectBuilder.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Strategy/NormalMode.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Builders/ExportHtmlBuilder.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/MinorFilter.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/MacroCommand.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/RecordsListModel.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Strategy/ViewStrategy.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/FilterFactory.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/GraphicalUserInterface/RowHeaderRenderer.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/GraphicalUserInterface/Register.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/CellValueChangeCommand.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaSub.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaCopy.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Adapters/ImportCsvFile.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Common/Cell.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaFactory.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/PositiveFilter.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/GraphicalUserInterface/ExcelSaga.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Builders/ExportCsvBuilder.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaSum.java</file>
-            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/Cell.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/Filter.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/UppercaseFilter.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Builders/ExportTxtBuilder.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaUpperCase.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/EqualFilter.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/ExcelSaga/Facade.java</file>
+            <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Filters/FilterListModel.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Commands/Command.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/Formula.java</file>
             <file>file:/C:/Users/hdlucas/Desktop/ISEC/DAS/ExcelSaga/src/BusinessLogicLayer/Formulas/FormulaLowerCase.java</file>

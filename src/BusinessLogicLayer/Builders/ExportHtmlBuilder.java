@@ -7,7 +7,6 @@ package BusinessLogicLayer.Builders;
 
 import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.util.Vector;
 
@@ -17,8 +16,6 @@ import java.util.Vector;
  */
 public class ExportHtmlBuilder extends ExportFileBuilder {
 
-    protected File f;
-    
     private String cssString = "<style>\n" + 
             "table.blueTable {\n" +
                 "  border: 1px solid #4CA361;\n" +
@@ -98,18 +95,13 @@ public class ExportHtmlBuilder extends ExportFileBuilder {
             + "</body>\n"
             + "</html>";
     
-    @Override
-    public ExportFileBuilder setBuilder(File file) {
-        this.f = file;
-        return this;
-    }
 
     @Override
-    public void tableExporter() throws Exception {
+    public void exportTableToFile() throws Exception {
         
         String toAppend = "";
         
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.f));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(super.fileToExport.getFile()));
         
         writer.append(fileHeader);
        

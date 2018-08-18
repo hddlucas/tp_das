@@ -16,18 +16,10 @@ import java.util.Vector;
  * @author MarcoSequeira-PC
  */
 public class ExportCsvBuilder extends ExportFileBuilder {
-
-    protected File f;
-    
+   
     @Override
-    public ExportFileBuilder setBuilder(File file) {
-        this.f = file;
-        return this;
-    }
-
-    @Override
-    public void tableExporter() throws Exception {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(this.f));
+    public void exportTableToFile() throws Exception {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(super.fileToExport.getFile()));
        
         Vector<Vector> rowData = excelSagaTableModel.getDataVector();
               
@@ -48,4 +40,5 @@ public class ExportCsvBuilder extends ExportFileBuilder {
         }
         writer.close();
     }
+
 }

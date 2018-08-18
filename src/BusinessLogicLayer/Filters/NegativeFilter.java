@@ -5,7 +5,7 @@
  */
 package BusinessLogicLayer.Filters;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 
 /**
  *
@@ -27,8 +27,9 @@ public class NegativeFilter extends Filter {
             
             double currentValue = Double.parseDouble(cell.getValue().toString());
              if(currentValue > 0)
-                return " ";
+                return "";
         } catch (NumberFormatException e) {
+            return "";
         }
         
         return cell.getValue().toString();

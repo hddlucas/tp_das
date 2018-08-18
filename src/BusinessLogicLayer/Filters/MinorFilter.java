@@ -5,7 +5,7 @@
  */
 package BusinessLogicLayer.Filters;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 
 /**
  *
@@ -23,8 +23,9 @@ public class MinorFilter extends Filter {
             double currentValue = Double.parseDouble(cell.getValue().toString());
             double p = Double.parseDouble(param);
              if(currentValue >= p)
-                return " ";
+                return "";
         } catch (NumberFormatException e) {
+            return " ";
         }
         return cell.getValue().toString();
     }

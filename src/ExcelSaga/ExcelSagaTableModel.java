@@ -1,8 +1,10 @@
 package ExcelSaga;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Filters.Filter;
+import BusinessLogicLayer.Filters.FilterFactory;
 import BusinessLogicLayer.Strategy.ViewStrategy;
+import static GraphicalUserInterface.ExcelSaga.excelSagaTableModel;
 import GraphicalUserInterface.RowHeaderRenderer;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -292,5 +294,61 @@ public class ExcelSagaTableModel extends AbstractTableModel implements Serializa
     
     public List getCellList () {
         return listCell;
+    }
+    
+    
+    public Filter addFilter(String name, String param, Cell cellFilter) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        
+        int column = cellFilter.getColumn();
+        int row = cellFilter.getRow();
+        Boolean alreadyExist = false;
+
+        if (f != null) {
+            //VERIFY IF FILTER ALREADY EXIST TO SELECTED CELL
+            for (Iterator<Cell> iter = this.getCellList().listIterator(); iter.hasNext();) {
+                Cell aux = iter.next();
+                if (aux.getColumn() == column && aux.getRow() == row) {
+                    if (aux.getClass() == f.getClass()) {
+                        alreadyExist = true;
+                    }
+                }
+            }
+
+            if (!alreadyExist) {
+                //DEFINE PARAMETER OF FILTER
+                f.setParameter(param);
+
+                //CHANGE VALUE OF EXCEL TABLE
+                this.setValueAtFilter(f);
+            } else
+                return null;
+        }
+        return f;
+    }
+    
+    public void removeFilter(String name, Cell cellFilter, Filter fi) {
+        //GET OBJECT FILTER FROM FACTORY
+        Filter f = FilterFactory.getFilter(name, cellFilter);
+        if (f != null) {
+            int column = cellFilter.getColumn();
+            int row = cellFilter.getRow();
+
+            //REMOVE CELL OF THIS FILTER
+            for (Iterator<Cell> iter = this.getCellList().listIterator(); iter.hasNext(); ) {
+                Cell aux = iter.next();
+                if (aux.getColumn() == column && aux.getRow() == row) {
+                    if(aux.getClass() == fi.getClass()) {
+                        iter.remove();
+                    }
+                }
+            }   
+                        
+            Facade.execute((Cell) f, null);
+
+            //CHANGE VALUE OF CELL ON TABLE TO PREVIOUS VALUE
+            this.setValueAt(cellFilter.getValue(), cellFilter.getRow(), cellFilter.getColumn(), true);
+        }
     }
 }

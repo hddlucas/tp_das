@@ -5,7 +5,7 @@
  */
 package BusinessLogicLayer.Filters;
 
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Common.Cell;
 
 /**
  *
@@ -36,6 +36,7 @@ public class EqualFilter extends Filter {
         
         return "";
     }
+    
      @Override
     public String getName() {
         return "equal";

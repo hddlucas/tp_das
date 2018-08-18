@@ -6,13 +6,12 @@
 package ExcelSaga;
 
 import BusinessLogicLayer.Adapters.ImportFileAdapter;
-import BusinessLogicLayer.Builders.ExportFileBuilder;
-import BusinessLogicLayer.Commands.Cell;
+import BusinessLogicLayer.Builders.ExportFileDirector;
+import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Commands.CellValueChangeCommand;
 import BusinessLogicLayer.Commands.CommandManager;
 import BusinessLogicLayer.Commands.MacroCommand;
 import BusinessLogicLayer.Filters.Filter;
-import BusinessLogicLayer.Filters.FilterFactory;
 import BusinessLogicLayer.Formulas.FormulaFactory;
 import BusinessLogicLayer.Strategy.ViewStrategy;
 import DataAccessLayer.DataAccessObjects.FilesDaoImpl;
@@ -23,7 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Iterator;
 
 /**
  *
@@ -136,8 +134,9 @@ public class Facade {
     }
 
     public static void exportFile(String type, File file) throws Exception {
-        ExportFileBuilder builder = ExportFileBuilder.getBuilder(type).setBuilder(file);
-        builder.tableExporter();
+        ExportFileDirector director = new ExportFileDirector();
+        director.setExportFileBuilder(type);
+        director.buildFileToExport(file);
     }
 
     public static String applyFormula(String formulaName, String[] params, boolean rangeInterval) {
@@ -149,60 +148,14 @@ public class Facade {
         excelSagaTableModel.setStrategy(viewStrategy);
     }
 
-    public static Filter addFilter(String name, String param, Cell cellFilter) {
-        //GET OBJECT FILTER FROM FACTORY
-        Filter f = FilterFactory.getFilter(name, cellFilter);
-
-        int column = cellFilter.getColumn();
-        int row = cellFilter.getRow();
-        Boolean alreadyExist = false;
-
-        if (f != null) {
-            //VERIFY IF FILTER ALREADY EXIST TO SELECTED CELL
-            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext();) {
-                Cell aux = iter.next();
-                if (aux.getColumn() == column && aux.getRow() == row) {
-                    if (aux.getClass() == f.getClass()) {
-                        alreadyExist = true;
-                    }
-                }
-            }
-
-            if (!alreadyExist) {
-                //DEFINE PARAMETER OF FILTER
-                f.setParameter(param);
-
-                //CHANGE VALUE OF EXCEL TABLE
-                excelSagaTableModel.setValueAtFilter(f);
-            } else
-                return null;
-        }
-        return f;
+    public static Filter addFilter(String name, String param, Cell cellFilter) {        
+        return excelSagaTableModel.addFilter(name, param, cellFilter);
     }
 
     public static void removeFilter(String name, Cell cellFilter, Filter fi) {
-        //GET OBJECT FILTER FROM FACTORY
-        Filter f = FilterFactory.getFilter(name, cellFilter);
-        if (f != null) {
-            int column = cellFilter.getColumn();
-            int row = cellFilter.getRow();
-
-            //REMOVE CELL OF THIS FILTER
-            for (Iterator<Cell> iter = excelSagaTableModel.getCellList().listIterator(); iter.hasNext(); ) {
-                Cell aux = iter.next();
-                if (aux.getColumn() == column && aux.getRow() == row) {
-                    if(aux.getClass() == fi.getClass()) {
-                        iter.remove();
-                    }
-                }
-            }   
-                        
-            Facade.execute((Cell) f, null);
-
-            //CHANGE VALUE OF CELL ON TABLE TO PREVIOUS VALUE
-            excelSagaTableModel.setValueAt(cellFilter.getValue(), cellFilter.getRow(), cellFilter.getColumn(), true);
-        }
+        excelSagaTableModel.removeFilter(name, cellFilter, fi);
     }
+    
     public static void editFilter (String name, Cell cellFilter, Filter fi, String parameter) {
         
         excelSagaTableModel.setValueAtFilter(fi);
@@ -233,10 +186,6 @@ public class Facade {
     
     public static void removeMacro (MacroCommand mc) {
         macroList.remove(mc);
-//        macroList.forEach((ml) -> {
-//        if(name.equals(ml.getName()))
-//            macroList.remove(ml);
-//        });
     }
         
     public static MacroCommand getMacro() {
