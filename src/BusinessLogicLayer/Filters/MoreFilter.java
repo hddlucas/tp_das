@@ -19,14 +19,15 @@ public class MoreFilter extends Filter {
     
     @Override
     public String getChanges(String param) {
-//        try {
+        try {
             double currentValue = Double.parseDouble(cell.getValue().toString());
             double p = Double.parseDouble(param);
 
             if(currentValue <= p)
-                return " ";
-//        } catch (NumberFormatException e) {
-//        }
+                return "";
+        } catch (NumberFormatException e) {
+            return "";
+        }
         return cell.getValue().toString();
     }
     

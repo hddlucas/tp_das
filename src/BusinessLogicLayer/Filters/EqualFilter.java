@@ -36,6 +36,7 @@ public class EqualFilter extends Filter {
         
         return "";
     }
+    
      @Override
     public String getName() {
         return "equal";
