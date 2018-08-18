@@ -6,14 +6,12 @@
 package ExcelSaga;
 
 import BusinessLogicLayer.Adapters.ImportFileAdapter;
-import BusinessLogicLayer.Builders.ExportFileBuilder;
 import BusinessLogicLayer.Builders.ExportFileDirector;
 import BusinessLogicLayer.Common.Cell;
 import BusinessLogicLayer.Commands.CellValueChangeCommand;
 import BusinessLogicLayer.Commands.CommandManager;
 import BusinessLogicLayer.Commands.MacroCommand;
 import BusinessLogicLayer.Filters.Filter;
-import BusinessLogicLayer.Filters.FilterFactory;
 import BusinessLogicLayer.Formulas.FormulaFactory;
 import BusinessLogicLayer.Strategy.ViewStrategy;
 import DataAccessLayer.DataAccessObjects.FilesDaoImpl;
@@ -24,7 +22,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Iterator;
 
 /**
  *
