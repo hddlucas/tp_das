@@ -32,6 +32,7 @@ public class EqualFilter extends Filter {
             if(param.equals(cell.getValue().toString())) {
                 return cell.getValue().toString();
             }
+            return "";
         }
         
         return "";
