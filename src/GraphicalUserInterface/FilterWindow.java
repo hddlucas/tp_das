@@ -176,20 +176,47 @@ public class FilterWindow extends javax.swing.JDialog implements ListSelectionLi
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         FilterListModel flm = (FilterListModel) jList1.getModel();
-        
         String filter = (String)jComboBox1.getSelectedItem();
-        flm.addFilter(filter, jTextField1.getText());
+        Boolean verifyParameter = true;
+
+        if(filter.equals("equal") || filter.equals("more") || filter.equals("minor")) {
+            if(jTextField1.getText().length() == 0) {
+                verifyParameter = false;
+            }
+        }
         
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jList1.clearSelection();
+        if(verifyParameter == true) {    
+            flm.addFilter(filter, jTextField1.getText());
+
+            jTextField1.setText("");
+            jTextField2.setText("");
+            jList1.clearSelection();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Parameter is mandatory to this filter","Info",JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //EDIT BUTTON
         if (jList1.getSelectedIndex() >= 0) {
-            FilterListModel flm = (FilterListModel) jList1.getModel();
-            flm.editFilter(jList1.getSelectedIndex(), jTextField1.getText());
+             Boolean verifyParameter = true;
+            String filter = (String)jComboBox1.getSelectedItem();
+            if(filter.equals("equal") || filter.equals("more") || filter.equals("minor")) {
+                if(jTextField1.getText().length() == 0) {
+                    verifyParameter = false;
+                }
+            }
+            
+            
+            if(verifyParameter == true) {
+                FilterListModel flm = (FilterListModel) jList1.getModel();
+                flm.editFilter(jList1.getSelectedIndex(), jTextField1.getText());
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Parameter is mandatory to this filter","Info",JOptionPane.INFORMATION_MESSAGE);
+            }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Filter not selected");
         }
